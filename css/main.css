@@ -1,0 +1,1103 @@
+/* ################# Global styles ################# */
+
+/* ################# Global colors ################# */
+
+:root {
+    --green-underline: #198754;
+    --default-title-color: #000;
+    --ad-background-color: #f2f2f2;
+    }
+
+
+
+[class*="button"] {
+    font-size: 24px!important;
+}
+
+.scriptlesssocialsharing {
+    box-sizing: border-box;
+    margin: 0px!important;
+    float: right!important;
+    border: none!important;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+font-family: Raleway, sans-serif;
+font-weight: 500;
+line-height: 1.2;
+margin: 0 0 16px;
+}
+
+
+*.{
+    font-family: Raleway, sans-serif;
+}
+
+/* ########### Header Styles ############ */
+
+/* Site Logo */
+
+a.logo_url{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ###### Share #######*/
+
+@media only screen and (max-width: 480px) {
+    .
+    _share_header {
+        display: none;
+    }
+  }
+
+/* General styling for share icons */
+/* Positioning and styling for the container */
+.social-icons {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: black;
+    padding: 10px; 
+    border-radius: 5px; 
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Styling for the social navigation list */
+.social-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; 
+    align-items: center; 
+}
+
+/* Styling for each social item */
+.social-item {
+    margin-right: 10px;
+}
+
+/* Styling for the last social item */
+.social-item:last-child {
+    margin-right: 0; 
+}
+
+/* Styling for each social link */
+.social-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px; 
+    display: inline-block; 
+    padding: 5px; 
+}
+
+/* Hover effect for social links */
+.social-link:hover {
+    color: #ccc;
+}
+
+@media only screen and (max-width: 480px) {
+.social-icons {
+    display: none;
+   }
+}
+
+
+.page-wrap {
+padding: 2rem 0;
+}
+
+.main.col-lg-8.col-sm-12 {
+border-right: 1px solid #555;
+}
+
+.your-custom-class::before {
+    font-family: 'Dashicons';
+    content: '\f102';
+}
+
+/* ############# Block styles ############### */
+
+/* ##### Quick buy now button ##### */
+
+.quik-buy-now-button-custom-block {
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+    margin: 5px;
+}
+
+.quik-buy-now-button-custom-block a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Allow changing background color */
+.quik-buy-now-button-custom-block[data-block-color="background-color"] {
+    background-color: var(--block-background-color);
+}
+
+/* Allow changing text color */
+.quik-buy-now-button-custom-block[data-block-color="text-color"] {
+    color: var(--block-text-color);
+}
+
+
+/* ##### multi_buy_now_widget-mobile ##### */
+
+@media only screen and (max-width: 480px) {
+    .multi_buy_now_widget-custom-block-preview-mobile{
+    display: block;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .multi_buy_now_widget-custom-block-preview-desktop{
+    display: block;
+    width: 800px;
+    }
+}
+
+@media (max-width: 768px) { /* Adjust max-width according to your needs */
+    .btn {
+        display: block;
+        text-align: center;
+    }
+    .btn br {
+        display: none; /* Hide <br> on larger screens */
+    }
+}
+
+/* ################# top Nav style ################# */
+
+
+/* Dropdown menu styling */
+ul.dropdown-menu {
+    border: none;
+    background-color: #ffffff !important; /* Black background for dropdown */
+    border-radius: unset;
+    text-align: left;
+}
+
+ul.dropdown-menu li a {
+    color: #080808 !important; /* White text in dropdown */
+}
+
+ul.dropdown-menu li a:hover {
+    color: #ffffff !important; /* Black text on hover */
+    background-color: #030303 !important; /* White background on hover */
+}
+
+/* Additional state for visited links in dropdown */
+ul.dropdown-menu li a:visited {
+    color: #ffffff !important;
+    background-color: #030303 !important;
+}
+
+/* Mobile-Specific Styles */
+@media only screen and (max-width: 480px) {
+    .navbar-nav > li:not(:last-child) {
+        border-bottom: 1px solid #0000001a;
+    }
+
+    .header-secondary a.navbar-brand.home-logo {
+        display: block;
+    }
+}
+
+/* Dropdown Menu Styles */
+ul.dropdown-menu.show {
+    border: none;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #000000;
+    border-radius: unset;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+/* Navbar Toggler Button Styling */
+.navbar-toggler {
+    border-color: transparent; /* Remove default border color */
+    background-color: transparent; /* Remove default background */
+}
+
+/* White color for the icon */
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="%23ffffff" class="bi bi-list" viewBox="0 0 16 16"><path d="M1 3h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0 4h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0 4h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"/></svg>'); /* White lines */
+}
+
+/* Animation for the navbar-toggler icon */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.navbar-toggler {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Navbar styling */
+
+/* Social icons */
+.nav-link {
+    color: white; 
+    font-size: larger;
+}
+
+#social-icons .nav-link {
+    border: none; 
+}
+
+#social-icons .nav-link i {
+    color: white; 
+    font-size: 1.2rem; 
+}
+
+#social-icons .nav-link:hover i {
+    color: white; 
+}
+
+li#social-icons {
+    border: none;
+}
+
+
+/* Style for the container holding the social icons */
+
+
+.social_dt {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.follow-us-text {
+    font-size: 20px;
+    margin-right: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-top: 8px;
+}
+
+.social_dt .navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.social_dt .nav-item {
+    margin-right: 15px;
+}
+
+.social_dt .nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.social_dt .nav-link:hover {
+    color: #2c540b;
+}
+
+@media (max-width: 768px) {
+    .social_dt .follow-us-text {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .dropdown.social_dt {
+        display: none;
+    }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+.dropdown-item i {
+  margin-right: 8px;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Social Mobile*/
+
+@media (min-width: 482px) {
+    .social_mobile {
+        display: none;
+    }
+}
+
+.social_mobile {
+    justify-content: flex-start; 
+}
+
+.social_mobile ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.social_mobile li {
+    margin: 0 10px;
+}
+
+.social_mobile a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.social_mobile i {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .social_mobile ul {
+        justify-content: flex-start;
+        color: white;
+    }
+}
+
+/* Footer icon styling */
+footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #f4511e; /* Orange color */
+}
+
+/* ################# Ad slot styles ################# */
+
+
+.ad-label{
+text-align: center;
+padding: 2px;
+}
+
+.ad-label-header{
+text-align: center;
+padding: 2px;
+}
+
+/* ################# Banners ################# */
+
+@media screen and (max-width: 480px) {
+    section.ad_header_top  {
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 70px;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+        display: flex;
+    }
+}
+
+    section.ad_header_top  {
+        height: 100px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color:var(--ad-background-color);
+        border-top: 1px solid lightgrey;
+        border-bottom: 1px solid lightgrey;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    section.ros_ad_header  {
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 70px;
+        width: 350px;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+        display: flex;
+    }
+}
+
+    section.ros_ad_header  {
+        height: 100px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    section.middle_ad_header  {
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 70px;
+        width: 350px;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+        display: flex;
+    }
+}
+
+    section.middle_ad_header  {
+        height: 100px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    section.bottom_ad_header  {
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 70px;
+        width: 350px;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+        display: flex;
+    }
+}
+
+    section.bottom_ad_header  {
+        height: 100px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color:var(--ad-background-color);
+    }
+}
+
+
+/* ################# home page styles ################# */
+
+
+/* ################# Top section #################*/
+
+/* Hide desktop sidebar on mobile*/
+
+@media only screen and (max-width: 600px) {
+    .sidebar {
+        display: none!important;
+    }
+}
+
+@media (min-width: 726px) { /* Adjust the min-width as needed for your desktop breakpoint */
+    .slider-post-right {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 600px) { /* Adjust the min-width as needed for your desktop breakpoint */
+    .slider-post-right {
+        margin-top: 5px;
+    }
+}
+
+
+.top-section-sidebar-title{
+    text-decoration: none;
+    color: #000;
+}
+
+img.top-section-sidebar-thumb{
+    height: 179px;
+    width:100%;
+    object-fit: cover;
+    margin-bottom: 2px;
+}
+
+h2.single-post-featured-block-title {
+    clear: both;
+    font-size: 1rem;
+    margin-top: 4px;
+    text-transform: none;
+    color: #000;
+    width: fit-content;
+    border-bottom: 1px solid var(--green-underline);
+    padding-bottom: 4px;
+}
+
+h2.post-featured-block-title{
+font-size: 2rem;
+margin-bottom: 4px;
+text-transform: none;
+width: fit-content;
+background-color: #000000;
+color: #fff;
+padding: 5px;
+font-family: sans-serif;
+font-style: normal;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+h2.post-featured-block-title-slider {
+        clear: both;
+        font-size: 2rem;
+        margin: 4px;
+        text-transform: none;
+        width: fit-content;
+        background-color: #000000;
+        color: #fff;
+        padding: 5px;
+        font-family: Raleway, sans-serif;
+        font-style: normal;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+
+.image-caption {
+    font-style: italic;
+    color: #333;
+    padding: 8px;
+    background-color: lightgray;
+}
+
+.featured-post-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55));
+    color: white;
+    height: 130px;
+  }
+
+img.featured-post-image-fw{
+        height: 560px;
+        width: 100%;
+        object-fit: cover;
+}
+
+
+@media only screen and (max-width: 480px) {
+img.featured-post-image-fw{
+    height: 380px;
+    width:100%;
+    object-fit: cover;
+}
+}
+
+
+@media only screen and (max-width: 480px) {
+.featured-post-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55));
+    color: white;
+    height: 155px;
+  }
+}
+
+/* ################# Featured block - slider ################# */
+
+.col-lg {
+    position: relative; /* Make this element the positioning context for absolute positioning */
+}
+
+.post-featured-block-title-slider {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    margin: 0; 
+    padding: 10px; 
+    z-index: 10; 
+}
+
+
+.featured-right-post:first-child {
+    margin-bottom: 6px;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    font-size: 2rem; 
+    width: 60px; 
+    height: 60px; 
+    background-color: rgb(0, 0, 0); 
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    opacity: 1;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border: 2px solid white;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+@media only screen and (max-width: 480px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 45px; 
+        height: 45px; 
+    }
+        
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+}
+
+.carousel-control-prev-icon {
+
+    width: 30px; 
+    height: 30px; 
+}
+
+.carousel-control-next-icon {
+
+    width: 30px; 
+    height: 30px; 
+}
+
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: rgb(0, 0, 0); 
+}
+
+/* ################# Large right small block left ################# */
+
+.featured-right{
+    height: 570px;
+    margin-right: 2px; 
+  }
+  
+  @media screen and (max-width: 997px) {
+    .featured-right{
+      height: 300px;
+    }
+  }
+  
+  img.featured-right{
+    object-fit: cover;
+    width: 100%;
+  }
+  
+  .featured-left{
+    height: 284px;
+    margin-bottom: 2px; 
+  }
+  
+  @media screen and (max-width: 997px) {
+    .featured-left{
+      height: 300px;
+      margin-bottom: 6px;
+    }
+  }
+  
+  img.featured-left{
+    object-fit: cover;
+    width: 100%;
+  }
+
+/* End home page styles */
+
+/* ################# four-col-block ################# */
+
+.four-col-block-thumb{
+    height: 250px;
+    margin-bottom: 2px; 
+  }
+  
+  @media screen and (max-width: 997px) {
+    .four-col-block-thumb{
+      height: 300px;
+    }
+  }
+  
+  img.four-col-block-thumb{
+    object-fit: cover;
+    width: 100%;
+  }
+
+  a.four-col-block-title{
+    text-decoration: none;
+    color: #000;
+}
+
+p.four-col-block-title{
+    text-decoration: none;
+    color:grey;
+}
+
+section.four-block-title{
+    height: 60px;
+}
+
+/* ################# End four-col-block< ################# */
+
+/* ################# - Sidebar ################# */
+
+h3.widget-title {
+    background-color: black;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+h4.widget-title {
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 20px;
+}
+
+a.sidebar_cat {
+    color: darkgreen;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+/* ################# Middle MPU Sidebar #################*/
+
+.sidebar-ad-container-middle {
+width: 410px;
+height: 610px;
+background-color: #f2f2f242;
+margin: 0 auto;
+position: relative; 
+border:1px solid #0000001f;
+}
+
+.sidebar-ad-container-middle .sidebar-mpu-middle  {
+position: absolute; 
+top: 50%; 
+left: 50%; 
+transform: translate(-50%, -50%); 
+height: 250px;
+width: 300px;
+}
+
+.sidebar-ad-container-bottom {
+    width: 410px;
+    height: 610px;
+    background-color: #f2f2f242;
+    margin: 0 auto;
+    position: relative; 
+    border:1px solid #0000001f;
+    
+    .sidebar-ad-container-bottom .sidebar-mpu-bottom {
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    height: 250px;
+    width: 300px;
+    }
+
+    .sidebar-mpu-bottom {
+        margin: 0 auto;
+        width: 300px;
+    }
+
+    .ad-container-in_content .mpu-in_content {
+
+        height: 250px;
+        width: 300px;
+        }
+    
+        .mpu-in_content {
+            margin: 0 auto;
+            width: 300px;
+        }
+    
+/* ################# Post styles #################*/
+
+img {
+height: auto;
+}
+
+.post-image {
+    max-width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+embed,
+iframe,
+img,
+object,
+video,
+.wp-caption {
+max-width: 100%;
+}
+
+img {
+border-style: none;
+}
+
+
+
+p.post-title {
+    text-align: center !important;
+    padding: 10px !important;
+    font-size: 24px; 
+}
+
+.meta-top {
+margin-bottom: 30px;
+font-size: 14px;
+}
+
+
+/* ################# Archive styles #################*/
+
+@media only screen and (max-width: 480px) {
+.row.archive {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+}
+
+h4.archive-title {
+    height:45px;
+}
+
+a.archive-title {
+    color: black;
+text-decoration: none;
+}
+
+
+a.archive-title:hover {
+    color: #5182ad;
+text-decoration: none;
+}
+
+
+
+img.archive-image-roll{
+width: 100%;
+height: 170px;
+object-fit: cover;
+}
+
+@media only screen and (max-width: 480px) {
+    img.archive-image {
+    display: none;
+    }
+}
+
+h3.archive-widget-title {
+    clear: both;
+    font-size: 1rem; 
+    margin-bottom: 1rem; 
+    text-transform: uppercase;
+    background-color: black;
+    color: white;
+    padding: 1rem; 
+    }
+    
+    .row.archive-sidebar {
+        margin-top: 15px;
+        }
+       
+/* ################# Side bar styles #################*/
+
+.sidebar-image-container{
+    width: 300px;
+}
+
+a.read-more-sidebar-title {
+    color: black;
+text-decoration: none;
+}
+
+
+a.read-more-sidebar-title:hover {
+    color: #5182ad;
+text-decoration: none;
+}
+
+p.text-muted.sidebar-excerpt {
+    height: 5rem;
+}
+
+.sidebar-meta {
+    height: 165px;
+}
+
+h3.widget-title {
+clear: both;
+font-size: 1rem;
+margin-bottom: 1rem; 
+text-transform: uppercase;
+background-color: black;
+color: white;
+padding: 1rem; 
+}
+
+
+.related-post-container{
+height: 300px;
+}
+
+.row.related-sidebar {
+margin-top: 15px;
+}
+
+img.sidebar-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+        
+/* ################# Horizontal lines #################*/
+
+section.horizontal-post-list-text-only-horizontal-line{
+    border-bottom: 1px solid #88888821;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: block;
+}
+
+section.related-horizontal-line {
+    border-bottom: 1px solid #88888821;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    display: block;
+    }
+
+section.archive-horizontal-line {
+    border-bottom: 1px solid #88888821;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    display: block;
+    }
+                
+section.archive-title-horizontal-line {
+    border-bottom: 1px solid #88888821;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 10px;
+    }
+    
+.archive-meta {
+    margin-top: 20px;
+    }
+
+/* #### Sow now block ####*/
+
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap; /* Added flex-wrap for responsiveness */
+  }
+  
+  .indoors, .outdoors {
+    flex-basis: calc(100% / 12 - 10px); /* Changed flex-basis for better responsiveness */
+    height: 100px;
+    background-color: #ccc; 
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .row .block:last-child {
+    margin-right: 0;
+  }
+  
+  .block_bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .block_bottom .block {
+    flex-basis: calc(100% / 12 - 10px);
+    margin-bottom: 10px; 
+  }
+  
+  /* Media query for stacking blocks on smaller screens */
+  @media only screen and (max-width: 600px) {
+    .indoors, .outdoors {
+      flex-basis: calc(100% - 20px); /* Full width on smaller screens */
+      margin-right: 0; /* Remove right margin to avoid wrapping */
+    }
+  }
+  
+/* ################# Footer #################*/
+
+
+  
+/* ################# Search ################# */
+
