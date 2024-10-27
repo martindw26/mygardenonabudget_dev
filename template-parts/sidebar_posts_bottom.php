@@ -32,10 +32,10 @@ $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (a
     <?php
     // Query for related posts
     $related_posts_args = [
-        'posts_per_page' => !empty($posts_count_bottom) ? intval($posts_count_bottom) : 5, // Default to 5 if not set
+        'posts_per_page' => $posts_count_bottom, 
         'category__in' => $bottom_categories,
         'orderby' => 'date',
-        'order' => 'DESC', // Set order to descending
+        'order' => 'DESC',
     ];
 
     $related_posts_query = new WP_Query($related_posts_args);
