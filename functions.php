@@ -207,7 +207,7 @@ if (function_exists('acf_add_options_page')):
     'autoload'        => false,
     'update_button'   => 'Update Site Settings',
     'updated_message' => 'Site Settings Updated',
-    'icon_url'        => get_template_directory_uri() . '/images/site-settings-v4.png',
+    'menu_icon'       => 'dashicons-admin-home',
 ));
 
 
@@ -223,7 +223,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'        => false,
         'update_button'   => 'Update Advertising Settings',
         'updated_message' => 'Advertising Settings Updated',
-        'icon_url'        => get_template_directory_uri() . '/images/ad-settings-v4.png',
+        'menu_icon'       => 'dashicons-admin-home',
     ));
 
     // Directory Settings
@@ -238,7 +238,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'        => false,
         'update_button'   => 'Update Directory Settings',
         'updated_message' => 'Directory Settings Updated',
-        'icon_url'       => get_template_directory_uri() . '/images/directory-settings-v4.png',
+        'menu_icon'       => 'dashicons-admin-home',
     ));
 
 endif;
