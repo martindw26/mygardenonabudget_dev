@@ -168,7 +168,14 @@ function make_custom_post_status_column_sortable($columns) {
 add_filter('manage_edit-post_sortable_columns', 'make_custom_post_status_column_sortable');
 
 
-/* ACF Options pages */
+/* ACF settings */
+
+function enqueue_bootstrap_icons() {
+    // Add Bootstrap Icons CSS file
+    wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css', [], '1.11.0' );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_bootstrap_icons' );
+
 
 
 if (function_exists('acf_add_options_page')):
@@ -200,7 +207,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'      => false,
         'update_button' => 'Update Site Settings',
         'updated_message' => 'Site Settings Updated',
-        'menu_icon'     => 'dashicons-admin-settings',
+        'menu_icon'     => 'bi bi-sliders2-vertical',
     ));
 
     // Advertising Settings
