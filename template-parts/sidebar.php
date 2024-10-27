@@ -1,14 +1,14 @@
 <div class="col-md-4 d-none d-md-block">
+    <!-- Search Form -->
     <div id="search" style="margin-bottom:15px;">
         <form method="get" action="http://plants-and-seeds-local.local/" class="d-flex">
-            <input type="text" name="s" class="form-control me-2" placeholder="Search Our Site...">
+            <input type="text" name="s" class="form-control me-2" placeholder="Search Our Site..." aria-label="Search">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>
 
-    <?php get_template_part('includes/sidebar_posts_top'); ?>
-
-   
+    <!-- Top Posts Section -->
+    <?php get_template_part('sidebar_posts_top'); ?>
 
     <!-- Middle Ad Block -->
     <div class="sidebar-ad-container-middle mt-4 mb-2">
@@ -18,7 +18,8 @@
         </div>
     </div>
 
-    <?php get_template_part('includes/sidebar_posts_bottom'); ?>
+    <!-- Bottom Posts Section -->
+    <?php get_template_part('sidebar_posts_bottom'); ?>
 
     <!-- Bottom Ad Block -->
     <div class="sidebar-ad-container-bottom mt-4 mb-2">
