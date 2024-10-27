@@ -195,20 +195,21 @@ if (function_exists('acf_add_options_page')):
         'menu_icon'       => 'dashicons-admin-home',
     ));
 
-    // Site Settings
-    acf_add_options_page(array(
-        'page_title'      => 'Site Settings',
-        'menu_slug'       => 'global-site-config',
-        'menu_title'      => 'Site Settings',
-        'capability'      => 'edit_posts',
-        'position'        => 2.2, // Slightly below Home Page Settings
-        'redirect'        => true,
-        'post_id'         => 'site_options',
-        'autoload'        => false,
-        'update_button'   => 'Update Site Settings',
-        'updated_message' => 'Site Settings Updated',
-        'menu_icon'       => 'dashicons-admin-settings',
-    ));
+ // Site Settings
+ acf_add_options_page(array(
+    'page_title'      => 'Site Settings',
+    'menu_slug'       => 'global-site-config',
+    'menu_title'      => 'Site Settings',
+    'capability'      => 'edit_posts',
+    'position'        => 2.2, // Slightly below Home Page Settings
+    'redirect'        => true,
+    'post_id'         => 'site_options',
+    'autoload'        => false,
+    'update_button'   => 'Update Site Settings',
+    'updated_message' => 'Site Settings Updated',
+    'icon_url'       => get_template_directory_uri() . '/wp-content/themes/mygardenonabudget/images/site settings v1.png',
+));
+
 
     // Advertising Settings
     acf_add_options_page(array(
