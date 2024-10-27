@@ -12,7 +12,21 @@ $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (a
 <!-- Related Posts Block for Bottom Categories -->
 <div class="sidebar">
     <h3 class="widget-title">
-        Latest in: <?php echo esc_html(implode(', ', $sidebar_bottom_categories)); ?>
+        Latest in: 
+        <?php 
+        // Retrieve the term objects for the bottom categories
+        $term_objects = get_terms([
+            'taxonomy' => 'category',
+            'include' => $bottom_categories, // Include only the categories in our array
+            'hide_empty' => false, // Optional: show empty categories as well
+        ]);
+
+        // Extract the names of the terms
+        $term_names = wp_list_pluck($term_objects, 'name'); // Get an array of term names
+
+        // Output the term names as a comma-separated list
+        echo esc_html(implode(', ', $term_names)); 
+        ?>
     </h3>
 
     <?php
