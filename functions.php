@@ -238,7 +238,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'        => false,
         'update_button'   => 'Update Directory Settings',
         'updated_message' => 'Directory Settings Updated',
-        'menu_icon'       => get_template_directory_uri() . '/images/directory-settings-v4.png',
+        'icon_url'       => get_template_directory_uri() . '/images/directory-settings-v4.png',
     ));
 
 endif;
