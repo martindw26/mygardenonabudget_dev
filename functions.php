@@ -170,11 +170,11 @@ add_filter('manage_edit-post_sortable_columns', 'make_custom_post_status_column_
 
 /* ACF settings */
 
-function enqueue_bootstrap_icons() {
-    // Add Bootstrap Icons CSS file
-    wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css', [], '1.11.0' );
+function my_custom_enqueue() {
+    wp_enqueue_style('dashicons'); // Enqueues the Dashicons stylesheet
 }
-add_action( 'wp_enqueue_scripts', 'enqueue_bootstrap_icons' );
+add_action('admin_enqueue_scripts', 'my_custom_enqueue');
+
 
 
 
