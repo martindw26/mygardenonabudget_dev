@@ -182,65 +182,66 @@ if (function_exists('acf_add_options_page')):
 
     // Home Page Settings
     acf_add_options_page(array(
-        'page_title'    => 'Home Page Settings',
-        'menu_slug'     => 'homepage-settings',
-        'menu_title'    => 'Home Page Settings',
-        'capability'    => 'edit_posts',
-        'position'      => 2,
-        'redirect'      => true,
-        'post_id'       => 'homepage_options',
-        'autoload'      => false,
-        'update_button' => 'Update Home Page Settings',
+        'page_title'      => 'Home Page Settings',
+        'menu_slug'       => 'homepage-settings',
+        'menu_title'      => 'Home Page Settings',
+        'capability'      => 'edit_posts',
+        'position'        => 2.1, // Avoid conflict with other items at position 2
+        'redirect'        => true,
+        'post_id'         => 'homepage_options',
+        'autoload'        => false,
+        'update_button'   => 'Update Home Page Settings',
         'updated_message' => 'Home Page Settings Updated',
-        'menu_icon'     => 'dashicons-admin-home',
+        'menu_icon'       => 'dashicons-admin-home',
     ));
 
     // Site Settings
     acf_add_options_page(array(
-        'page_title'    => 'Site Settings',
-        'menu_slug'     => 'global-site-config',
-        'menu_title'    => 'Site Settings',
-        'capability'    => 'edit_posts',
-        'position'      => 2,
-        'redirect'      => true,
-        'post_id'       => 'site_options',
-        'autoload'      => false,
-        'update_button' => 'Update Site Settings',
+        'page_title'      => 'Site Settings',
+        'menu_slug'       => 'global-site-config',
+        'menu_title'      => 'Site Settings',
+        'capability'      => 'edit_posts',
+        'position'        => 2.2, // Slightly below Home Page Settings
+        'redirect'        => true,
+        'post_id'         => 'site_options',
+        'autoload'        => false,
+        'update_button'   => 'Update Site Settings',
         'updated_message' => 'Site Settings Updated',
-        'menu_icon'     => 'bi bi-sliders2-vertical',
+        'menu_icon'       => 'dashicons-admin-settings',
     ));
 
     // Advertising Settings
     acf_add_options_page(array(
-        'page_title'    => 'Advertising Settings',
-        'menu_slug'     => 'advertising-settings',
-        'menu_title'    => 'Advertising Settings',
-        'capability'    => 'edit_posts',
-        'position'      => 3,
-        'redirect'      => true,
-        'post_id'       => 'advertising_options',
-        'autoload'      => false,
-        'update_button' => 'Update Advertising Settings',
+        'page_title'      => 'Advertising Settings',
+        'menu_slug'       => 'advertising-settings',
+        'menu_title'      => 'Advertising Settings',
+        'capability'      => 'edit_posts',
+        'position'        => 3,
+        'redirect'        => true,
+        'post_id'         => 'advertising_options',
+        'autoload'        => false,
+        'update_button'   => 'Update Advertising Settings',
         'updated_message' => 'Advertising Settings Updated',
-        'menu_icon'     => 'dashicons-money-alt',
+        'menu_icon'       => 'dashicons-money-alt',
     ));
 
     // Directory Settings
     acf_add_options_page(array(
-        'page_title'    => 'Directory Settings',
-        'menu_slug'     => 'directory-settings',
-        'menu_title'    => 'Directory Settings',
-        'capability'    => 'edit_posts',
-        'position'      => 4,
-        'redirect'      => true,
-        'post_id'       => 'directory_options',
-        'autoload'      => false,
-        'update_button' => 'Update Directory Settings',
+        'page_title'      => 'Directory Settings',
+        'menu_slug'       => 'directory-settings',
+        'menu_title'      => 'Directory Settings',
+        'capability'      => 'edit_posts',
+        'position'        => 4,
+        'redirect'        => true,
+        'post_id'         => 'directory_options',
+        'autoload'        => false,
+        'update_button'   => 'Update Directory Settings',
         'updated_message' => 'Directory Settings Updated',
-        'menu_icon'     => 'dashicons-list-view',
+        'menu_icon'       => 'dashicons-list-view',
     ));
 
 endif;
+
 
 
 function my_theme_setup() {
