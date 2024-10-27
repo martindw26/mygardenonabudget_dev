@@ -230,7 +230,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'      => false,
         'update_button' => 'Update Directory Settings',
         'updated_message' => 'Directory Settings Updated',
-        'menu_icon'     => 'dashicons-database',
+        'menu_icon'     => 'dashicons-list-view',
     ));
 
 endif;
