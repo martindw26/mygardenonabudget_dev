@@ -27,102 +27,88 @@ $query = new WP_Query($args);
 
 if ($query->have_posts()) :
     ?>
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-    .ticker-wrapper {
-        overflow: hidden;
-        position: relative;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid lightgrey;
-    }
-
-    .ticker-label_dt {
-        padding: 10px;
-        background-color: #ffffff;
-        color: black;
-        font-weight: bold;
-        min-width: 180px;
-        z-index: 99999;
-    }
-
-    @media only screen and (max-width: 480px) {
-        .ticker-label_mobile {
-            display: block;
+    <style>
+        .ticker-wrapper {
+            overflow: hidden;
+            position: relative;
+            width: 100%; /* Adjust as needed */
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
         }
+
         .ticker-label_dt {
-            display: none;
+            padding: 10px;
+            background-color: #ffffff; /* Label background color */
+            color: black; /* Label text color */
+            font-weight: bold;
+            min-width: 180px; /* Width of the label area */
+            z-index: 99999;
         }
-    }
 
-    @media only screen and (min-width: 481px) {
-        .ticker-label_mobile {
-            display: none;
+        @media only screen and (max-width: 480px) {
+            .ticker-label_mobile {
+                display: block;
+            }
+            .ticker-label_dt {
+                display: none;
+            }
         }
-        .ticker-label_dt {
-            display: block;
+
+        @media only screen and (min-width: 481px) {
+            .ticker-label_mobile {
+                display: none;
+            }
+            .ticker-label_dt {
+                display: block;
+            }
         }
-    }
 
-    .ticker-content {
-        display: flex;
-        white-space: nowrap;
-        animation: ticker 30s linear infinite;
-        transition: animation-play-state 0.5s ease;
-        flex: 1;
-    }
-
-    .ticker-item {
-        display: inline-block;
-        padding: 10px;
-        margin-right: 15px;
-        min-width: fit-content;
-    }
-
-    .ticker-item a {
-        text-decoration: none;
-        color: #333;
-    }
-
-    @keyframes ticker {
-        0% {
-            transform: translateX(-100%);
+        .ticker-content {
+            display: flex;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite; /* Adjust duration to 30s */
+            transition: animation-play-state 0.5s ease; /* Smooth transition for pausing */
+            flex: 1; /* Allow ticker content to take remaining space */
         }
-        100% {
-            transform: translateX(100%);
-        }
-    }
-</style>
 
-<div class="container">
-    <div class="row">
-        <!-- Left Column -->
-        <div class="col-md-6">
-            <div class="ticker-label_mobile">Currently Trending:</div>
-            <div class="ticker-label_dt">Currently Trending:</div>
-        </div>
-        
-        <!-- Right Column -->
-        <div class="col-md-6">
-            <div class="ticker-wrapper">
-                <div class="ticker-content">
-                    <?php
-                    while ($query->have_posts()) : $query->the_post();
-                        ?>
-                        <div class="ticker-item">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </div>
-                        <?php
-                    endwhile;
-                    ?>
+        .ticker-item {
+            display: inline-block;
+            padding: 10px;
+            margin-right: 15px; /* Space between items */
+            min-width: fit-content; /* Adjust as needed */
+        }
+
+        .ticker-item a {
+            text-decoration: none;
+            color: #333; /* Link color */
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+
+    <div class="ticker-label_mobile">Currently Trending:</div>
+    <div class="ticker-wrapper">
+        <div class="ticker-label_dt">Currently Trending:</div>
+        <div class="ticker-content">
+            <?php
+            while ($query->have_posts()) : $query->the_post();
+                ?>
+                <div class="ticker-item">
+                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                 </div>
-            </div>
+                <?php
+            endwhile;
+            ?>
         </div>
     </div>
-</div>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
