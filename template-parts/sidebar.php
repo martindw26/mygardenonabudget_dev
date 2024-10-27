@@ -18,8 +18,6 @@
         </div>
     </div>
 
-
-    sdsadASDasd
     <!-- Bottom Posts Section -->
     <?php get_template_part('template-parts/sidebar_posts_bottom'); ?>
 
