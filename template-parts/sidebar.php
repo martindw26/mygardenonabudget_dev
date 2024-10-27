@@ -8,7 +8,7 @@
     </div>
 
     <!-- Top Posts Section -->
-    <?php get_template_part('sidebar_posts_top'); ?>
+    <?php get_template_part('template-parts/sidebar_posts_top'); ?>
 
     <!-- Middle Ad Block -->
     <div class="sidebar-ad-container-middle mt-4 mb-2">
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Bottom Posts Section -->
-    <?php get_template_part('sidebar_posts_bottom'); ?>
+    <?php get_template_part('template-parts/sidebar_posts_bottom'); ?>
 
     <!-- Bottom Ad Block -->
     <div class="sidebar-ad-container-bottom mt-4 mb-2">
