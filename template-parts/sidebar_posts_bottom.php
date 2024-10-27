@@ -1,19 +1,18 @@
-<?php
+<?php 
 
 // Retrieve ACF fields for sidebar bottom categories and post count
 $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
-$categories_string_bottom = get_bottom_category_names($sidebar_bottom_categories);
 $posts_count_bottom = get_field('sidebar_bottom_post_count', 'option');
 
 // Ensure $sidebar_bottom_categories is an array of integers
-$bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', $sidebar_bottom_categories) : [];
+$bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (array) $sidebar_bottom_categories) : [];
 
 ?>
 
 <!-- Related Posts Block for Bottom Categories -->
 <div class="sidebar">
     <h3 class="widget-title">
-        Latest in: <?php echo esc_html($categories_string_bottom); ?>
+        Latest in: <?php echo esc_html(implode(', ', $sidebar_bottom_categories)); ?>
     </h3>
 
     <?php
