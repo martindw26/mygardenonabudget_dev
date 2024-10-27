@@ -36,7 +36,6 @@
         $related_posts_top = new WP_Query([
             'posts_per_page' => $posts_count_top,
             'category__in' => $top_categories,
-            'post__not_in' => [get_the_ID()],
             'orderby' => 'date',
         ]);
 
@@ -86,17 +85,17 @@
 
     <?php
     // Separate function and variables for bottom categories
-    function get_bottom_category_names($category_ids) {
-        $category_names = [];
-        if (is_array($category_ids)) {
-            foreach ($category_ids as $term_id) {
-                $term = get_term($term_id);
-                if (is_a($term, 'WP_Term') && !is_wp_error($term)) {
-                    $category_names[] = $term->name;
+    function get_bottom_category_names($category_ids_bottom) {
+        $category_names_bottom = [];
+        if (is_array($category_ids_bottom)) {
+            foreach ($category_ids_bottom as $term_id_bottom) {
+                $term = get_term($term_id_bottom);
+                if (is_a($term_bottom, 'WP_Term') && !is_wp_error($term_bottom)) {
+                    $category_names_bottom[] = $term_bottom->name;
                 }
             }
         }
-        return implode(', ', $category_names);
+        return implode(', ', $category_names_bottom);
     }
 
     // Bottom categories and related posts
@@ -114,7 +113,6 @@
         $related_posts_bottom = new WP_Query([
             'posts_per_page' => $posts_count_bottom,
             'category__in' => $bottom_categories,
-            'post__not_in' => [get_the_ID()],
             'orderby' => 'date',
         ]);
 
