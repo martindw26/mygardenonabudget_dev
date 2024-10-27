@@ -86,38 +86,52 @@
         </div>
     </div>
 
-    <?php
-    // Get and display bottom categories
-    $posts_count_bottom = get_field('sidebar_bottom_post_count', 'option'); // Fetch the number of posts
-    $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
-    $categories_string_bottom = get_category_names($sidebar_bottom_categories);
+     <!-- Function to get category names from IDs -->
+     <?php
+    function get_category_names($category_ids) {
+        $category_names = [];
+        if (is_array($category_ids)) {
+            foreach ($category_ids as $term_id) {
+                $term = get_term($term_id);
+                if (is_a($term, 'WP_Term') && !is_wp_error($term)) {
+                    $category_names[] = $term->name;
+                }
+            }
+        }
+        return implode(', ', $category_names);
+    }
+
+    // Get and display top categories
+    $sidebar_top_categories = get_field('sidebar_top_categories', 'option');
+    $categories_string_top = get_category_names($sidebar_top_categories);
     ?>
 
-    <!-- Related Posts Block for Bottom Categories -->
+    <!-- Related Posts Block for Top Categories -->
     <div class="sidebar">
-        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_bottom); ?></h3>
+        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_top); ?></h3>
 
         <?php
-        $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', $sidebar_bottom_categories) : [];
+        $posts_count_top = get_field('sidebar_top_post_count', 'option'); // Fetch the number of posts
+        $top_categories = !empty($sidebar_top_categories) ? array_map('intval', $sidebar_top_categories) : [];
 
-        // Fetch related posts for bottom categories
-        $related_posts_bottom = new WP_Query([
-            'posts_per_page' => $posts_count_bottom,
-            'category__in' => $bottom_categories,
+        // Fetch related posts
+        $related_posts_top = new WP_Query([
+            'posts_per_page' => $posts_count_top,
+            'category__in' => $top_categories,
             'post__not_in' => [get_the_ID()],
             'orderby' => 'date',
         ]);
 
-        if ($related_posts_bottom->have_posts()) :
-            while ($related_posts_bottom->have_posts()) : $related_posts_bottom->the_post();
-                $category_bottom = get_the_category();
-                $category_bottom = !empty($category_bottom) ? $category_bottom[0] : false;
+        if ($related_posts_top->have_posts()) :
+            while ($related_posts_top->have_posts()) : $related_posts_top->the_post();
+                $category = get_the_category();
+                $category = !empty($category) ? $category[0] : false;
         ?>
             <div class="post-item">
-                <?php if ($category_bottom) : ?>
+                <?php if ($category) : ?>
                     <div class="post-category">
-                        <a class="sidebar_cat" href="<?php echo esc_url(get_category_link($category_bottom->term_id)); ?>">
-                            <?php echo esc_html($category_bottom->name); ?>
+                        <a class="sidebar_cat" href="<?php echo esc_url(get_category_link($category->term_id)); ?>">
+                            <?php echo esc_html($category->name); ?>
                         </a>
                     </div>
                 <?php endif; ?>
