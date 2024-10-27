@@ -7,8 +7,8 @@
     </div>
 
     <?php
-    // Function to get category names from IDs
-    function get_category_names($category_ids) {
+    // Function to get category names from IDs for the top section
+    function get_top_category_names($category_ids) {
         $category_names = [];
         if (is_array($category_ids)) {
             foreach ($category_ids as $term_id) {
@@ -21,9 +21,9 @@
         return implode(', ', $category_names);
     }
 
-    // Get top categories and related posts
+    // Top categories and related posts
     $sidebar_top_categories = get_field('sidebar_top_categories', 'option');
-    $categories_string_top = get_category_names($sidebar_top_categories);
+    $categories_string_top = get_top_category_names($sidebar_top_categories);
     $posts_count_top = get_field('sidebar_top_post_count', 'option');
     $top_categories = !empty($sidebar_top_categories) ? array_map('intval', $sidebar_top_categories) : [];
     ?>
@@ -85,9 +85,23 @@
     </div>
 
     <?php
-    // Get bottom categories and related posts
+    // Separate function and variables for bottom categories
+    function get_bottom_category_names($category_ids) {
+        $category_names = [];
+        if (is_array($category_ids)) {
+            foreach ($category_ids as $term_id) {
+                $term = get_term($term_id);
+                if (is_a($term, 'WP_Term') && !is_wp_error($term)) {
+                    $category_names[] = $term->name;
+                }
+            }
+        }
+        return implode(', ', $category_names);
+    }
+
+    // Bottom categories and related posts
     $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
-    $categories_string_bottom = get_category_names($sidebar_bottom_categories);
+    $categories_string_bottom = get_bottom_category_names($sidebar_bottom_categories);
     $posts_count_bottom = get_field('sidebar_bottom_post_count', 'option');
     $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', $sidebar_bottom_categories) : [];
     ?>
