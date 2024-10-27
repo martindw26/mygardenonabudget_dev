@@ -1,81 +1,68 @@
-<?php 
+<?php
+    // Function to get category names from IDs for the bottom section
+    function get_bottom_category_names($category_ids) {
+        $category_names = [];
+        if (is_array($category_ids)) {
+            foreach ($category_ids as $term_id) {
+                $term = get_term($term_id);
+                if (is_a($term, 'WP_Term') && !is_wp_error($term)) {
+                    $category_names[] = $term->name;
+                }
+            }
+        }
+        return implode(', ', $category_names);
+    }
 
-// Retrieve ACF fields for sidebar bottom categories and post count
-$sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
-$posts_count_bottom = get_field('sidebar_bottom_post_count', 'option');
+    // bottom categories and related posts
+    $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
+    $categories_string_bottom = get_bottom_category_names($sidebar_bottom_categories);
+    $posts_count_bottom = get_field('sidebar_bottom_post_count', 'option');
+    $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', $sidebar_bottom_categories) : [];
+    ?>
 
-// Ensure $sidebar_bottom_categories is an array of integers
-$bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (array) $sidebar_bottom_categories) : [];
+    <!-- Related Posts Block for bottom Categories -->
+    <div class="sidebar">
+        <h3 class="widget-title">Latest in: <?php echo esc_html($categories_string_bottom); ?></h3>
 
-?>
-
-<!-- Related Posts Block for Bottom Categories -->
-<div class="sidebar">
-    <h3 class="widget-title">
-        Latest in: 
-        <?php 
-        // Retrieve term objects for the bottom categories
-        $term_objects = get_terms([
-            'taxonomy' => 'category',
-            'include' => $bottom_categories,
-            'hide_empty' => false, // Show empty categories as well
+        <?php
+        $related_posts_bottom = new WP_Query([
+            'posts_per_page' => $posts_count_bottom,
+            'category__in' => $bottom_categories,
+            'orderby' => 'date',
         ]);
 
-        // Extract the names of the terms
-        $term_names = wp_list_pluck($term_objects, 'name'); // Get an array of term names
-
-        // Output the term names as a comma-separated list
-        echo esc_html(implode(', ', $term_names)); 
+        if ($related_posts_bottom->have_posts()) :
+            while ($related_posts_bottom->have_posts()) : $related_posts_bottom->the_post();
+                $category = get_the_category();
+                $category = !empty($category) ? $category[0] : false;
         ?>
-    </h3>
+                <div class="post-item">
+                    <?php if ($category) : ?>
+                        <div class="post-category">
+                            <a class="sidebar_cat" href="<?php echo esc_url(get_category_link($category->term_id)); ?>">
+                                <?php echo esc_html($category->name); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
 
-    <?php
-    // Query for related posts
-    $related_posts_args = [
-        'posts_per_page' => $posts_count_bottom, 
-        'category__in' => $bottom_categories,
-        'orderby' => 'date',
-        'order' => 'DESC',
-    ];
-
-    $related_posts_query = new WP_Query($related_posts_args);
-
-    // Check if there are any posts to display
-    if ($related_posts_query->have_posts()) :
-        while ($related_posts_query->have_posts()) : $related_posts_query->the_post();
-            $post_category = get_the_category();
-            $primary_category = !empty($post_category) ? $post_category[0] : null; // Use null instead of false
-    ?>
-            <div class="post-item">
-                <?php if ($primary_category) : ?>
-                    <div class="post-category">
-                        <a class="sidebar_cat" href="<?php echo esc_url(get_category_link($primary_category->term_id)); ?>">
-                            <?php echo esc_html($primary_category->name); ?>
+                    <h5 class="mt-2">
+                        <a href="<?php the_permalink(); ?>" class="text-dark">
+                            <?php the_title(); ?>
                         </a>
+                    </h5>
+
+                    <div class="post-excerpt">
+                        <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
                     </div>
-                <?php endif; ?>
 
-                <h5 class="mt-2">
-                    <a href="<?php the_permalink(); ?>" class="text-dark">
-                        <?php the_title(); ?>
-                    </a>
-                </h5>
-
-                <div class="post-excerpt">
-                    <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
+                    <p class="text-secondary mt-2">
+                        <?php echo get_the_date(); ?> | By <?php the_author(); ?>
+                    </p>
+                    <hr>
                 </div>
-
-                <p class="text-secondary mt-2">
-                    <?php echo esc_html(get_the_date()); ?> | By <?php echo esc_html(get_the_author()); ?>
-                </p>
-                <hr>
-            </div>
-    <?php
-        endwhile;
-        wp_reset_postdata(); // Reset post data after the loop
-    else :
-        // If no posts found
-        echo '<p>No related posts found.</p>';
-    endif;
-    ?>
-</div>
+        <?php
+            endwhile;
+            wp_reset_postdata();
+        endif;
+        ?>
+    </div>
