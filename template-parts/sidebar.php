@@ -30,7 +30,7 @@
 
     <!-- Related Posts Block for Top Categories -->
     <div class="sidebar">
-        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_top); ?></h3>
+        <h3 class="widget-title">Latest in: <?php echo esc_html($categories_string_top); ?></h3>
 
         <?php
         $related_posts_top = new WP_Query([
