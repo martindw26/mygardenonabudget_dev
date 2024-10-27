@@ -1,19 +1,4 @@
 <?php
-// Ensure ACF is active before using these functions
-
-// Function to get category names from IDs
-function get_bottom_category_names($category_ids_bottom) {
-    $category_names_bottom = [];
-    if (is_array($category_ids_bottom)) {
-        foreach ($category_ids_bottom as $term_id_bottom) {
-            $term = get_term($term_id_bottom);
-            if (is_a($term, 'WP_Term') && !is_wp_error($term)) {
-                $category_names_bottom[] = $term->name; // Correct variable name
-            }
-        }
-    }
-    return implode(', ', $category_names_bottom);
-}
 
 // Retrieve ACF fields for sidebar bottom categories and post count
 $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
