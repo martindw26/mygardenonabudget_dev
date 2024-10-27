@@ -23,12 +23,12 @@
 
     // Get and display top categories
     $sidebar_top_categories = get_field('sidebar_top_categories', 'option');
-    $categories_string = get_category_names($sidebar_top_categories);
+    $categories_string_top = get_category_names($sidebar_top_categories);
     ?>
 
     <!-- Related Posts Block for Top Categories -->
     <div class="sidebar">
-        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string); ?></h3>
+        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_top); ?></h3>
 
         <?php
         $posts_count = get_field('sidebar_top_post_count', 'option'); // Fetch the number of posts
@@ -89,12 +89,12 @@
     <?php
     // Get and display bottom categories
     $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
-    $categories_string = get_category_names($sidebar_bottom_categories);
+    $categories_string_bottom = get_category_names($sidebar_bottom_categories);
     ?>
 
     <!-- Related Posts Block for Bottom Categories -->
     <div class="sidebar">
-        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string); ?></h3>
+        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_bottom); ?></h3>
 
         <?php
         $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', $sidebar_bottom_categories) : [];
