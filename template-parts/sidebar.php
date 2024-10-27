@@ -26,7 +26,6 @@
     $categories_string_top = get_category_names($sidebar_top_categories);
     $posts_count_top = get_field('sidebar_top_post_count', 'option');
     $top_categories = !empty($sidebar_top_categories) ? array_map('intval', $sidebar_top_categories) : [];
-
     ?>
 
     <!-- Related Posts Block for Top Categories -->
@@ -95,7 +94,7 @@
 
     <!-- Related Posts Block for Bottom Categories -->
     <div class="sidebar">
-        <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_bottom); ?></h3>
+        <h3 class="widget-title">Latest in: <?php echo esc_html($categories_string_bottom); ?></h3>
 
         <?php
         $related_posts_bottom = new WP_Query([
