@@ -223,7 +223,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'        => false,
         'update_button'   => 'Update Advertising Settings',
         'updated_message' => 'Advertising Settings Updated',
-        'menu_icon'       => 'dashicons-money-alt',
+        'icon_url'        => get_template_directory_uri() . '/images/ad-settings-v4.png',
     ));
 
     // Directory Settings
@@ -238,7 +238,7 @@ if (function_exists('acf_add_options_page')):
         'autoload'        => false,
         'update_button'   => 'Update Directory Settings',
         'updated_message' => 'Directory Settings Updated',
-        'menu_icon'       => 'dashicons-list-view',
+        'menu_icon'       => get_template_directory_uri() . '/images/directory-settings-v4.png',
     ));
 
 endif;
