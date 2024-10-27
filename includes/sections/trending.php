@@ -61,6 +61,7 @@ if ($query->have_posts()) :
             }
             .ticker-label_dt {
                 display: block;
+                width:200px;
             }
         }
 

@@ -17,22 +17,6 @@ function load_js() {
 }
 add_action('wp_enqueue_scripts', 'load_js');
 
-// Theme Options
-add_theme_support('menus');
-add_theme_support('post-thumbnails');
-
-// Menus
-function register_my_menus() {
-    register_nav_menus(
-        array(
-            'header-menu' => __('Header Menu'),
-            'award' => __('Awards Menu'),
-            'event' => __('Events Menu')
-        )
-    );
-}
-add_action('init', 'register_my_menus');
-
 
 // Enqueue Dashicons
 function enqueue_dashicons() {
@@ -184,21 +168,72 @@ function make_custom_post_status_column_sortable($columns) {
 add_filter('manage_edit-post_sortable_columns', 'make_custom_post_status_column_sortable');
 
 
-add_action( 'acf/init', function() {
-    acf_add_options_page( array(
-        'page_title'  => 'Directory Settings',
-        'menu_slug'   => 'directory',
-        'position'    => 3,
-        'redirect'    => false,
-        'menu_icon'   => 'dashicons-awards', // Use the dashicon class name directly
-    ) );
-} );
+/* ACF Options pages */
 
 
-add_action( 'admin_menu', function() {
-    // Remove the 'Awards' menu item
-    remove_menu_page( 'awards' );
-}, 999 );
+if (function_exists('acf_add_options_page')):
+
+    // Home Page Settings
+    acf_add_options_page(array(
+        'page_title'    => 'Home Page Settings',
+        'menu_slug'     => 'homepage-settings',
+        'menu_title'    => 'Home Page Settings',
+        'capability'    => 'edit_posts',
+        'position'      => 2,
+        'redirect'      => true,
+        'post_id'       => 'homepage_options',
+        'autoload'      => false,
+        'update_button' => 'Update Home Page Settings',
+        'updated_message' => 'Home Page Settings Updated',
+        'menu_icon'     => 'dashicons-admin-home',
+    ));
+
+    // Site Settings
+    acf_add_options_page(array(
+        'page_title'    => 'Site Settings',
+        'menu_slug'     => 'global-site-config',
+        'menu_title'    => 'Site Settings',
+        'capability'    => 'edit_posts',
+        'position'      => 3,
+        'redirect'      => true,
+        'post_id'       => 'site_options',
+        'autoload'      => false,
+        'update_button' => 'Update Site Settings',
+        'updated_message' => 'Site Settings Updated',
+        'menu_icon'     => 'dashicons-admin-settings',
+    ));
+
+    // Advertising Settings
+    acf_add_options_page(array(
+        'page_title'    => 'Advertising Settings',
+        'menu_slug'     => 'advertising-settings',
+        'menu_title'    => 'Advertising Settings',
+        'capability'    => 'edit_posts',
+        'position'      => 4,
+        'redirect'      => true,
+        'post_id'       => 'advertising_options',
+        'autoload'      => false,
+        'update_button' => 'Update Advertising Settings',
+        'updated_message' => 'Advertising Settings Updated',
+        'menu_icon'     => 'dashicons-money-alt',
+    ));
+
+    // Directory Settings
+    acf_add_options_page(array(
+        'page_title'    => 'Directory Settings',
+        'menu_slug'     => 'directory-settings',
+        'menu_title'    => 'Directory Settings',
+        'capability'    => 'edit_posts',
+        'position'      => 5,
+        'redirect'      => true,
+        'post_id'       => 'directory_options',
+        'autoload'      => false,
+        'update_button' => 'Update Directory Settings',
+        'updated_message' => 'Directory Settings Updated',
+        'menu_icon'     => 'dashicons-database',
+    ));
+
+endif;
 
 
 function my_theme_setup() {
