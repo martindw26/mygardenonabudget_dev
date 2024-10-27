@@ -14,11 +14,11 @@ $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (a
     <h3 class="widget-title">
         Latest in: 
         <?php 
-        // Retrieve the term objects for the bottom categories
+        // Retrieve term objects for the bottom categories
         $term_objects = get_terms([
             'taxonomy' => 'category',
-            'include' => $bottom_categories, // Include only the categories in our array
-            'hide_empty' => false, // Optional: show empty categories as well
+            'include' => $bottom_categories,
+            'hide_empty' => false, // Show empty categories as well
         ]);
 
         // Extract the names of the terms
@@ -31,24 +31,26 @@ $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (a
 
     <?php
     // Query for related posts
-    $related_posts_bottom = new WP_Query([
+    $related_posts_args = [
         'posts_per_page' => !empty($posts_count_bottom) ? intval($posts_count_bottom) : 5, // Default to 5 if not set
         'category__in' => $bottom_categories,
         'orderby' => 'date',
-        'order' => 'DESC', // Optional: set order to descending
-    ]);
+        'order' => 'DESC', // Set order to descending
+    ];
+
+    $related_posts_query = new WP_Query($related_posts_args);
 
     // Check if there are any posts to display
-    if ($related_posts_bottom->have_posts()) :
-        while ($related_posts_bottom->have_posts()) : $related_posts_bottom->the_post();
-            $category_bottom = get_the_category();
-            $category_bottom = !empty($category_bottom) ? $category_bottom[0] : null; // Use null instead of false
+    if ($related_posts_query->have_posts()) :
+        while ($related_posts_query->have_posts()) : $related_posts_query->the_post();
+            $post_category = get_the_category();
+            $primary_category = !empty($post_category) ? $post_category[0] : null; // Use null instead of false
     ?>
             <div class="post-item">
-                <?php if ($category_bottom) : ?>
+                <?php if ($primary_category) : ?>
                     <div class="post-category">
-                        <a class="sidebar_cat" href="<?php echo esc_url(get_category_link($category_bottom->term_id)); ?>">
-                            <?php echo esc_html($category_bottom->name); ?>
+                        <a class="sidebar_cat" href="<?php echo esc_url(get_category_link($primary_category->term_id)); ?>">
+                            <?php echo esc_html($primary_category->name); ?>
                         </a>
                     </div>
                 <?php endif; ?>
@@ -70,7 +72,7 @@ $bottom_categories = !empty($sidebar_bottom_categories) ? array_map('intval', (a
             </div>
     <?php
         endwhile;
-        wp_reset_postdata(); // Reset the post data after the loop
+        wp_reset_postdata(); // Reset post data after the loop
     else :
         // If no posts found
         echo '<p>No related posts found.</p>';
