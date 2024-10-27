@@ -31,12 +31,12 @@
         <h3 class="widget-title">Latest: <?php echo esc_html($categories_string_top); ?></h3>
 
         <?php
-        $posts_count = get_field('sidebar_top_post_count', 'option'); // Fetch the number of posts
+        $posts_count_top = get_field('sidebar_top_post_count', 'option'); // Fetch the number of posts
         $top_categories = !empty($sidebar_top_categories) ? array_map('intval', $sidebar_top_categories) : [];
 
         // Fetch related posts
         $related_posts_top = new WP_Query([
-            'posts_per_page' => $posts_count,
+            'posts_per_page' => $posts_count_top,
             'category__in' => $top_categories,
             'post__not_in' => [get_the_ID()],
             'orderby' => 'date',
@@ -88,6 +88,7 @@
 
     <?php
     // Get and display bottom categories
+    $posts_count_bottom = get_field('sidebar_bottom_post_count', 'option'); // Fetch the number of posts
     $sidebar_bottom_categories = get_field('sidebar_bottom_categories', 'option');
     $categories_string_bottom = get_category_names($sidebar_bottom_categories);
     ?>
@@ -101,7 +102,7 @@
 
         // Fetch related posts for bottom categories
         $related_posts_bottom = new WP_Query([
-            'posts_per_page' => $posts_count,
+            'posts_per_page' => $posts_count_bottom,
             'category__in' => $bottom_categories,
             'post__not_in' => [get_the_ID()],
             'orderby' => 'date',
