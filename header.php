@@ -53,12 +53,6 @@
     
 
 ?>
-
-<?php
-    echo '<!-- Header Text Alignment: ' . $site_header_text_align . ' -->';
-?>
-
-
     <style>
     /* ################# Header styles ################# */
 /* Main site header styling */
@@ -152,6 +146,11 @@
 $logo_url = get_field('site_logo_url','option');
 $Site_header_text = get_field('site_header_text','option');
 ?>
+
+<?php
+    echo '<!-- Header Text Alignment: ' . $site_header_text_align . ' -->';
+?>
+
 
 <!-- Header Section -->
 <div class="site_header">
