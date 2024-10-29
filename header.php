@@ -147,15 +147,20 @@ $logo_url = get_field('site_logo_url','option');
 $Site_header_text = get_field('site_header_text','option');
 ?>
 
-<?php
-    echo '<!-- Header Text Alignment: ' . $site_header_text_align . ' -->';
-?>
-
-
 <!-- Header Section -->
 <div class="site_header">
 <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-    <h1 class="site_header_text" style="font-family:<?php echo $header_class; ?>;"><?php echo $Site_header_text; ?></h1>
+<?php
+$font_family = match($header_font) {
+    'playwrite' => '"Playwrite NZ", cursive',
+    'merienda' => '"Merienda", cursive',
+    default => '"Quintessential", serif',
+};
+?>
+<h1 class="site_header_text" style="font-family: <?php echo $font_family; ?>;">
+    <?php echo $Site_header_text; ?>
+</h1>
+
 </a>
 </div>
 
