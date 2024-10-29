@@ -79,70 +79,7 @@ switch ($header_font) {
 }
 }
 
-/* Quintessential - No weight variation */
-.quintessential-regular {
-    font-family: "Quintessential", serif;
-    font-weight: 400;
-    font-style: normal;
-}
 
-/* Playwrite NZ - Weights 100 to 400 */
-.playwrite-nz-light {
-    font-family: "Playwrite NZ", cursive;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-}
-.playwrite-nz-regular {
-    font-family: "Playwrite NZ", cursive;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-}
-.playwrite-nz-bold {
-    font-family: "Playwrite NZ", cursive;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-/* Merienda - Weights 300 to 900 */
-.merienda-light {
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-}
-.merienda-regular {
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-}
-.merienda-bold {
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
-}
-
-
-
-@media (min-width: 482px) {
-    h1.site_header_text {
-        text-align: <?php echo $site_header_text_align;?>;
-        padding: 5px;
-    }
-}
-
-@media (max-width: 482px) {
-    h1.site_header_text {
-        font-family: inherit;
-        color: #2c540b;
-        text-align: <?php echo $site_header_text_align;?>!important;
-        font-size: 38px;
-    }
-}
 
 .ticker-content {
     animation: tickerAnimation 10s linear infinite;
