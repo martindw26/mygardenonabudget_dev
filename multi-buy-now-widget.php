@@ -53,7 +53,7 @@
                             <td class="text-center button">
                             <a href="<?php echo esc_url($item['multi_buy_now_widget_button_url']); ?>"  target="<?php echo $multi_buy_now_widget_button_url_button_target; ?>" 
                                 class="btn btn-primary"  aria-label="<?php echo esc_attr($multi_buy_now_widget_button_text . ' for ' . $item['multi_buy_now_widget_button_price']); ?>">
-                                <?php echo $multi_buy_now_widget_button_text . ' | ' . $item['multi_buy_now_widget_button_price']; ?>
+                                <?php echo $multi_buy_now_widget_button_text . '  ' . $item['multi_buy_now_widget_button_price']; ?>
 </a>
 
                             </td>
