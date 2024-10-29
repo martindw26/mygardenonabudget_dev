@@ -38,6 +38,7 @@
     $site_logo = get_field('site_logo', 'option');
     $site_header_text_align = get_field('site_header_text_align', 'option'); 
     $header_font = get_field('header_font_select', 'option'); 
+    $header_font_text_color = get_field('header_font_text_color', 'option'); 
 ?>
     <style>
     /* ################# Header styles ################# */
@@ -64,12 +65,13 @@
         text-align: <?php echo $site_header_text_align; ?>;
         padding: 5px;
         font-family: <?php echo $header_font; ?> !important;
+        color: <?php echo $header_font_text_color; ?>;
     }
 }
 
 @media (max-width: 482px) {
     h1.site_header_text {
-        color: #2c540b;
+        color: <?php echo $header_font_text_color; ?>;
         text-align: <?php echo $site_header_text_align; ?> !important;
         font-size: 38px;
         font-family: <?php echo $header_font; ?> !important;
