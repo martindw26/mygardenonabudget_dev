@@ -142,27 +142,28 @@
 <body id="myPage" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="60">
 
 <?php
-// Get the URL from the ACF field
-$logo_url = get_field('site_logo_url','option');
-$Site_header_text = get_field('site_header_text','option');
-?>
+// Get the necessary ACF fields
+$logo_url = get_field('site_logo_url', 'option');
+$Site_header_text = get_field('site_header_text', 'option');
+$header_font = get_field('header_font_select', 'option'); // Ensure this is set
 
-<!-- Header Section -->
-<div class="site_header">
-<a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-<?php
+// Determine the font family based on the selected font
 $font_family = match($header_font) {
     'playwrite' => '"Playwrite NZ", cursive',
     'merienda' => '"Merienda", cursive',
     default => '"Quintessential", serif',
 };
 ?>
-<h1 class="site_header_text" style="font-family: <?php echo $font_family; ?>;">
-    <?php echo $Site_header_text; ?>
-</h1>
 
-</a>
+<!-- Header Section -->
+<div class="site_header">
+    <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+        <h1 class="site_header_text" style="font-family: <?php echo $font_family; ?>;">
+            <?php echo esc_html($Site_header_text); ?>
+        </h1>
+    </a>
 </div>
+
 
 <!-- Responsive Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
