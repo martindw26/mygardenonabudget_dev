@@ -12,6 +12,11 @@
     <title><?php echo get_the_title(); ?></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Playwrite+NZ:wght@100..400&family=Quintessential&display=swap" rel="stylesheet">
+
     <?php wp_head(); ?>
     <!-- Adtech -->
 
@@ -29,7 +34,28 @@
     $main_nav_bar_background_colour = get_field('main_nav_bar_background_colour', 'option');
     $navbar_text_color = get_field('navbar_text_color', 'option');
     $site_header_text_align = get_field('site_header_text_align', 'option');
-    ?>
+
+
+
+$header_font = get_field('header_font_select', 'option'); // Use 'option' if it's in an options page
+
+// Determine the class based on the selection
+$header_class = '';
+switch ($header_font) {
+    case 'playwrite':
+        $header_class = 'playwrite-nz-header';
+        break;
+    case 'merienda':
+        $header_class = 'merienda-header';
+        break;
+    default:
+        $header_class = 'quintessential-regular';
+}
+
+?>
+
+
+
     <style>
     /* ################# Header styles ################# */
 /* Main site header styling */
@@ -93,10 +119,13 @@ $Site_header_text = get_field('site_header_text','option');
 
 <!-- Header Section -->
 <div class="site_header">
-<a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-    <h1 class="site_header_text"><?php echo $Site_header_text; ?></h1>
-</a>
+    <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+        <h1 class="site_header_text <?php echo esc_attr($header_class); ?>">
+            <?php echo esc_html($Site_header_text); ?>
+        </h1>
+    </a>
 </div>
+
 
 <!-- Responsive Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
