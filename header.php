@@ -53,6 +53,12 @@
     
 
 ?>
+
+<?php
+    echo '<!-- Header Text Alignment: ' . $site_header_text_align . ' -->';
+?>
+
+
     <style>
     /* ################# Header styles ################# */
 /* Main site header styling */
