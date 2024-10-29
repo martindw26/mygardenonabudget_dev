@@ -28,6 +28,7 @@
     $site_title_text_background_border_radius = get_field('site_title_text_background_border_radius', 'option'); 
     $main_nav_bar_background_colour = get_field('main_nav_bar_background_colour', 'option');
     $navbar_text_color = get_field('navbar_text_color', 'option');
+    $site_header_text_align = get_field('site_header_text_align', 'option');
     ?>
     <style>
     /* ################# Header styles ################# */
@@ -54,7 +55,7 @@
 
 @media (min-width: 482px) {
     h1.site_header_text {
-        text-align: start;
+        text-align: <?php echo $site_header_text_align;?>;
         padding: 5px;
     }
 }
@@ -63,7 +64,7 @@
     h1.site_header_text {
         font-family: inherit;
         color: #2c540b;
-        text-align: center !important;
+        text-align: <?php echo $site_header_text_align;?>!important;
         font-size: 38px;
     }
 }
