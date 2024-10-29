@@ -37,20 +37,17 @@
 
 
 
-$header_font = get_field('header_font_select', 'option'); // Use 'option' if it's in an options page
 
-// Determine the class based on the selection
-$header_class = '';
-switch ($header_font) {
-    case 'playwrite':
-        $header_class = 'playwrite-nz-header';
-        break;
-    case 'merienda':
-        $header_class = 'merienda-header';
-        break;
-    default:
-        $header_class = 'quintessential-regular';
-}
+    $header_font = get_field('header_font_select', 'option'); // Use 'option' if it's in an options page
+    
+    // Define classes based on the selected font
+    $header_class = match($header_font) {
+        'playwrite' => 'playwrite-nz-header',
+        'merienda' => 'merienda-header',
+        default => 'quintessential-regular',
+    };
+
+    
 
 ?>
 
@@ -88,61 +85,11 @@ switch ($header_font) {
 
 @media (max-width: 482px) {
     h1.site_header_text {
-        font-family: inherit;
         color: #2c540b;
         text-align: <?php echo $site_header_text_align;?>!important;
         font-size: 38px;
     }
 }
-
-/* Quintessential - No weight variation */
-.quintessential-regular {
-    font-family: "Quintessential", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-/* Playwrite NZ - Weights 100 to 400 */
-.playwrite-nz-light {
-    font-family: "Playwrite NZ", cursive;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-}
-.playwrite-nz-regular {
-    font-family: "Playwrite NZ", cursive;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-}
-.playwrite-nz-bold {
-    font-family: "Playwrite NZ", cursive;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-/* Merienda - Weights 300 to 900 */
-.merienda-light {
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-}
-.merienda-regular {
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-}
-.merienda-bold {
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
-}
-
-
 
 
 .ticker-content {
@@ -153,6 +100,42 @@ switch ($header_font) {
 @keyframes tickerAnimation {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
+}
+
+
+/* Quintessential - Regular weight only */
+.quintessential-regular {
+    font-family: "Quintessential", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Playwrite NZ - Available weights 100 to 400 */
+.playwrite-nz-header {
+    font-family: "Playwrite NZ", cursive;
+}
+.playwrite-nz-light {
+    font-weight: 100;
+}
+.playwrite-nz-regular {
+    font-weight: 300;
+}
+.playwrite-nz-bold {
+    font-weight: 400;
+}
+
+/* Merienda - Available weights 300 to 900 */
+.merienda-header {
+    font-family: "Merienda", cursive;
+}
+.merienda-light {
+    font-weight: 300;
+}
+.merienda-regular {
+    font-weight: 600;
+}
+.merienda-bold {
+    font-weight: 900;
 }
 
 
