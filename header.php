@@ -99,7 +99,7 @@ $Site_header_text = get_field('site_header_text','option');
 <!-- Header Section -->
 <div class="site_header">
 <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-    <h1 class="site_header_text" style="font-family:"><?php echo $Site_header_text; ?></h1>
+    <h1 class="site_header_text"><?php echo $Site_header_text; ?></h1>
 </a>
 </div>
 
