@@ -47,38 +47,35 @@
         default => 'quintessential-regular',
     };
 
+    $site_logo = get_field('site_logo', 'option');
+    $site_header_text_align = get_field('header_text_align', 'option'); 
+
     
 
 ?>
-
-
-
     <style>
     /* ################# Header styles ################# */
 /* Main site header styling */
 
 
+/* Site header styles */
 .site_header {
-    background-image: url('<?php echo $site_logo;?>');
+    background-image: url('<?php echo $site_logo; ?>');
     background-repeat: no-repeat;
     object-fit: fill;
     height: 200px;
 }
 
 @media (max-width: 480px) {
-.site_header {
-    background-image: url('<?php echo $site_logo;?>');
-    background-repeat: no-repeat;
-    object-fit: fill;
-    height: 200px;
-    padding: 15px;
-    font-weight: 900;
-}
+    .site_header {
+        padding: 15px;
+        font-weight: 900;
+    }
 }
 
 @media (min-width: 482px) {
     h1.site_header_text {
-        text-align: <?php echo $site_header_text_align;?>;
+        text-align: <?php echo $site_header_text_align; ?>;
         padding: 5px;
     }
 }
@@ -86,22 +83,10 @@
 @media (max-width: 482px) {
     h1.site_header_text {
         color: #2c540b;
-        text-align: <?php echo $site_header_text_align;?>!important;
+        text-align: <?php echo $site_header_text_align; ?> !important;
         font-size: 38px;
     }
 }
-
-
-.ticker-content {
-    animation: tickerAnimation 10s linear infinite;
-    animation-play-state: running; /* Ensure this is correctly set */
-}
-
-@keyframes tickerAnimation {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-
 
 /* Quintessential - Regular weight only */
 .quintessential-regular {
@@ -139,6 +124,18 @@
 }
 
 
+
+
+.ticker-content {
+    animation: tickerAnimation 10s linear infinite;
+    animation-play-state: running; /* Ensure this is correctly set */
+}
+
+@keyframes tickerAnimation {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
 </style>
 </head>
 
@@ -153,7 +150,7 @@ $Site_header_text = get_field('site_header_text','option');
 <!-- Header Section -->
 <div class="site_header">
 <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-    <h1 class="site_header_text"><?php echo $Site_header_text; ?></h1>
+    <h1 class="site_header_text <?php echo $header_class; ?>"><?php echo $Site_header_text; ?></h1>
 </a>
 </div>
 
