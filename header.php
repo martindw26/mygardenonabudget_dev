@@ -35,23 +35,9 @@
     $navbar_text_color = get_field('navbar_text_color', 'option');
     $site_header_text_align = get_field('site_header_text_align', 'option');
 
-
-
-
-    $header_font = get_field('header_font_select', 'option'); // Use 'option' if it's in an options page
-    
-    // Define classes based on the selected font
-    $header_class = match($header_font) {
-        'playwrite' => 'playwrite-nz-header',
-        'merienda' => 'merienda-header',
-        default => 'quintessential-regular',
-    };
-
     $site_logo = get_field('site_logo', 'option');
     $site_header_text_align = get_field('header_text_align', 'option'); 
-
-    
-
+    $header_font = get_field('header_font_select', 'option'); 
 ?>
     <style>
     /* ################# Header styles ################# */
@@ -77,6 +63,7 @@
     h1.site_header_text {
         text-align: <?php echo $site_header_text_align; ?>;
         padding: 5px;
+        font-family: <?php echo $$header_font; ?> !important;
     }
 }
 
@@ -85,47 +72,9 @@
         color: #2c540b;
         text-align: <?php echo $site_header_text_align; ?> !important;
         font-size: 38px;
+        font-family: <?php echo $$header_font; ?> !important;
     }
 }
-
-/* Quintessential - Regular weight only */
-.quintessential-regular {
-    font-family: "Quintessential", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-/* Playwrite NZ - Available weights 100 to 400 */
-.playwrite-nz-header {
-    font-family: "Playwrite NZ", cursive;
-}
-.playwrite-nz-light {
-    font-weight: 100;
-}
-.playwrite-nz-regular {
-    font-weight: 300;
-}
-.playwrite-nz-bold {
-    font-weight: 400;
-}
-
-/* Merienda - Available weights 300 to 900 */
-.merienda-header {
-    font-family: "Merienda", cursive;
-}
-.merienda-light {
-    font-weight: 300;
-}
-.merienda-regular {
-    font-weight: 600;
-}
-.merienda-bold {
-    font-weight: 900;
-}
-
-
-
-
 .ticker-content {
     animation: tickerAnimation 10s linear infinite;
     animation-play-state: running; /* Ensure this is correctly set */
@@ -142,28 +91,17 @@
 <body id="myPage" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="60">
 
 <?php
-// Get the necessary ACF fields
-$logo_url = get_field('site_logo_url', 'option');
-$Site_header_text = get_field('site_header_text', 'option');
-$header_font = get_field('header_font_select', 'option'); // Ensure this is set
-
-// Determine the font family based on the selected font
-$font_family = match($header_font) {
-    'playwrite' => '"Playwrite NZ", cursive',
-    'merienda' => '"Merienda", cursive',
-    default => '"Quintessential", serif',
-};
+// Get the URL from the ACF field
+$logo_url = get_field('site_logo_url','option');
+$Site_header_text = get_field('site_header_text','option');
 ?>
 
 <!-- Header Section -->
 <div class="site_header">
-    <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-        <h1 class="site_header_text" style="font-family: <?php echo $font_family; ?>;">
-            <?php echo esc_html($Site_header_text); ?>
-        </h1>
-    </a>
+<a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+    <h1 class="site_header_text" style="font-family:"><?php echo $Site_header_text; ?></h1>
+</a>
 </div>
-
 
 <!-- Responsive Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
