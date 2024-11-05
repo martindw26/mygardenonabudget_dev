@@ -163,7 +163,7 @@ if (have_rows('homepage_static_block_category', 'option')) :
                         <div class="featured-right">
                             <?php if (has_post_thumbnail()): ?>
                                 <div class="thumbnail-container position-relative">
-                                <h2 class="post-featured-block-title"><?php echo $homepage_featured_title; ?></h2>
+                                <h2 class="post-featured-block-title bg-success"><?php echo $homepage_featured_title; ?></h2>
                                 <a href="<?php the_permalink(); ?>">
                                     <img class="featured-right" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>">
                                 </a>
