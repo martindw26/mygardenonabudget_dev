@@ -120,7 +120,7 @@ $Site_header_text = get_field('site_header_text','option');
 ?>
 
 
-<header class="site_header">
+
     <div class="site_header_desktop">
         <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
             <h1 class="site_header_text"><?php echo $site_header_text; ?></h1>
@@ -132,7 +132,7 @@ $Site_header_text = get_field('site_header_text','option');
             <h1 class="site_header_text"><?php echo $site_header_text; ?></h1>
         </a>
     </div>
-</header>
+
 
 
 <!-- Responsive Navbar -->
