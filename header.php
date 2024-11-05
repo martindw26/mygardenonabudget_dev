@@ -49,31 +49,33 @@
 
 /* Default styles for both desktop and mobile headers */
 .site_header {
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 200px; /* Keep consistent height for both headers */
+
 }
 
 /* Default styles for desktop header */
 .site_header_desktop {
     background-image: url('<?php echo $site_logo; ?>');
-    display: block; /* Ensure it's displayed by default */
+    display: block; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
 }
 
 /* Default state for mobile header (hidden on desktop) */
 .site_header_mobile {
-    display: none; /* Hide on desktop by default */
+    display: none;
 }
 
 /* Mobile-specific styles */
 @media (max-width: 480px) {
     .site_header_desktop {
-        display: none; /* Hide desktop header on mobile */
+        display: none;
     }
     .site_header_mobile {
         background-image: url('<?php echo $site_logo_mobile; ?>');
         padding: 15px;
-        display: block; /* Display only on mobile */
+        display: block; 
+        height: 200px;
     }
 }
 
