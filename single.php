@@ -84,14 +84,7 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
 
             </div>
 
-            <?php
-// Check if the file exists before including
-if ( locate_template( 'includes/sections/related.php', true, false ) ) {
-    get_template_part( 'includes/sections/related' );
-} else {
-    echo 'Related section template not found.';
-}
-?>
+            <?php get_template_part('related-posts');?>
 
 
 
