@@ -90,18 +90,17 @@ Social share bar to be added here
 </section>
 
 <hr>
+<?php
+$related_post_bottom_title = get_field ('related_post_bottom_title');
+echo '<h4 class="related_post_bottom_title">'.$related_post_bottom_title .'</h4>';
 
-            <?php
 $template_path = locate_template('includes/related.php');
 if ($template_path) {
     include($template_path);
 } else {
     echo 'Related section template not found.';
 }
-
 ?>
-
-
 
             <div class="container-fluid text-black" style="height:60px; padding-top:8px;">
                 <div class="social_share_header">
