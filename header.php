@@ -47,23 +47,28 @@
 
 /* Site header styles */
 /* Desktop Styles */
-.site_header {
+.site_header_desktop {
+    background-image: url('<?php echo $site_logo; ?>');
     background-repeat: no-repeat;
-    object-fit: fill;
+    object-fit: cover;
     height: 200px;
 }
 
-.site_header_desktop {
-    background-image: url('<?php echo $site_logo; ?>');
-}
-
+/* This will hide the desktop header on mobile screens */
 @media (max-width: 480px) {
-    /* Mobile Styles */
-    .site_header {
+    .site_header_desktop {
+        display: none;
+    }
+
+    .site_header_mobile {
         background-image: url('<?php echo $site_logo_mobile; ?>');
+        background-repeat: no-repeat;
+        object-fit: cover;
         padding: 15px;
+        height: 200px;
     }
 }
+
 
 
 @media (min-width: 482px) {
