@@ -92,7 +92,7 @@ Social share bar to be added here
 <hr>
 <?php
 $related_post_bottom_title = get_field ('related_post_bottom_title','option');
-echo '<h4 class="related_post_bottom_title">'.$related_post_bottom_title .'</h4>';
+echo '<h2 class="related_post_bottom_title">'.$related_post_bottom_title .'</h2>';
 
 $template_path = locate_template('includes/related.php');
 if ($template_path) {
