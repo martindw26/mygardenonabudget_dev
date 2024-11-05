@@ -571,30 +571,36 @@ h2.single-post-featured-block-title {
     text-transform: none;
     color: #000;
     width: fit-content;
+    border-bottom: 1px solid var(--green-underline);
     padding-bottom: 4px;
 }
 
-h2.post-featured-block-title  {
-    clear: both;
-    font-size: 2rem;
-    margin: 4px;
-    text-transform: none;
-    width: fit-content;
-    background-color: #000000;
-    color: #fff;
-    padding: 5px;
-    font-family: Raleway, sans-serif;
-    font-style: normal;
-    border: 1px solid black;
+h2.post-featured-block-title{
+font-size: 2rem;
+margin-bottom: 4px;
+text-transform: none;
+width: fit-content;
+background-color: #000000;
+color: #fff;
+padding: 5px;
+font-family: sans-serif;
+font-style: normal;
+
 }
-.post-featured-block-title {
-    position: absolute;
-    top: 0; 
-    left: 0; 
-    margin: 0; 
-    padding: 10px; 
-    z-index: 10; 
-}
+
+h2.post-featured-block-title-slider {
+        clear: both;
+        font-size: 2rem;
+        margin: 4px;
+        text-transform: none;
+        width: fit-content;
+        background-color: #000000;
+        color: #fff;
+        padding: 5px;
+        font-family: Raleway, sans-serif;
+        font-style: normal;
+
+    }
 
 
 .image-caption {
@@ -757,28 +763,9 @@ img.featured-post-image-fw{
     width: 100%;
   }
 
-
-
-  .thumbnail-container {
-    position: relative;
-}
-
-
-
-.featured-right {
-    width: 100%;
-    height: auto;
-}
-
-
 /* End home page styles */
 
 /* ################# four-col-block ################# */
-
-
-.post-featured-block-title-four{
-
-}
 
 .four-col-block-thumb{
     height: 250px;

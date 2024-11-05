@@ -19,7 +19,7 @@ get_header();
         <!-- Featured Slider block -->
         <div class="col-lg mt-2 mb-2">
             <!-- Featured block Slider -->
-            <h2 class="post-featured-block-title-slider bg-success"><?php echo $slider_block_title;?></h2>
+            <h2 class="post-featured-block-title-slider"><?php echo $slider_block_title;?></h2>
             <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php $i = 0;
@@ -152,7 +152,6 @@ if (have_rows('homepage_static_block_category', 'option')) :
         if ($column1_query->have_posts()) :
             while ($column1_query->have_posts()) : $column1_query->the_post();
 ?>
-
 <div class="mt-2">
 <h2 class="post-featured-block-title"><?php echo $homepage_featured_title ?></h2>
     <div class="row">
@@ -162,13 +161,7 @@ if (have_rows('homepage_static_block_category', 'option')) :
                     <div class="position-relative">  
                         <div class="featured-right">
                             <?php if (has_post_thumbnail()): ?>
-                                <div class="thumbnail-container position-relative">
-                                <h2 class="post-featured-block-title bg-success"><?php echo $homepage_featured_title; ?></h2>
-                                <a href="<?php the_permalink(); ?>">
-                                    <img class="featured-right" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>">
-                                </a>
-                            </div>
-
+                                <a href="<?php the_permalink(); ?>"><img class="featured-right" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>"></a>
                             <?php endif; ?>
                             <div class="featured-post-overlay">
                                 <h5><a href="<?php the_permalink(); ?>" class="text-white mt-2"><?php the_title(); ?></a></h5>
@@ -196,8 +189,6 @@ if (have_rows('homepage_static_block_category', 'option')) :
                     </div>
                 </div>
             </div>
-
-
 <?php 
 endwhile;
 wp_reset_postdata();
@@ -287,7 +278,7 @@ if ($leaderboard_middle_body_script_switch === 'on') {
 } 
 ?>
 <!-- ################ BOTTOM SECTION ################### -->
-
+<h2 class="post-featured-block-title"><?php echo $four_col_block_featured_title?></h2>
 <div class="row">
     <?php 
     $column3_query = new WP_Query(array(
