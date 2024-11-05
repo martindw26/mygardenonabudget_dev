@@ -47,14 +47,9 @@
 
 /* Site header styles */
 
-/* Default styles for both desktop and mobile headers */
-.site_header {
-
-}
-
-/* Default styles for desktop header */
+/* Site header styles */
+/* Site header styles */
 .site_header_desktop {
-    background-image: url('<?php echo $site_logo; ?>');
     display: block; 
     background-repeat: no-repeat;
     background-size: cover;
@@ -72,15 +67,11 @@
         display: none;
     }
     .site_header_mobile {
-        background-image: url('<?php echo $site_logo_mobile; ?>');
         padding: 15px;
         display: block; 
         height: 200px;
     }
 }
-
-
-
 
 
 @media (min-width: 482px) {
@@ -118,22 +109,24 @@
 <?php
 // Get the URL from the ACF field
 $logo_url = get_field('site_logo_url','option');
-$Site_header_text = get_field('site_header_text','option');
 ?>
 
 
 
-    <div class="site_header_desktop">
-        <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-            <h1 class="site_header_text"><?php echo $site_header_text; ?></h1>
-        </a>
-    </div>
+<div class="site_header_desktop">
+    <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+        <img src="<?php echo esc_url($site_logo); ?>" alt="Site Logo" /> <!-- Logo for desktop -->
+    </a>
+</div>
 
-    <div class="site_header_mobile">
-        <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-            <h1 class="site_header_text"><?php echo $site_header_text; ?></h1>
-        </a>
-    </div>
+<div class="site_header_mobile">
+    <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+        <img src="<?php echo esc_url($site_logo_mobile); ?>" alt="Mobile Site Logo" /> <!-- Logo for mobile -->
+    </a>
+</div>
+
+
+
 
 
 
