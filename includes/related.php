@@ -1,15 +1,27 @@
 <?php
-// Get current category ID
+// Get the current category ID
 $current_category = get_the_category();
 $current_category_id = !empty($current_category) ? $current_category[0]->term_id : null;
+
+// Debug: Check if category ID is retrieved
+if (!$current_category_id) {
+    echo 'No category found for this post.';
+    return;
+}
 
 // Set up initial query arguments to filter by category only
 $args = [
     'post_type'      => 'post',
     'posts_per_page' => $min_results,
-    'category__in'   => $current_category_id ? [$current_category_id] : [], // Filter by current category
+    'category__in'   => [$current_category_id], // Filter by current category
 ];
 
+// Debug: Display query arguments
+echo '<pre>';
+print_r($args);
+echo '</pre>';
+
+// Run the query
 $query = new WP_Query($args);
 
 // If not enough results, modify query to search by keywords
