@@ -36,6 +36,7 @@
     $site_header_text_align = get_field('site_header_text_align', 'option');
 
     $site_logo = get_field('site_logo', 'option');
+    $site_logo_mobile = get_field('site_logo_mobile', 'option');
     $site_header_text_align = get_field('site_header_text_align', 'option'); 
     $header_font = get_field('header_font_select', 'option'); 
     $header_font_text_color = get_field('header_font_text_color', 'option'); 
