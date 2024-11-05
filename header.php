@@ -46,28 +46,37 @@
 
 
 /* Site header styles */
-/* Desktop Styles */
+
+/* Default styles for both desktop and mobile headers */
+.site_header {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px; /* Keep consistent height for both headers */
+}
+
+/* Default styles for desktop header */
 .site_header_desktop {
     background-image: url('<?php echo $site_logo; ?>');
-    background-repeat: no-repeat;
-    object-fit: cover;
-    height: 200px;
+    display: block; /* Ensure it's displayed by default */
 }
 
-/* This will hide the desktop header on mobile screens */
+/* Default state for mobile header (hidden on desktop) */
+.site_header_mobile {
+    display: none; /* Hide on desktop by default */
+}
+
+/* Mobile-specific styles */
 @media (max-width: 480px) {
     .site_header_desktop {
-        display: none;
+        display: none; /* Hide desktop header on mobile */
     }
-
     .site_header_mobile {
         background-image: url('<?php echo $site_logo_mobile; ?>');
-        background-repeat: no-repeat;
-        object-fit: cover;
         padding: 15px;
-        height: 200px;
+        display: block; /* Display only on mobile */
     }
 }
+
 
 
 
@@ -110,18 +119,21 @@ $logo_url = get_field('site_logo_url','option');
 $Site_header_text = get_field('site_header_text','option');
 ?>
 
-<?php
-    echo '<p>Desktop Logo URL: ' . $site_logo . '</p>';
-    echo '<p>Mobile Logo URL: ' . $site_logo_mobile . '</p>';
-?>
 
+<header class="site_header">
+    <div class="site_header_desktop">
+        <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+            <h1 class="site_header_text"><?php echo $site_header_text; ?></h1>
+        </a>
+    </div>
 
-<!-- Header Section -->
-<div class="site_header">
-<a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-    <h1 class="site_header_text"><?php echo $Site_header_text; ?></h1>
-</a>
-</div>
+    <div class="site_header_mobile">
+        <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
+            <h1 class="site_header_text"><?php echo $site_header_text; ?></h1>
+        </a>
+    </div>
+</header>
+
 
 <!-- Responsive Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
