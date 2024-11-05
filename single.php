@@ -89,7 +89,7 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
 Social share bar to be added here
 </section>
 
-<hr>
+
 <?php
 $related_post_bottom_title = get_field ('related_post_bottom_title','option');
 echo '<h2 class="related_post_bottom_title">'.$related_post_bottom_title .'</h2>';
