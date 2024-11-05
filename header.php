@@ -71,6 +71,7 @@
 
 
 
+
 @media (min-width: 482px) {
     h1.site_header_text {
         text-align: <?php echo $site_header_text_align; ?>;
@@ -108,6 +109,12 @@
 $logo_url = get_field('site_logo_url','option');
 $Site_header_text = get_field('site_header_text','option');
 ?>
+
+<?php
+    echo '<p>Desktop Logo URL: ' . $site_logo . '</p>';
+    echo '<p>Mobile Logo URL: ' . $site_logo_mobile . '</p>';
+?>
+
 
 <!-- Header Section -->
 <div class="site_header">
