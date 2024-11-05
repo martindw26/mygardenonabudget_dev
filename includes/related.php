@@ -16,11 +16,6 @@ $args = [
     'category__in'   => [$current_category_id], // Filter by current category
 ];
 
-// Debug: Display query arguments
-echo '<pre>';
-print_r($args);
-echo '</pre>';
-
 // Run the query
 $query = new WP_Query($args);
 
