@@ -55,8 +55,8 @@
 
 @media (max-width: 480px) {
     .site_header {
+        background-image: url('<?php echo $site_logo_mobile; ?>');
         padding: 15px;
-        font-weight: 900;
     }
 }
 
