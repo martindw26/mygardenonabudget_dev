@@ -89,6 +89,8 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
 Social share bar to be added here
 </section>
 
+<hr>
+
             <?php
 $template_path = locate_template('includes/related.php');
 if ($template_path) {
