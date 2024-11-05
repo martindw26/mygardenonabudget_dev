@@ -152,43 +152,53 @@ if (have_rows('homepage_static_block_category', 'option')) :
         if ($column1_query->have_posts()) :
             while ($column1_query->have_posts()) : $column1_query->the_post();
 ?>
+
 <div class="mt-2">
-<h2 class="post-featured-block-title"><?php echo $homepage_featured_title ?></h2>
     <div class="row">
-            <div class="col-lg-7">
-                <!-- Large post on the left -->
-                <div class="featured-right-post">
-                    <div class="position-relative">  
-                        <div class="featured-right">
-                            <?php if (has_post_thumbnail()): ?>
-                                <a href="<?php the_permalink(); ?>"><img class="featured-right" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>"></a>
-                            <?php endif; ?>
-                            <div class="featured-post-overlay">
-                                <h5><a href="<?php the_permalink(); ?>" class="text-white mt-2"><?php the_title(); ?></a></h5>
-                                <?php
-                                $author_name = get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name');
-                                ?>
-                                <p class="text-white"><?php echo get_the_date(); ?> | By <?php echo $author_name; ?></p>
-                                <?php
-                                // Check if the post has categories
-                                $categories = get_the_category();
-                                if ($categories) {
-                                    $separator = ' > '; // Define the separator
-                                    // Loop through each category to find the primary one
-                                    foreach ($categories as $index => $category) {
-                                        if ($category->parent == 0) { // Check if it's the primary category
-                                            echo '<button type="button" class="btn btn-success btn-sm"><a style="color:white; text-decoration:none;" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</button></a>'; // Output the category name with a link
-                                            // No need to add a separator as it's the primary category
-                                            break; // Exit the loop once primary category is found
-                                        }
+        <div class="col-lg-7">
+            <!-- Large post on the left -->
+            <div class="featured-right-post">
+                <div class="position-relative">  
+                    <div class="featured-right">
+                        <?php if (has_post_thumbnail()): ?>
+                            <!-- Container for image and title overlay -->
+                            <div class="thumbnail-container position-relative">
+                                <!-- Add the title here for top-right positioning -->
+                                <h2 class="post-featured-block-title"><?php echo $homepage_featured_title; ?></h2>
+                                <a href="<?php the_permalink(); ?>">
+                                    <img class="featured-right" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>">
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <!-- Overlay content below the title -->
+                        <div class="featured-post-overlay">
+                            <h5><a href="<?php the_permalink(); ?>" class="text-white mt-2"><?php the_title(); ?></a></h5>
+                            <?php
+                            $author_name = get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name');
+                            ?>
+                            <p class="text-white"><?php echo get_the_date(); ?> | By <?php echo $author_name; ?></p>
+                            <?php
+                            $categories = get_the_category();
+                            if ($categories) {
+                                $separator = ' > ';
+                                foreach ($categories as $index => $category) {
+                                    if ($category->parent == 0) {
+                                        echo '<button type="button" class="btn btn-success btn-sm"><a style="color:white; text-decoration:none;" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</button></a>';
+                                        break;
                                     }
                                 }
-                                ?>
-                            </div>
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+
 <?php 
 endwhile;
 wp_reset_postdata();

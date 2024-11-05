@@ -760,6 +760,30 @@ img.featured-post-image-fw{
     width: 100%;
   }
 
+
+
+  .thumbnail-container {
+    position: relative;
+}
+
+.post-featured-block-title {
+    position: absolute;
+    top: 10px;       /* Adjust as needed for spacing */
+    right: 10px;     /* Adjust as needed for spacing */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6); /* Optional: Add a background for readability */
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.featured-right {
+    width: 100%;
+    height: auto;
+}
+
+
 /* End home page styles */
 
 /* ################# four-col-block ################# */
