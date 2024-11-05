@@ -287,8 +287,9 @@ if ($leaderboard_middle_body_script_switch === 'on') {
 } 
 ?>
 <!-- ################ BOTTOM SECTION ################### -->
-<h2 class="post-featured-block-title"><?php echo $four_col_block_featured_title?></h2>
+
 <div class="row">
+    <h2 class="post-featured-block-title-four"><?php echo $four_col_block_featured_title?></h2>
     <?php 
     $column3_query = new WP_Query(array(
         'posts_per_page' => 4,
