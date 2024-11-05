@@ -65,13 +65,13 @@
         text-align: <?php echo $site_header_text_align; ?>;
         padding: 5px;
         font-family: <?php echo $header_font; ?> !important;
-        color: <?php echo $header_font_text_color; ?>;
+        color: <?php echo $header_font_text_color; ?> !important;
     }
 }
 
 @media (max-width: 482px) {
     h1.site_header_text {
-        color: <?php echo $header_font_text_color; ?>;
+        color: <?php echo $header_font_text_color; ?> !important;
         text-align: <?php echo $site_header_text_align; ?> !important;
         font-size: 38px;
         font-family: <?php echo $header_font; ?> !important;

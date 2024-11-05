@@ -19,7 +19,7 @@ get_header();
         <!-- Featured Slider block -->
         <div class="col-lg mt-2 mb-2">
             <!-- Featured block Slider -->
-            <h2 class="post-featured-block-title-slider"><?php echo $slider_block_title;?></h2>
+            <h2 class="post-featured-block-title-slider bg-success"><?php echo $slider_block_title;?></h2>
             <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php $i = 0;
