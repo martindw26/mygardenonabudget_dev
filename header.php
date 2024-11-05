@@ -71,6 +71,7 @@
         padding: 15px;
         display: block; 
         height: 200px;
+        background-size: cover;
     }
 }
 
@@ -116,13 +117,13 @@ $logo_url = get_field('site_logo_url','option');
 
 <div class="site_header_desktop">
     <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-        <img src="<?php echo esc_url($site_logo); ?>" alt="Site Logo" /> <!-- Logo for desktop -->
+        <img class="site_header_desktop" src="<?php echo esc_url($site_logo); ?>" alt="Site Logo" /> <!-- Logo for desktop -->
     </a>
 </div>
 
 <div class="site_header_mobile">
     <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-        <img src="<?php echo esc_url($site_logo_mobile); ?>" alt="Mobile Site Logo" /> <!-- Logo for mobile -->
+        <img class="site_header_mobile" src="<?php echo esc_url($site_logo_mobile); ?>" alt="Mobile Site Logo" /> <!-- Logo for mobile -->
     </a>
 </div>
 
