@@ -84,7 +84,7 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
 
             </div>
 
-            <?php get_template_part( 'sections/related' ); ?>
+            <?php get_template_part( 'includes/sections/related' ); ?>
 
 
             <div class="container-fluid text-black" style="height:60px; padding-top:8px;">
