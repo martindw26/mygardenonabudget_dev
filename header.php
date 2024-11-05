@@ -46,19 +46,25 @@
 
 
 /* Site header styles */
+/* Desktop Styles */
 .site_header {
-    background-image: url('<?php echo $site_logo; ?>');
     background-repeat: no-repeat;
     object-fit: fill;
     height: 200px;
 }
 
+.site_header_desktop {
+    background-image: url('<?php echo $site_logo; ?>');
+}
+
 @media (max-width: 480px) {
+    /* Mobile Styles */
     .site_header {
         background-image: url('<?php echo $site_logo_mobile; ?>');
         padding: 15px;
     }
 }
+
 
 @media (min-width: 482px) {
     h1.site_header_text {
