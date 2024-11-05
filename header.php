@@ -68,7 +68,6 @@
         display: none;
     }
     .site_header_mobile {
-        padding: 15px;
         display: block; 
         height: 200px;
         background-size: cover;
