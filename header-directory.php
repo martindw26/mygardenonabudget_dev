@@ -228,7 +228,6 @@ $logo_url = get_field('logo_url');
 <!-- Header Section -->
 <div class="site_header">
 <a class="logo_url" href="<?php echo esc_url($logo_url); ?>">
-    <h1 class="site_header_text"><?php echo esc_html(get_bloginfo('name')); ?></h1>
 </a>
 </div>
 
