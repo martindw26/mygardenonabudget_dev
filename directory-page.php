@@ -114,10 +114,8 @@ h2.eventpageheading_directory{
 .filters-container {
     display: flex;
     flex-wrap: wrap;
-    margin: 20px 0;
     background-color: #f8f9fa; /* Light background */
     border: 1px solid #ced4da; /* Light border color */
-    padding: 10px;
 }
 
 /* Styling for the filter containers */
@@ -129,7 +127,7 @@ h2.eventpageheading_directory{
     align-items: flex-start;
     padding: 10px;
     border-right: 1px solid #ced4da; /* Consistent border color */
-    margin-bottom: 1rem; /* Adjust spacing as needed */
+
 }
 
 /* Remove border from the last item */
