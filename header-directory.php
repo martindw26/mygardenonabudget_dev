@@ -42,6 +42,7 @@
     $site_title_text_colour = get_field('site_title_text_colour', 'option');
     $site_title_text_border_colour = get_field('site_title_text_border_colour', 'option');
     $site_logo = get_field('site_logo', 'option');
+    $site_logo_mobile = get_field('site_logo_mobile', 'option');
     $site_logo_url = get_field('site_logo_url', 'option'); 
     $site_title_text_background_border_radius = get_field('site_title_text_background_border_radius', 'option'); 
     $main_nav_bar_background_colour = get_field('main_nav_bar_background_colour', 'option');
@@ -52,42 +53,47 @@
 /* Main site header styling */
 
 
-.site_header {
-    background-image: url('<?php echo $site_logo;?>');
+/* Site header styles */
+.site_header_desktop {
+    display: block; 
     background-repeat: no-repeat;
-    object-fit: fill;
+    background-size: cover;
     height: 200px;
 }
 
-a.site_header_text_url {
-  text-decoration: none;
-  color:inherit;
+/* Default state for mobile header (hidden on desktop) */
+.site_header_mobile {
+    display: none;
 }
 
+/* Mobile-specific styles */
 @media (max-width: 480px) {
-.site_header {
-    background-image: url('<?php echo $site_logo;?>');
-    background-repeat: no-repeat;
-    object-fit: fill;
-    height: 200px;
-    padding: 15px;
-    font-weight: 900;
+    .site_header_desktop {
+        display: none;
+    }
+    .site_header_mobile {
+        display: block; 
+        height: 200px;
+        background-size: cover;
+    }
 }
-}
+
 
 @media (min-width: 482px) {
     h1.site_header_text {
-        text-align: start;
+        text-align: <?php echo $site_header_text_align; ?>;
         padding: 5px;
+        font-family: <?php echo $header_font; ?> !important;
+        color: <?php echo $header_font_text_color; ?> !important;
     }
 }
 
 @media (max-width: 482px) {
     h1.site_header_text {
-        font-family: inherit;
-        color: #2c540b;
-        text-align: center !important;
+        color: <?php echo $header_font_text_color; ?> !important;
+        text-align: <?php echo $site_header_text_align; ?> !important;
         font-size: 38px;
+        font-family: <?php echo $header_font; ?> !important;
     }
 }
 
