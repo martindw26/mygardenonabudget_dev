@@ -195,6 +195,7 @@ h2.eventpageheading_directory{
         align-items: center;
         text-align: center;
         width: 100%;
+        border: 1px solid #ced4da; /* Light border color */
     }
 }
 
