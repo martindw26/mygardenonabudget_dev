@@ -221,114 +221,111 @@ if (have_rows('list')) :
 
   <?php
 
-$enable_product_post_filtered_table = get_field( 'enable_product_post_filtered_table' );
+$enable_product_post_filtered_table = get_field('enable_product_post_filtered_table');
 
 if ($enable_product_post_filtered_table === 'on') {
     ?>
 
-<!-- Filters for Table Columns -->
-<div class="refine-search mb-4">
-    <form id="refine-search-form">
-        <!-- Filters Container -->
-        <div class="filters-container">
-            <!-- Product Name Dropdown Filter -->
-            <div class="filter-container">
-                <label for="filter-name" class="form-label">Product Name</label>
-                <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
-                    <?php
-                    $names = array_unique(array_column($products, 'name'));
-                    foreach ($names as $name) : ?>
-                        <option value="<?php echo esc_attr($name); ?>"
-                            <?php echo isset($urlParams['name']) && in_array($name, explode(',', $urlParams['name'])) ? 'selected' : ''; ?>>
-                            <?php echo esc_html($name); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <!-- Sort By Rating Dropdown Filter -->
-            <div class="filter-container">
-                <label for="sort-rating" class="form-label">Sort By Rating</label>
-                <select name="sort_rating" id="sort-rating" class="form-select" aria-label="Sort products by rating">
-                    <option value="">Select Rating</option>
-                    <option value="asc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'asc' ? 'selected' : ''; ?>>
-                        Rating: Low to High
-                    </option>
-                    <option value="desc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'desc' ? 'selected' : ''; ?>>
-                        Rating: High to Low
-                    </option>
-                </select>
-            </div>
-            <!-- Sort By Price Dropdown Filter -->
-            <div class="filter-container">
-                <label for="sort-price" class="form-label">Sort By Price</label>
-                <select name="sort_price" id="sort-price" class="form-select" aria-label="Sort products by price">
-                    <option value="">Select Price</option>
-                    <option value="asc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'asc' ? 'selected' : ''; ?>>
-                        Price: Low to High
-                    </option>
-                    <option value="desc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'desc' ? 'selected' : ''; ?>>
-                        Price: High to Low
-                    </option>
-                </select>
-            </div>
-        </div>
-        <!-- Button Container -->
-        <div class="button-container">
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <button type="button" id="reset-filters" class="btn btn-secondary">Reset Filters</button>
-        </div>
-    </form>
-</div>
-
-<!-- Table to display the products -->
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Position</th>
-                <th>Name</th>
-                <th>Rating</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody id="product-table-body">
-            <?php
-            foreach ($positions as $position) {
-                foreach ($products as $product) {
-                    if ($product['position'] == $position) {
-                        ?>
-                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
-                            <td><?php echo esc_html($product['position']); ?></td>
-                            <td><?php echo esc_html($product['name']); ?></td>
-                            <td><?php echo esc_html($product['rating']); ?></td>
-                            <td><?php echo esc_html($product['price']); ?></td>
-                        </tr>
+    <!-- Filters for Table Columns -->
+    <div class="refine-search mb-4">
+        <form id="refine-search-form">
+            <!-- Filters Container -->
+            <div class="filters-container">
+                <!-- Product Name Dropdown Filter -->
+                <div class="filter-container">
+                    <label for="filter-name" class="form-label">Product Name</label>
+                    <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
                         <?php
+                        $names = array_unique(array_column($products, 'name'));
+                        foreach ($names as $name) : ?>
+                            <option value="<?php echo esc_attr($name); ?>"
+                                <?php echo isset($urlParams['name']) && in_array($name, explode(',', $urlParams['name'])) ? 'selected' : ''; ?>>
+                                <?php echo esc_html($name); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                
+                <!-- Sort By Rating Dropdown Filter -->
+                <div class="filter-container">
+                    <label for="sort-rating" class="form-label">Sort By Rating</label>
+                    <select name="sort_rating" id="sort-rating" class="form-select" aria-label="Sort products by rating">
+                        <option value="">Select Rating</option>
+                        <option value="asc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'asc' ? 'selected' : ''; ?>>
+                            Rating: Low to High
+                        </option>
+                        <option value="desc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'desc' ? 'selected' : ''; ?>>
+                            Rating: High to Low
+                        </option>
+                    </select>
+                </div>
+                
+                <!-- Sort By Price Dropdown Filter -->
+                <div class="filter-container">
+                    <label for="sort-price" class="form-label">Sort By Price</label>
+                    <select name="sort_price" id="sort-price" class="form-select" aria-label="Sort products by price">
+                        <option value="">Select Price</option>
+                        <option value="asc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'asc' ? 'selected' : ''; ?>>
+                            Price: Low to High
+                        </option>
+                        <option value="desc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'desc' ? 'selected' : ''; ?>>
+                            Price: High to Low
+                        </option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Button Container -->
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                <button type="button" id="reset-filters" class="btn btn-secondary">Reset Filters</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table to display the products -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Name</th>
+                    <th>Rating</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="product-table-body">
+                <?php
+                foreach ($positions as $position) {
+                    foreach ($products as $product) {
+                        if ($product['position'] == $position) {
+                            ?>
+                            <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
+                                <td><?php echo esc_html($product['position']); ?></td>
+                                <td><?php echo esc_html($product['name']); ?></td>
+                                <td><?php echo esc_html($product['rating']); ?></td>
+                                <td><?php echo esc_html($product['price']); ?></td>
+                            </tr>
+                            <?php
+                        }
                     }
                 }
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-</div>
+                ?>
+            </tbody>
+        </table>
+    </div>
 
-<?php
-endif;
-?>
+    <?php
+}
 
+$below_filtered_table_content = get_field('below_filtered_table_content');
 
-<?php 
-    $below_filtered_table_content = get_field('below_filtered_table_content');
-    
-    // Check if $below_table_content is not empty
-    if ($below_filtered_table_content) {
-        echo $below_filtered_table_content;
-    }
-?>
-
+// Check if $below_filtered_table_content is not empty
+if ($below_filtered_table_content) {
+    echo $below_filtered_table_content;
 }
 ?>
+
 
 
 <script>
