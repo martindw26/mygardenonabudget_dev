@@ -1,5 +1,5 @@
 <!-- ########################################## 
-     ############# Comparison Table ########### 
+     ############# Product Compare Table ########### 
      ########################################## -->
 
      <style>
@@ -80,6 +80,9 @@ if (have_rows('items')) {
 }
 ?>
 
+<?php
+if ($enable_product_compare_table === 'on') {
+
 <div id="button-anchor" class="button-anchor"></div>
 
 <?php $product_compare_title = get_field('product_compare_title'); ?>
@@ -151,6 +154,11 @@ if (have_rows('items')) {
 <br>
 
 <button id="backToTopBtn" style="display:block;">Back to Top &#8657;</button>
+
+} else {
+
+}
+?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
