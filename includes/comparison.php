@@ -156,6 +156,16 @@ if ($enable_product_compare_table === 'on') {
 
     <br>
 
+    <?php 
+    $below_table_content = get_field('below_table_content');
+    
+    // Check if $below_table_content is not empty
+    if ($below_table_content) {
+        echo $below_table_content;
+    }
+?>
+
+
     <button id="backToTopBtn" style="display:block;">Back to Top &#8657;</button>
     <?php
 }
