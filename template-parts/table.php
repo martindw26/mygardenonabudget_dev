@@ -309,6 +309,16 @@ if (have_rows('list')) :
 endif;
 ?>
 
+
+<?php 
+    $below_filtered_table_content = get_field('below_filtered_table_content');
+    
+    // Check if $below_table_content is not empty
+    if ($below_filtered_table_content) {
+        echo $below_filtered_table_content;
+    }
+?>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('refine-search-form');
