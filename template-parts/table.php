@@ -218,6 +218,14 @@ if (have_rows('list')) :
     sort($positions); // Sort the positions in ascending order
     ?>
   
+
+  <?php
+
+$enable_product_post_filtered_table = get_field( 'enable_product_post_filtered_table' );
+
+if ($enable_product_post_filtered_table === 'on') {
+    ?>
+
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
     <form id="refine-search-form">
@@ -318,6 +326,10 @@ endif;
         echo $below_filtered_table_content;
     }
 ?>
+
+}
+?>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
