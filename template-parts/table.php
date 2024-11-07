@@ -218,8 +218,6 @@ if (have_rows('list')) :
     sort($positions); // Sort the positions in ascending order
     ?>
   
-
-
   
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
