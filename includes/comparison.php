@@ -82,83 +82,82 @@ if (have_rows('items')) {
 
 <?php
 if ($enable_product_compare_table === 'on') {
+    ?>
+    <div id="button-anchor" class="button-anchor"></div>
 
-<div id="button-anchor" class="button-anchor"></div>
+    <?php $product_compare_title = get_field('product_compare_title'); ?>
+    <h3 class="product_compare_title"><?php echo $product_compare_title; ?></h3>
 
-<?php $product_compare_title = get_field('product_compare_title'); ?>
-<h3 class="product_compare_title"><?php echo $product_compare_title; ?></h3>
+    <div class="button-container"></div>
+    <!-- Filters Container -->
+    <div class="filters-container">
+        <!-- Company Checkbox Filter -->
+        <div class="filter-container">
+            <label for="companyCheckboxes">Manufacturers</label>
+            <div id="companyCheckboxes">
+                <?php foreach ($unique_makes as $make): ?>
+                    <label>
+                        <input type="checkbox" value="<?php echo esc_attr(strtolower($make)); ?>" checked>
+                        <?php echo esc_html($make); ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
-<div class="button-container"></div>
-<!-- Filters Container -->
-<div class="filters-container">
-    <!-- Company Checkbox Filter -->
-    <div class="filter-container">
-        <label for="companyCheckboxes">Manufacturers</label>
-        <div id="companyCheckboxes">
-            <?php foreach ($unique_makes as $make): ?>
-                <label>
-                    <input type="checkbox" value="<?php echo esc_attr(strtolower($make)); ?>" checked>
-                    <?php echo esc_html($make); ?>
-                </label>
-            <?php endforeach; ?>
+        <!-- Model Checkbox Filter -->
+        <div class="filter-container">
+            <label for="modelCheckboxes">Model</label>
+            <div id="modelCheckboxes">
+                <?php foreach ($unique_models as $model): ?>
+                    <label>
+                        <input type="checkbox" value="<?php echo esc_attr(strtolower($model)); ?>" checked>
+                        <?php echo esc_html($model); ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 
-    <!-- Model Checkbox Filter -->
-    <div class="filter-container">
-        <label for="modelCheckboxes">Model</label>
-        <div id="modelCheckboxes">
-            <?php foreach ($unique_models as $model): ?>
-                <label>
-                    <input type="checkbox" value="<?php echo esc_attr(strtolower($model)); ?>" checked>
-                    <?php echo esc_html($model); ?>
-                </label>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>
-
-<div class="price-comparison">
-    <table class="table price-comparison-table">
-        <?php if (have_rows('items')): ?>
-            <thead class="table-dark">
-                <tr>
-                    <th><?php echo esc_html($first_header); ?></th>
-                    <th><?php echo esc_html($second_header); ?></th>
-                    <th><?php echo esc_html($specs_field_1_header); ?></th>
-                    <th><?php echo esc_html($specs_field_2_header); ?></th>
-                    <th><?php echo esc_html($specs_field_3_header); ?></th>
-                    <th><?php echo esc_html($specs_field_4_header); ?></th>
-                    <th><?php echo esc_html($price_header); ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while (have_rows('items')): the_row(); ?>
-                    <tr class="grid-item" 
-                        data-name="<?php echo esc_attr(get_sub_field('item_make')); ?>" 
-                        data-category="<?php echo esc_attr(get_sub_field('item_model')); ?>">
-                        <td><?php echo esc_html(get_sub_field('item_make')); ?></td>
-                        <td><?php echo esc_html(get_sub_field('item_model')); ?></td>
-                        <td><?php echo esc_html(get_sub_field('specs_1')); ?></td>
-                        <td><?php echo esc_html(get_sub_field('specs_field_2')); ?></td>
-                        <td><?php echo esc_html(get_sub_field('specs_field_3')); ?></td>
-                        <td><?php echo esc_html(get_sub_field('specs_field_4')); ?></td>
-                        <td><?php echo esc_html(get_sub_field('item_price')); ?></td>
+    <div class="price-comparison">
+        <table class="table price-comparison-table">
+            <?php if (have_rows('items')): ?>
+                <thead class="table-dark">
+                    <tr>
+                        <th><?php echo esc_html($first_header); ?></th>
+                        <th><?php echo esc_html($second_header); ?></th>
+                        <th><?php echo esc_html($specs_field_1_header); ?></th>
+                        <th><?php echo esc_html($specs_field_2_header); ?></th>
+                        <th><?php echo esc_html($specs_field_3_header); ?></th>
+                        <th><?php echo esc_html($specs_field_4_header); ?></th>
+                        <th><?php echo esc_html($price_header); ?></th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        <?php endif; ?>
-    </table>
-</div>
+                </thead>
+                <tbody>
+                    <?php while (have_rows('items')): the_row(); ?>
+                        <tr class="grid-item" 
+                            data-name="<?php echo esc_attr(get_sub_field('item_make')); ?>" 
+                            data-category="<?php echo esc_attr(get_sub_field('item_model')); ?>">
+                            <td><?php echo esc_html(get_sub_field('item_make')); ?></td>
+                            <td><?php echo esc_html(get_sub_field('item_model')); ?></td>
+                            <td><?php echo esc_html(get_sub_field('specs_1')); ?></td>
+                            <td><?php echo esc_html(get_sub_field('specs_field_2')); ?></td>
+                            <td><?php echo esc_html(get_sub_field('specs_field_3')); ?></td>
+                            <td><?php echo esc_html(get_sub_field('specs_field_4')); ?></td>
+                            <td><?php echo esc_html(get_sub_field('item_price')); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            <?php endif; ?>
+        </table>
+    </div>
 
-<br>
+    <br>
 
-<button id="backToTopBtn" style="display:block;">Back to Top &#8657;</button>
-
-} else {
-
+    <button id="backToTopBtn" style="display:block;">Back to Top &#8657;</button>
+    <?php
 }
 ?>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
