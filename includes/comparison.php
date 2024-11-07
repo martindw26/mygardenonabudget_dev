@@ -82,7 +82,7 @@ if (have_rows('items')) {
 
 <?php
 
-$enable_product_compare_table = get_field( '$enable_product_compare_table' );
+$enable_product_compare_table = get_field( 'enable_product_compare_table' );
 
 if ($enable_product_compare_table === 'on') {
     ?>
