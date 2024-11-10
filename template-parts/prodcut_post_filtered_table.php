@@ -200,7 +200,17 @@ if ($enable_product_post_filtered_table === 'on') :
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('refine-search-form');
+    if (!form) {
+        console.error('Form not found');
+        return;
+    }
+    
     const tableBody = document.getElementById('product-table-body');
+    if (!tableBody) {
+        console.error('Table body not found');
+        return;
+    }
+
     const originalRows = Array.from(tableBody.children);
 
     // Function to apply filters
@@ -208,15 +218,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(form);
         let rows = originalRows;
 
-        // Loop through each form field and apply filters
         rows = rows.filter(row => {
             let match = true;
 
-            // Handle multi-select dropdowns (like 'season', 'plant_type', etc.)
             formData.forEach((value, field) => {
                 if (field.startsWith("filter-") && value) {
                     const rowValue = row.getAttribute(`data-${field.replace('filter-', '')}`);
-                    // If it's a multi-select, check if the selected values match the row data
                     if (Array.isArray(value)) {
                         if (!value.some(val => rowValue.includes(val))) {
                             match = false;
@@ -229,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Numeric Filters: height, width, length
             const height = formData.get('filter-height');
             const width = formData.get('filter-width');
             const length = formData.get('filter-length');
@@ -247,7 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return match;
         });
 
-        // Sort by price if selected
         const sortPrice = formData.get('sort-price');
         if (sortPrice) {
             rows = rows.sort((a, b) => {
@@ -262,17 +267,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Clear the table and reinsert filtered rows
         tableBody.innerHTML = '';
         rows.forEach(row => tableBody.append(row));
     }
 
-    // Apply filters on form submit
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         filterTable();
     });
 });
+
 </script>
 
 <?php endif; ?>
