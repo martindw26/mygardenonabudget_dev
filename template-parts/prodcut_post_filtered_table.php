@@ -212,23 +212,24 @@ document.addEventListener('DOMContentLoaded', function() {
         rows = rows.filter(row => {
             let match = true;
 
-            // Iterate through each form field in the form data
+            // Handle multi-select dropdowns (like 'season', 'plant_type', etc.)
             formData.forEach((value, field) => {
-                // Handle multi-select dropdowns (like 'season', 'plant_type', etc.)
-                if (value instanceof Array && value.length > 0) {
-                    // Check if any selected value exists in the row's corresponding data attribute
-                    const rowValue = row.getAttribute(`data-${field}`);
-                    if (!value.some(val => rowValue.includes(val))) {
-                        match = false;  // If the row doesn't match any selected filter value
+                if (field.startsWith("filter-") && value) {
+                    const rowValue = row.getAttribute(`data-${field.replace('filter-', '')}`);
+                    // If it's a multi-select, check if the selected values match the row data
+                    if (Array.isArray(value)) {
+                        if (!value.some(val => rowValue.includes(val))) {
+                            match = false;
+                        }
+                    } else {
+                        if (!rowValue.includes(value)) {
+                            match = false;
+                        }
                     }
-                }
-                // Handle single-value filters (like price, height, width, etc.)
-                else if (value && row.getAttribute(`data-${field}`) !== value) {
-                    match = false; // If row data does not match the selected filter
                 }
             });
 
-            // Numeric Filters (height, width, length)
+            // Numeric Filters: height, width, length
             const height = formData.get('filter-height');
             const width = formData.get('filter-width');
             const length = formData.get('filter-length');
@@ -273,4 +274,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 <?php endif; ?>
