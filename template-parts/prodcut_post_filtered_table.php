@@ -187,6 +187,17 @@ if (have_rows('list')) :
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
+            'season'     => get_sub_field('season'),
+            'description'=> get_sub_field('description'),
+            'height'     => get_sub_field('height'),
+            'width'      => get_sub_field('width'),
+            'length'     => get_sub_field('length'),
+            'stock_status' => get_sub_field('stock_status'),
+            'planting_position' => get_sub_field('planting_position'),
+            'soil_type'  => get_sub_field('soil_type'),
+            'plant_type' => get_sub_field('plant_type'),
+            'material'   => get_sub_field('material'),
+            'description' => get_sub_field('description'),
         );
 
     endwhile;
