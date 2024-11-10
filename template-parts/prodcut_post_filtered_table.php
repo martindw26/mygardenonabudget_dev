@@ -1,8 +1,9 @@
 <!-- ########################################## 
-     ############### Product Post (filtered table) ############ 
+     ############### Prodcut Post (filtered table) ############ 
      ########################################## -->
 
      <style>
+
 /* Main Filters Container */
 .filters-container {
     display: flex;
@@ -159,7 +160,10 @@
     background-color: #5a6268;
     border-color: #545b62;
 }
+
+
 </style>
+
 
 <?php
 // Initialize an array to store products
@@ -173,6 +177,7 @@ if (have_rows('list')) :
 
         // Push each product's data into the products array
         $products[] = array(
+            'position'   => get_sub_field('product_position'),
             'name'       => get_sub_field('product_name'),
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
@@ -215,7 +220,7 @@ if (have_rows('list')) :
     }
 
     // Sort by position
-    $positions = array_column($products, 'name');
+    $positions = array_column($products, 'position');
     sort($positions); // Sort the positions in ascending order
     ?>
   
@@ -251,17 +256,24 @@ if (have_rows('list')) :
                     </option>
                 </select>
             </div>
-            <!-- Price Range Filter -->
+            <!-- Sort By Price Dropdown Filter -->
             <div class="filter-container">
-                <label for="price-range" class="form-label">Price Range</label>
-                <input type="number" id="min-price" name="min-price" class="form-control" placeholder="Min Price" value="<?php echo isset($urlParams['min-price']) ? esc_attr($urlParams['min-price']) : $minPrice; ?>" min="<?php echo $minPrice; ?>" max="<?php echo $maxPrice; ?>">
-                <input type="number" id="max-price" name="max-price" class="form-control" placeholder="Max Price" value="<?php echo isset($urlParams['max-price']) ? esc_attr($urlParams['max-price']) : $maxPrice; ?>" min="<?php echo $minPrice; ?>" max="<?php echo $maxPrice; ?>">
+                <label for="sort-price" class="form-label">Sort By Price</label>
+                <select name="sort_price" id="sort-price" class="form-select" aria-label="Sort products by price">
+                    <option value="">Select Price</option>
+                    <option value="asc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'asc' ? 'selected' : ''; ?>>
+                        Price: Low to High
+                    </option>
+                    <option value="desc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'desc' ? 'selected' : ''; ?>>
+                        Price: High to Low
+                    </option>
+                </select>
             </div>
         </div>
         <!-- Button Container -->
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <button type="reset" class="btn btn-secondary">Reset Filters</button>
+            <button type="button" id="reset-filters" class="btn btn-secondary">Reset Filters</button>
         </div>
     </form>
 </div>
@@ -271,18 +283,10 @@ if (have_rows('list')) :
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Position</th>
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
-                <th>Season</th>
-                <th>Description</th>
-                <th>Height</th>
-                <th>Width</th>
-                <th>Length</th>
-                <th>Planting Position</th>
-                <th>Soil Type</th>
-                <th>Plant Type</th>
-                <th>Material</th>
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -292,16 +296,12 @@ if (have_rows('list')) :
                     if ($product['position'] == $position) {
                         ?>
                         <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
+                            <td><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
-                            <td>
-                            <?php 
-                            // Check if season is an array
-                            echo is_array($product['season']) ? esc_html(implode(', ', $product['season'])) : esc_html($product['season']);
-                            ?>
-                            </td>
-
+                            <td><?php echo esc_html($product['season']); ?></td>
+                            
                             <td>
                                 <?php 
                                 // Check if description is an array
@@ -339,5 +339,92 @@ if (have_rows('list')) :
         </tbody>
     </table>
 </div>
+</div>
 
-<?php endif; ?>
+<?php
+endif;
+?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('refine-search-form');
+    const nameSelect = form.querySelector('#filter-name');
+    const sortPriceDropdown = form.querySelector('#sort-price');
+    const sortRatingDropdown = form.querySelector('#sort-rating');
+    const tableBody = document.getElementById('product-table-body');
+    const resetButton = document.getElementById('reset-filters');
+    
+    
+    // Store original row order
+    const originalRows = Array.from(tableBody.children);
+
+    function getQueryParams() {
+        const params = new URLSearchParams();
+        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
+        if (selectedNames.length > 0) {
+            params.append('name', selectedNames.join(','));
+        }
+        if (sortPriceDropdown.value) {
+            params.append('sort_price', sortPriceDropdown.value);
+        }
+        if (sortRatingDropdown.value) {
+            params.append('sort_rating', sortRatingDropdown.value);
+        }
+        return params.toString();
+    }
+
+    function updateURL() {
+        const queryParams = getQueryParams();
+        window.history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
+    }
+
+    function toggleSortOptions() {
+        if (sortPriceDropdown.value) {
+            sortRatingDropdown.disabled = true;
+        } else {
+            sortRatingDropdown.disabled = false;
+        }
+    }
+
+    function sortTable() {
+        const rows = Array.from(tableBody.children);
+
+        // Sort by rating
+        if (sortRatingDropdown.value) {
+            rows.sort((a, b) => {
+                const ratingA = parseFloat(a.querySelector('[data-rating]').dataset.rating);
+                const ratingB = parseFloat(b.querySelector('[data-rating]').dataset.rating);
+                return sortRatingDropdown.value === 'asc' ? ratingA - ratingB : ratingB - ratingA;
+            });
+        }
+
+        // Sort by price
+        if (sortPriceDropdown.value) {
+            rows.sort((a, b) => {
+                const priceA = parseFloat(a.querySelector('[data-price]').dataset.price);
+                const priceB = parseFloat(b.querySelector('[data-price]').dataset.price);
+                return sortPriceDropdown.value === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+        }
+
+        // Update the table with sorted rows
+        tableBody.innerHTML = '';
+        rows.forEach(row => tableBody.appendChild(row));
+    }
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        updateURL();
+        sortTable();
+    });
+
+    resetButton.addEventListener('click', function() {
+        nameSelect.selectedIndex = -1;
+        sortPriceDropdown.selectedIndex = 0;
+        sortRatingDropdown.selectedIndex = 0;
+        tableBody.innerHTML = '';
+        originalRows.forEach(row => tableBody.appendChild(row));
+        window.history.replaceState(null, '', window.location.pathname);
+    });
+});
+</script>
