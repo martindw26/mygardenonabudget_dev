@@ -301,6 +301,10 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['season']); ?></td>
+                            <td><?php echo esc_html($product['description']); ?></td>
+                            <td><?php echo esc_html($product['planting_position']); ?></td>
+                            <td><?php echo esc_html($product['soil_type']); ?></td>
+                            <td><?php echo esc_html($product['plant_type']); ?></td>
                             <td>
                                 <?php 
                                 // Check if description is an array
