@@ -2,13 +2,14 @@
      ############### Pricing Table ############ 
      ########################################## -->
 
-<!-- Table to display the products -->
 <?php
 $table_type = get_field('table_type', 'option'); // Assuming 'option' is the correct context for your field
 $hide_columns = ($table_type === 'plants');
 ?>
 
+
 <style>
+
 /* Main Filters Container */
 .filters-container {
     display: flex;
@@ -166,24 +167,9 @@ $hide_columns = ($table_type === 'plants');
     border-color: #545b62;
 }
 
-/* Hide specific columns when table type is 'plants' */
-<?php if ($hide_columns): ?>
-    .table th:nth-child(6),
-    .table td:nth-child(6),
-    .table th:nth-child(7),
-    .table td:nth-child(7),
-    .table th:nth-child(8),
-    .table td:nth-child(8),
-    .table th:nth-child(9),
-    .table td:nth-child(9),
-    .table th:nth-child(10),
-    .table td:nth-child(10),
-    .table th:nth-child(11),
-    .table td:nth-child(11) {
-        display: none;
-    }
-<?php endif; ?>
+
 </style>
+
 
 <?php
 // Initialize an array to store products
@@ -251,8 +237,61 @@ if (have_rows('list')) :
         });
     }
 
-endif;
 ?>
+
+<!-- Filters for Table Columns -->
+<div class="refine-search mb-4">
+    <form id="refine-search-form" method="get" action="">
+        <!-- Filters Container -->
+        <div class="filters-container">
+            <!-- Product Name Dropdown Filter -->
+            <div class="filter-container">
+                <label for="filter-name" class="form-label">Product Name</label>
+                <select id="filter-name" class="form-select" name="name[]" multiple aria-label="Filter by Product Name">
+                    <?php
+                    $names = array_unique(array_column($products, 'name'));
+                    foreach ($names as $name) : ?>
+                        <option value="<?php echo esc_attr($name); ?>"
+                            <?php echo isset($urlParams['name']) && in_array($name, explode(',', $urlParams['name'])) ? 'selected' : ''; ?>>
+                            <?php echo esc_html($name); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <!-- Sort By Rating Dropdown Filter -->
+            <div class="filter-container">
+                <label for="sort-rating" class="form-label">Sort By Rating</label>
+                <select name="sort_rating" id="sort-rating" class="form-select" aria-label="Sort products by rating">
+                    <option value="">Select Rating</option>
+                    <option value="asc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'asc' ? 'selected' : ''; ?>>
+                        Rating: Low to High
+                    </option>
+                    <option value="desc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'desc' ? 'selected' : ''; ?>>
+                        Rating: High to Low
+                    </option>
+                </select>
+            </div>
+            <!-- Sort By Price Dropdown Filter -->
+            <div class="filter-container">
+                <label for="sort-price" class="form-label">Sort By Price</label>
+                <select name="sort_price" id="sort-price" class="form-select" aria-label="Sort products by price">
+                    <option value="">Select Price</option>
+                    <option value="asc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'asc' ? 'selected' : ''; ?>>
+                        Price: Low to High
+                    </option>
+                    <option value="desc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'desc' ? 'selected' : ''; ?>>
+                        Price: High to Low
+                    </option>
+                </select>
+            </div>
+        </div>
+        <!-- Button Container -->
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+            <button type="button" id="reset-filters" class="btn btn-secondary">Reset Filters</button>
+        </div>
+    </form>
+</div>
 
 <!-- Table to display the products -->
 <div class="table-responsive">
@@ -264,13 +303,13 @@ endif;
                 <th>Rating</th>
                 <th>Price</th>
                 <th>Season</th>
-                <th class="product-height">Height</th>
-                <th class="product-width">Width</th>
-                <th class="product-length">Length</th>
+                <th>Height</th>
+                <th>Width</th>
+                <th>Length</th>
                 <th>Planting Position</th>
                 <th>Soil Type</th>
                 <th>Plant Type</th>
-                <th class="product-material">Material</th>
+                <th>Material</th>
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -283,9 +322,9 @@ endif;
                     <td><?php echo esc_html($product['rating']); ?></td>
                     <td><?php echo esc_html($product['price']); ?></td>
                     <td><?php echo esc_html($product['season']); ?></td>
-                    <td class="product-height"><?php echo esc_html($product['height']); ?></td>
-                    <td class="product-width"><?php echo esc_html($product['width']); ?></td>
-                    <td class="product-length"><?php echo esc_html($product['length']); ?></td>
+                    <td><?php echo esc_html($product['height']); ?></td>
+                    <td><?php echo esc_html($product['width']); ?></td>
+                    <td><?php echo esc_html($product['length']); ?></td>
                     <td><?php echo esc_html($product['planting_position']); ?></td>
                     <td><?php echo esc_html($product['soil_type']); ?></td>
                     <td><?php echo esc_html($product['material']); ?></td>
@@ -297,6 +336,17 @@ endif;
     </table>
 </div>
 
+<script>
+    // Reset filters button
+    document.getElementById('reset-filters').addEventListener('click', function() {
+        document.getElementById('refine-search-form').reset();
+        window.location.href = window.location.pathname; // Reset the URL
+    });
+</script>
+
+<?php
+endif;
+?>
 
 
 
