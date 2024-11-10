@@ -123,7 +123,7 @@ if ($enable_product_post_filtered_table === 'on') :
             }
 
             // Extract unique values for each field
-            $fields = ['name', 'season', 'specs', 'planting_position', 'soil_type', 'plant_type', 'material'];
+            $fields = ['name', 'season','planting_position', 'soil_type', 'plant_type', 'material'];
             foreach ($fields as $field) {
                 $uniqueValues = array_unique(array_column($products, $field));
                 createFilterDropdown("filter-$field", ucfirst(str_replace('_', ' ', $field)), $uniqueValues);
