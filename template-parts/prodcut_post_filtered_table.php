@@ -208,7 +208,8 @@ if (have_rows('list')) :
     <form id="refine-search-form">
         <!-- Filters Container -->
         <div class="filters-container">
-            <!-- Product Name Dropdown Filter -->
+            
+            <!-- Product Name Dropdown Filter (Moved above other filters) -->
             <div class="filter-container">
                 <label for="filter-name" class="form-label">Product Name</label>
                 <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
@@ -281,6 +282,7 @@ if (have_rows('list')) :
                     </option>
                 </select>
             </div>
+
         </div>
         <!-- Button Container -->
         <div class="button-container">
@@ -441,3 +443,4 @@ document.addEventListener('DOMContentLoaded', function() {
     filterTable(); // Initial call to display filtered and sorted products
 });
 </script>
+
