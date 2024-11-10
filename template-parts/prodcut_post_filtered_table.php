@@ -167,9 +167,6 @@
 </style>
 
 
-
-
-
 <?php
 // Initialize an array to store products
 $products = array();
@@ -182,19 +179,19 @@ if (have_rows('list')) :
 
         // Push each product's data into the products array
         $products[] = array(
-            'position'   => get_sub_field('product_position'),
-            'name'       => get_sub_field('product_name'),
-            'rating'     => get_sub_field('rating'),
-            'price'      => get_sub_field('product_price'),
-            'currency'   => get_sub_field('product_price_currency'),
-            'season'            => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
-            'height'     => get_sub_field('height'),
-            'width'      => get_sub_field('width'),
-            'length'     => get_sub_field('length'),
-            'planting_position' => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
-            'soil_type'         => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
-            'plant_type'        => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
-            'material'          => is_array(get_sub_field('material')) ? implode(', ', get_sub_field('material')) : get_sub_field('material'),
+            'position'              => get_sub_field('product_position'),
+            'name'                  => get_sub_field('product_name'),
+            'rating'                => get_sub_field('rating'),
+            'price'                 => get_sub_field('product_price'),
+            'currency'              => get_sub_field('product_price_currency'),
+            'season'                => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
+            'height'                => !empty(get_sub_field('height')) ? get_sub_field('height') : 'N/A',
+            'width'                 => !empty(get_sub_field('width')) ? get_sub_field('width') : 'N/A',
+            'length'                => !empty(get_sub_field('length')) ? get_sub_field('length') : 'N/A',
+            'planting_position'     => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
+            'soil_type'             => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
+            'plant_type'            => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
+            'material'              => is_array(get_sub_field('material')) ? implode(', ', get_sub_field('material')) : get_sub_field('material'),
         );
 
     endwhile;
@@ -228,13 +225,13 @@ if (have_rows('list')) :
   
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
-    <form id="refine-search-form">
+    <form id="refine-search-form" method="get" action="">
         <!-- Filters Container -->
         <div class="filters-container">
             <!-- Product Name Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-name" class="form-label">Product Name</label>
-                <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
+                <select id="filter-name" class="form-select" name="name[]" multiple aria-label="Filter by Product Name">
                     <?php
                     $names = array_unique(array_column($products, 'name'));
                     foreach ($names as $name) : ?>
@@ -285,7 +282,7 @@ if (have_rows('list')) :
     <table class="table table-striped">
         <thead>
             <tr>
-            <th>Position</th>
+                <th>Position</th>
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
@@ -326,11 +323,19 @@ if (have_rows('list')) :
         </tbody>
     </table>
 </div>
-</div>
+
+<script>
+    // Reset filters button
+    document.getElementById('reset-filters').addEventListener('click', function() {
+        document.getElementById('refine-search-form').reset();
+        window.location.href = window.location.pathname; // Reset the URL
+    });
+</script>
 
 <?php
 endif;
 ?>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
