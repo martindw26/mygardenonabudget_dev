@@ -301,9 +301,7 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['season']); ?></td>
-                            <td>
-                                <?php echo isset($product['description']) ? esc_html($product['description']) : 'No description available'; ?>
-                            </td>
+                            <td><?php echo is_array($product['description']) ? esc_html(implode(', ', $product['description'])) : esc_html($product['description']); ?></td>                               
                             <td><?php echo esc_html($product['height']); ?></td>
                             <td><?php echo esc_html($product['width']); ?></td>
                             <td><?php echo esc_html($product['length']); ?></td>
