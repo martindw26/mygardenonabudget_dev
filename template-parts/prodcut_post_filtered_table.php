@@ -208,7 +208,6 @@ if (have_rows('list')) :
     <form id="refine-search-form">
         <!-- Filters Container -->
         <div class="filters-container">
-            
             <!-- Product Name Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-name" class="form-label">Product Name</label>
@@ -223,7 +222,10 @@ if (have_rows('list')) :
                     <?php endforeach; ?>
                 </select>
             </div>
+            </div>
 
+
+        <div class="filters-container">
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-plant-type" class="form-label">Plant Type</label>
