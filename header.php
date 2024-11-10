@@ -71,6 +71,7 @@
         display: block; 
         height: 200px;
         background-size: cover;
+        width: 100%;
     }
 }
 
