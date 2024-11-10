@@ -1,172 +1,191 @@
-<?php
-// Ensure ACF is installed
-if (!function_exists('get_field')) {
-    echo '<p>ACF plugin is required for this feature to work.</p>';
-    return;
+<!-- ########################################## 
+     ############### Product Post (Filtered Table) ############ 
+     ########################################## -->
+
+     <style>
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 10px;
 }
 
-// Get Products (Assuming 'products' is the ACF Repeater field name)
-$products = get_field('products');
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product Filter</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    .filter-container {
-        padding: 1rem;
-    }
-    .form-select {
-        width: 100%;
-        max-width: 100%;
-    }
-    @media (max-width: 576px) {
-        .filter-container {
-            padding: 0.5rem;
-        }
-    }
+.filter-container {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+    border-right: 1px solid #ced4da;
+}
+
+.filter-container:last-child {
+    border-right: none;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
 </style>
-</head>
-<body>
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Product Filter</h2>
-    <div class="filter-container">
-        <form id="product-filters" class="row gx-2 gy-3">
-            <!-- Season Filter -->
-            <div class="col-md-4 col-lg-3">
-                <select id="season-filter" class="form-select">
-                    <option value="">All Seasons</option>
-                    <option value="Spring">Spring</option>
-                    <option value="Summer">Summer</option>
-                    <option value="Autumn">Autumn</option>
-                    <option value="Winter">Winter</option>
-                </select>
-            </div>
-            <!-- Specs Filter -->
-            <div class="col-md-4 col-lg-3">
-                <select id="specs-filter" class="form-select">
-                    <option value="">All Specs</option>
-                    <option value="Spec1">Spec1</option>
-                    <option value="Spec2">Spec2</option>
-                </select>
-            </div>
-            <!-- Height Filter -->
-            <div class="col-md-4 col-lg-3">
-                <select id="height-filter" class="form-select">
-                    <option value="">All Heights</option>
-                    <option value="Short">Short</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Tall">Tall</option>
-                </select>
-            </div>
-            <!-- Width Filter -->
-            <div class="col-md-4 col-lg-3">
-                <select id="width-filter" class="form-select">
-                    <option value="">All Widths</option>
-                    <option value="Narrow">Narrow</option>
-                    <option value="Wide">Wide</option>
-                </select>
-            </div>
-            <!-- Planting Position Filter -->
-            <div class="col-md-4 col-lg-3">
-                <select id="planting-position-filter" class="form-select">
-                    <option value="">All Positions</option>
-                    <option value="Full Sun">Full Sun</option>
-                    <option value="Partial Shade">Partial Shade</option>
-                </select>
-            </div>
-            <!-- Soil Type Filter -->
-            <div class="col-md-4 col-lg-3">
-                <select id="soil-type-filter" class="form-select">
-                    <option value="">All Soil Types</option>
-                    <option value="Clay">Clay</option>
-                    <option value="Sandy">Sandy</option>
-                    <option value="Loam">Loam</option>
-                </select>
-            </div>
-            <!-- Submit Button -->
-            <div class="col-md-4 col-lg-3">
-                <button type="submit" class="btn btn-primary w-100">Filter</button>
-            </div>
-        </form>
-    </div>
+
+<?php
+$products = array();
+
+if (have_rows('list')) :
+    while (have_rows('list')) : the_row();
+    $products[] = array(
+        'position'          => get_sub_field('product_position'),
+        'name'              => get_sub_field('product_name'),
+        'rating'            => get_sub_field('rating'),
+        'price'             => get_sub_field('product_price'),
+        'season'            => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
+        'specs'             => is_array(get_sub_field('specs')) ? implode(', ', get_sub_field('specs')) : get_sub_field('specs'),
+        'height'            => get_sub_field('height'),
+        'width'             => get_sub_field('width'),
+        'length'            => get_sub_field('length'),
+        'stock_status'      => is_array(get_sub_field('stock_status')) ? implode(', ', get_sub_field('stock_status')) : get_sub_field('stock_status'),
+        'planting_position' => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
+        'soil_type'         => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
+        'plant_type'        => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
+        'material'          => is_array(get_sub_field('material')) ? implode(', ', get_sub_field('material')) : get_sub_field('material'),
+    );
     
-    <!-- Product List -->
-    <div class="product-list">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Specs</th>
-                    <th>Height</th>
-                    <th>Width</th>
-                    <th>Season</th>
-                    <th>Planting Position</th>
-                    <th>Soil Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($products): ?>
-                    <?php foreach ($products as $product): 
-                        $name = $product['name'];
-                        $specs = $product['specs'];
-                        $height = $product['height'];
-                        $width = $product['width'];
-                        $season = $product['season'];
-                        $planting_position = $product['planting_position'];
-                        $soil_type = $product['soil_type'];
-                    ?>
-                    <tr class="product-row" 
-                        data-season="<?php echo strtolower($season); ?>" 
-                        data-specs="<?php echo strtolower($specs); ?>" 
-                        data-height="<?php echo strtolower($height); ?>" 
-                        data-width="<?php echo strtolower($width); ?>" 
-                        data-planting_position="<?php echo strtolower($planting_position); ?>" 
-                        data-soil_type="<?php echo strtolower($soil_type); ?>">
-                        <td><?php echo $name; ?></td>
-                        <td><?php echo $specs; ?></td>
-                        <td><?php echo $height; ?></td>
-                        <td><?php echo $width; ?></td>
-                        <td><?php echo $season; ?></td>
-                        <td><?php echo $planting_position; ?></td>
-                        <td><?php echo $soil_type; ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="7">No products found.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
+    endwhile;
+
+    $urlParams = array();
+    parse_str($_SERVER['QUERY_STRING'], $urlParams);
+    $positions = array_column($products, 'position');
+    sort($positions);
+endif;
+
+$enable_product_post_filtered_table = get_field('enable_product_post_filtered_table');
+if ($enable_product_post_filtered_table === 'on') :
+?>
+<div class="refine-search mb-4">
+    <form id="refine-search-form">
+        <div class="filters-container">
+            <?php 
+            // Helper function to create dropdown filters
+            function createFilterDropdown($id, $label, $options) {
+                echo "<div class='filter-container'>";
+                echo "<label for='$id'>$label</label>";
+                echo "<select id='$id' multiple>";
+                foreach ($options as $option) {
+                    if ($option) {
+                        echo "<option value='" . esc_attr($option) . "'>" . esc_html($option) . "</option>";
+                    }
+                }
+                echo "</select></div>";
+            }
+
+            // Extract unique values for each field
+            $fields = ['name', 'season', 'specs', 'stock_status', 'planting_position', 'soil_type', 'plant_type', 'material'];
+            foreach ($fields as $field) {
+                $uniqueValues = array_unique(array_column($products, $field));
+                createFilterDropdown("filter-$field", ucfirst(str_replace('_', ' ', $field)), $uniqueValues);
+            }
+            ?>
+            
+            <!-- Numeric filters (height, width, length) -->
+            <div class="filter-container">
+                <label for="filter-height">Height (min)</label>
+                <input type="number" id="filter-height" placeholder="Min height">
+            </div>
+
+            <div class="filter-container">
+                <label for="filter-width">Width (min)</label>
+                <input type="number" id="filter-width" placeholder="Min width">
+            </div>
+
+            <div class="filter-container">
+                <label for="filter-length">Length (min)</label>
+                <input type="number" id="filter-length" placeholder="Min length">
+            </div>
+
+            <!-- Sort By Price -->
+            <div class="filter-container">
+                <label for="sort-price">Sort By Price</label>
+                <select id="sort-price">
+                    <option value="">Select Price</option>
+                    <option value="asc">Low to High</option>
+                    <option value="desc">High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </div>
+    </form>
+</div>
+
+<!-- Table Display -->
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Season</th>
+                <th>Specs</th>
+                <th>Height</th>
+                <th>Width</th>
+                <th>Length</th>
+                <th>Stock Status</th>
+                <th>Planting Position</th>
+                <th>Soil Type</th>
+                <th>Plant Type</th>
+                <th>Material</th>
+            </tr>
+        </thead>
+        <tbody id="product-table-body">
+            <?php foreach ($positions as $position) :
+                foreach ($products as $product) :
+                    if ($product['position'] == $position) : ?>
+                        <tr data-<?php foreach ($product as $key => $value) echo "$key='" . esc_attr($value) . "' "; ?>>
+                            <?php foreach ($product as $value) echo "<td>" . esc_html($value) . "</td>"; ?>
+                        </tr>
+                    <?php endif;
+                endforeach;
+            endforeach; ?>
+        </tbody>
+    </table>
 </div>
 
 <script>
-document.getElementById("product-filters").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const filters = {
-        season: document.getElementById("season-filter").value.toLowerCase(),
-        specs: document.getElementById("specs-filter").value.toLowerCase(),
-        height: document.getElementById("height-filter").value.toLowerCase(),
-        width: document.getElementById("width-filter").value.toLowerCase(),
-        planting_position: document.getElementById("planting-position-filter").value.toLowerCase(),
-        soil_type: document.getElementById("soil-type-filter").value.toLowerCase()
-    };
-    const productRows = document.querySelectorAll(".product-row");
-    
-    productRows.forEach((row) => {
-        const matches = Object.keys(filters).every((key) => {
-            const filterValue = filters[key];
-            const rowValue = row.getAttribute(`data-${key}`)?.toLowerCase() || "";
-            return !filterValue || rowValue.includes(filterValue);
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('refine-search-form');
+    const tableBody = document.getElementById('product-table-body');
+    const originalRows = Array.from(tableBody.children);
+
+    function filterTable() {
+        const filters = Object.fromEntries(new FormData(form));
+        let rows = originalRows;
+
+        // Apply filters
+        rows = rows.filter(row => {
+            for (const [field, value] of Object.entries(filters)) {
+                if (value && row.getAttribute(`data-${field}`) !== value) return false;
+            }
+            return true;
         });
-        row.style.display = matches ? "" : "none";
-    });
+
+        tableBody.innerHTML = '';
+        rows.forEach(row => tableBody.append(row));
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); filterTable(); });
 });
 </script>
-</body>
-</html>
+<?php endif; ?>
