@@ -210,39 +210,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Loop through each form field and apply filters
         rows = rows.filter(row => {
-            // Iterate through each form field in the form data
-            for (const [field, value] of formData.entries()) {
-                // Handle multi-select dropdowns
-                if (Array.isArray(value)) {
-                    if (!value.some(val => row.getAttribute(`data-${field}`).includes(val))) {
-                        return false;
-                    }
-                } 
-                // Handle single value filters
-                else if (row.getAttribute(`data-${field}`) !== value) {
-                    return false;
-                }
-            }
+            let match = true;
 
-            // Numeric Filters: height, width, length
+            // Iterate through each form field in the form data
+            formData.forEach((value, field) => {
+                // Handle multi-select dropdowns (like 'season', 'plant_type', etc.)
+                if (value instanceof Array && value.length > 0) {
+                    // Check if any selected value exists in the row's corresponding data attribute
+                    const rowValue = row.getAttribute(`data-${field}`);
+                    if (!value.some(val => rowValue.includes(val))) {
+                        match = false;  // If the row doesn't match any selected filter value
+                    }
+                }
+                // Handle single-value filters (like price, height, width, etc.)
+                else if (value && row.getAttribute(`data-${field}`) !== value) {
+                    match = false; // If row data does not match the selected filter
+                }
+            });
+
+            // Numeric Filters (height, width, length)
             const height = formData.get('filter-height');
             const width = formData.get('filter-width');
             const length = formData.get('filter-length');
             
             if (height && parseFloat(row.getAttribute('data-height')) < parseFloat(height)) {
-                return false;
+                match = false;
             }
             if (width && parseFloat(row.getAttribute('data-width')) < parseFloat(width)) {
-                return false;
+                match = false;
             }
             if (length && parseFloat(row.getAttribute('data-length')) < parseFloat(length)) {
-                return false;
+                match = false;
             }
 
-            return true;
+            return match;
         });
 
-        // Sort by price
+        // Sort by price if selected
         const sortPrice = formData.get('sort-price');
         if (sortPrice) {
             rows = rows.sort((a, b) => {
@@ -263,13 +267,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Apply filters on form submit
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         filterTable();
     });
 });
-
 </script>
-
-
 <?php endif; ?>
