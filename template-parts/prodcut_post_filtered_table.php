@@ -163,6 +163,12 @@
     border-color: #545b62;
 }
 
+@media (max-width: 480px) {
+    [class*="position"] {
+        display: none;
+    }
+}
+
 
 </style>
 
