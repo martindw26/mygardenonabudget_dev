@@ -185,6 +185,16 @@ if (have_rows('list')) :
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
+            'season'            => get_sub_field('season'),
+            'specs'             => get_sub_field('specs'),
+            'height'            => get_sub_field('height'),
+            'width'             => get_sub_field('width'),
+            'length'            => get_sub_field('length'),
+            'stock_status'      => get_sub_field('stock_status'),
+            'planting_position' => get_sub_field('planting_position'),
+            'soil_type'         => get_sub_field('soil_type'),
+            'plant_type'        => get_sub_field('plant_type'),
+            'material'          => get_sub_field('material'),
         );
 
     endwhile;
@@ -292,6 +302,16 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
+                            <td><?php echo esc_html($product['season']); ?></td>
+                            <td><?php echo esc_html($product['description']); ?></td>
+                            <td><?php echo esc_html($product['height']); ?></td>
+                            <td><?php echo esc_html($product['width']); ?></td>
+                            <td><?php echo esc_html($product['length']); ?></td>
+                            <td><?php echo esc_html($product['planting_position']); ?></td>
+                            <td><?php echo esc_html($product['soil_type']); ?></td>
+                            <td><?php echo esc_html($product['plant_type']); ?></td>
+                            <td><?php echo esc_html($product['material']); ?></td>
+
                         </tr>
                         <?php
                     }
@@ -315,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortRatingDropdown = form.querySelector('#sort-rating');
     const tableBody = document.getElementById('product-table-body');
     const resetButton = document.getElementById('reset-filters');
+    
     
     // Store original row order
     const originalRows = Array.from(tableBody.children);
