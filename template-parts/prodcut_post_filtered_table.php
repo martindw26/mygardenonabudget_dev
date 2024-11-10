@@ -409,4 +409,3 @@ document.addEventListener('DOMContentLoaded', function() {
     filterTable(); // Initial call to display filtered and sorted products
 });
 </script>
-
