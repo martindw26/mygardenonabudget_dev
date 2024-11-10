@@ -2,7 +2,7 @@
 /**
  * Template Name: Price Compare
  * Template Post Type: post
- * Description: A custom template for displaying directory posts.
+ * Description: A custom post type for price table filtered and price compare
  */
 ?>
 
