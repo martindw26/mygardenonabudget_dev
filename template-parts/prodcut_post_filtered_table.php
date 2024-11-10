@@ -243,13 +243,14 @@ if (have_rows('list')) :
     <label for="filter-plant-type" class="form-label">Filter by Plant Type</label>
     <select name="plant_type[]" id="filter-plant-type" class="form-select" multiple aria-label="Select plant types">
         <option value="">Select Plant Types</option>
-        <!-- Example options for plant types -->
+        <!-- Add your plant types dynamically or statically here -->
         <option value="flower" <?php echo isset($urlParams['plant_type']) && in_array('flower', $urlParams['plant_type']) ? 'selected' : ''; ?>>Flower</option>
         <option value="tree" <?php echo isset($urlParams['plant_type']) && in_array('tree', $urlParams['plant_type']) ? 'selected' : ''; ?>>Tree</option>
         <option value="shrub" <?php echo isset($urlParams['plant_type']) && in_array('shrub', $urlParams['plant_type']) ? 'selected' : ''; ?>>Shrub</option>
         <option value="vine" <?php echo isset($urlParams['plant_type']) && in_array('vine', $urlParams['plant_type']) ? 'selected' : ''; ?>>Vine</option>
     </select>
 </div>
+
 
 
             <!-- Sort By Price Dropdown Filter -->
@@ -359,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Filter rows based on selected plant types
         rowsArray.forEach(row => {
             const plantType = row.getAttribute('data-plant-type').toLowerCase();
-            const isVisible = selectedPlantTypes.length === 0 || selectedPlantTypes.includes(plantType);
+            const isVisible = selectedPlantTypes.length === 0 || selectedPlantTypes.some(type => plantType.includes(type));
             row.style.display = isVisible ? '' : 'none';
         });
 
@@ -380,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial filtering
     filterTable();
 });
+
 
 
 </script>
