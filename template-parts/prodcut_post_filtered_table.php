@@ -212,18 +212,15 @@ document.addEventListener('DOMContentLoaded', function() {
         rows = rows.filter(row => {
             // Iterate through each form field in the form data
             for (const [field, value] of formData.entries()) {
-                if (value) {
-                    // If filter is for multiple values (e.g., 'name', 'season')
-                    if (value instanceof Array) {
-                        // If row data doesn't match any selected value, return false
-                        if (!Array.from(value).some(val => row.getAttribute(`data-${field}`).includes(val))) {
-                            return false;
-                        }
-                    }
-                    // If the value is a single value filter, match directly
-                    else if (row.getAttribute(`data-${field}`) !== value) {
+                // Handle multi-select dropdowns
+                if (Array.isArray(value)) {
+                    if (!value.some(val => row.getAttribute(`data-${field}`).includes(val))) {
                         return false;
                     }
+                } 
+                // Handle single value filters
+                else if (row.getAttribute(`data-${field}`) !== value) {
+                    return false;
                 }
             }
 
@@ -271,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
         filterTable();
     });
 });
+
 </script>
 
 
