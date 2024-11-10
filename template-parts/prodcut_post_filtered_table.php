@@ -42,22 +42,23 @@ $products = array();
 
 if (have_rows('list')) :
     while (have_rows('list')) : the_row();
-        $products[] = array(
-            'position'          => get_sub_field('product_position'),
-            'name'              => get_sub_field('product_name'),
-            'rating'            => get_sub_field('rating'),
-            'price'             => get_sub_field('product_price'),
-            'season'            => get_sub_field('season'),
-            'specs'             => get_sub_field('specs'),
-            'height'            => get_sub_field('height'),
-            'width'             => get_sub_field('width'),
-            'length'            => get_sub_field('length'),
-            'stock_status'      => get_sub_field('stock_status'),
-            'planting_position' => get_sub_field('planting_position'),
-            'soil_type'         => get_sub_field('soil_type'),
-            'plant_type'        => get_sub_field('plant_type'),
-            'material'          => get_sub_field('material'),
-        );
+    $products[] = array(
+        'position'          => get_sub_field('product_position'),
+        'name'              => get_sub_field('product_name'),
+        'rating'            => get_sub_field('rating'),
+        'price'             => get_sub_field('product_price'),
+        'season'            => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
+        'specs'             => is_array(get_sub_field('specs')) ? implode(', ', get_sub_field('specs')) : get_sub_field('specs'),
+        'height'            => get_sub_field('height'),
+        'width'             => get_sub_field('width'),
+        'length'            => get_sub_field('length'),
+        'stock_status'      => is_array(get_sub_field('stock_status')) ? implode(', ', get_sub_field('stock_status')) : get_sub_field('stock_status'),
+        'planting_position' => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
+        'soil_type'         => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
+        'plant_type'        => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
+        'material'          => is_array(get_sub_field('material')) ? implode(', ', get_sub_field('material')) : get_sub_field('material'),
+    );
+    
     endwhile;
 
     $urlParams = array();
