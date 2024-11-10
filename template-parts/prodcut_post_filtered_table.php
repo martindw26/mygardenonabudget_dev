@@ -1,3 +1,13 @@
+<?php
+// Ensure ACF is installed
+if (!function_exists('get_field')) {
+    echo '<p>ACF plugin is required for this feature to work.</p>';
+    return;
+}
+
+// Get Products (Assuming 'products' is the ACF Repeater field name)
+$products = get_field('products');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,51 +109,37 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="product-row" 
-                    data-season="Spring" 
-                    data-specs="Spec1" 
-                    data-height="Tall" 
-                    data-width="Wide" 
-                    data-planting_position="Full Sun" 
-                    data-soil_type="Loam">
-                    <td>Product A</td>
-                    <td>Spec1</td>
-                    <td>Tall</td>
-                    <td>Wide</td>
-                    <td>Spring</td>
-                    <td>Full Sun</td>
-                    <td>Loam</td>
-                </tr>
-                <tr class="product-row" 
-                    data-season="Winter" 
-                    data-specs="Spec2" 
-                    data-height="Short" 
-                    data-width="Narrow" 
-                    data-planting_position="Partial Shade" 
-                    data-soil_type="Clay">
-                    <td>Product B</td>
-                    <td>Spec2</td>
-                    <td>Short</td>
-                    <td>Narrow</td>
-                    <td>Winter</td>
-                    <td>Partial Shade</td>
-                    <td>Clay</td>
-                </tr>
-                <tr class="product-row" 
-                    data-season="Summer" 
-                    data-specs="Spec1" 
-                    data-height="Medium" 
-                    data-width="Wide" 
-                    data-planting_position="Full Sun" 
-                    data-soil_type="Sandy">
-                    <td>Product C</td>
-                    <td>Spec1</td>
-                    <td>Medium</td>
-                    <td>Wide</td>
-                    <td>Summer</td>
-                    <td>Full Sun</td>
-                    <td>Sandy</td>
-                </tr>
+                <?php if ($products): ?>
+                    <?php foreach ($products as $product): 
+                        $name = $product['name'];
+                        $specs = $product['specs'];
+                        $height = $product['height'];
+                        $width = $product['width'];
+                        $season = $product['season'];
+                        $planting_position = $product['planting_position'];
+                        $soil_type = $product['soil_type'];
+                    ?>
+                    <tr class="product-row" 
+                        data-season="<?php echo strtolower($season); ?>" 
+                        data-specs="<?php echo strtolower($specs); ?>" 
+                        data-height="<?php echo strtolower($height); ?>" 
+                        data-width="<?php echo strtolower($width); ?>" 
+                        data-planting_position="<?php echo strtolower($planting_position); ?>" 
+                        data-soil_type="<?php echo strtolower($soil_type); ?>">
+                        <td><?php echo $name; ?></td>
+                        <td><?php echo $specs; ?></td>
+                        <td><?php echo $height; ?></td>
+                        <td><?php echo $width; ?></td>
+                        <td><?php echo $season; ?></td>
+                        <td><?php echo $planting_position; ?></td>
+                        <td><?php echo $soil_type; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7">No products found.</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
