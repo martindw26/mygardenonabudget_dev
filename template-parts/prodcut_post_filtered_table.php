@@ -301,7 +301,7 @@ if (have_rows('list')) :
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Position</th>
+                <th class="position">Position</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Plant Type</th>
@@ -316,7 +316,7 @@ if (have_rows('list')) :
                     if ($product['position'] == $position) {
                         ?>
                         <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>" data-soil-type="<?php echo esc_attr($product['soil_type']); ?>" data-planting-position="<?php echo esc_attr($product['planting_position']); ?>">
-                            <td><?php echo esc_html($product['position']); ?></td>
+                            <td class="position"><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td> <!-- Display plant type -->
