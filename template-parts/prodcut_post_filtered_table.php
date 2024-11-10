@@ -1,77 +1,3 @@
-<!-- ##########################################  
-     ############### Product Post (Filtered Table) ############ 
-     ########################################## -->
-
-     <style>
-.filters-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin: 20px 0;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.filter-container {
-    flex: 1;
-    min-width: 220px;
-}
-
-.filter-container label {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.select-dropdown {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    font-size: 14px;
-    color: #495057;
-    background-color: #fff;
-    appearance: none;
-    cursor: pointer;
-}
-
-.select-dropdown:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.button-container {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 15px;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-@media (max-width: 768px) {
-    .filter-container {
-        min-width: 100%;
-    }
-}
-</style>
-
 <?php
 $products = array();
 
@@ -112,7 +38,7 @@ if ($enable_product_post_filtered_table === 'on') :
             function createFilterDropdown($id, $label, $options) {
                 echo "<div class='filter-container'>";
                 echo "<label for='$id'>$label</label>";
-                echo "<select id='$id' class='select-dropdown' multiple>";
+                echo "<select id='$id' name='$id' class='select-dropdown' multiple>";
                 echo "<option value='' disabled selected>Select $label</option>";
                 foreach ($options as $option) {
                     if ($option) {
@@ -133,23 +59,23 @@ if ($enable_product_post_filtered_table === 'on') :
             <!-- Numeric filters (height, width, length) -->
             <div class="filter-container">
                 <label for="filter-height">Height (min)</label>
-                <input type="number" id="filter-height" class="select-dropdown" placeholder="Enter min height">
+                <input type="number" id="filter-height" name="filter-height" class="select-dropdown" placeholder="Enter min height">
             </div>
 
             <div class="filter-container">
                 <label for="filter-width">Width (min)</label>
-                <input type="number" id="filter-width" class="select-dropdown" placeholder="Enter min width">
+                <input type="number" id="filter-width" name="filter-width" class="select-dropdown" placeholder="Enter min width">
             </div>
 
             <div class="filter-container">
                 <label for="filter-length">Length (min)</label>
-                <input type="number" id="filter-length" class="select-dropdown" placeholder="Enter min length">
+                <input type="number" id="filter-length" name="filter-length" class="select-dropdown" placeholder="Enter min length">
             </div>
 
             <!-- Sort By Price -->
             <div class="filter-container">
                 <label for="sort-price">Sort By Price</label>
-                <select id="sort-price" class="select-dropdown">
+                <select id="sort-price" name="sort-price" class="select-dropdown">
                     <option value="" disabled selected>Select Price Order</option>
                     <option value="asc">Low to High</option>
                     <option value="desc">High to Low</option>
@@ -187,8 +113,22 @@ if ($enable_product_post_filtered_table === 'on') :
             <?php foreach ($positions as $position) :
                 foreach ($products as $product) :
                     if ($product['position'] == $position) : ?>
-                        <tr data-<?php foreach ($product as $key => $value) echo "$key='" . esc_attr($value) . "' "; ?>>
-                            <?php foreach ($product as $value) echo "<td>" . esc_html($value) . "</td>"; ?>
+                        <tr data-position="<?php echo esc_attr($product['position']); ?>"
+                            data-name="<?php echo esc_attr($product['name']); ?>"
+                            data-rating="<?php echo esc_attr($product['rating']); ?>"
+                            data-price="<?php echo esc_attr($product['price']); ?>"
+                            data-season="<?php echo esc_attr($product['season']); ?>"
+                            data-specs="<?php echo esc_attr($product['specs']); ?>"
+                            data-height="<?php echo esc_attr($product['height']); ?>"
+                            data-width="<?php echo esc_attr($product['width']); ?>"
+                            data-length="<?php echo esc_attr($product['length']); ?>"
+                            data-planting_position="<?php echo esc_attr($product['planting_position']); ?>"
+                            data-soil_type="<?php echo esc_attr($product['soil_type']); ?>"
+                            data-plant_type="<?php echo esc_attr($product['plant_type']); ?>"
+                            data-material="<?php echo esc_attr($product['material']); ?>">
+                            <?php foreach ($product as $value) : ?>
+                                <td><?php echo esc_html($value); ?></td>
+                            <?php endforeach; ?>
                         </tr>
                     <?php endif;
                 endforeach;
@@ -208,70 +148,75 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(form);
         let rows = originalRows;
 
-        // Loop through each form field and apply filters
+        // Get filter values
+        const selectedFilters = {
+            name: formData.getAll('filter-name[]'),
+            season: formData.getAll('filter-season[]'),
+            planting_position: formData.getAll('filter-planting_position[]'),
+            soil_type: formData.getAll('filter-soil_type[]'),
+            plant_type: formData.getAll('filter-plant_type[]'),
+            material: formData.getAll('filter-material[]'),
+            height: formData.get('filter-height'),
+            width: formData.get('filter-width'),
+            length: formData.get('filter-length'),
+            price: formData.get('sort-price')
+        };
+
+        // Apply filters
         rows = rows.filter(row => {
-            // Iterate through each form field in the form data
-            for (const [field, value] of formData.entries()) {
-                if (value) {
-                    // If filter is for multiple values (e.g., 'name', 'season')
-                    if (value instanceof Array) {
-                        // If row data doesn't match any selected value, return false
-                        if (!Array.from(value).some(val => row.getAttribute(`data-${field}`).includes(val))) {
+            // Check if row matches the selected filters
+            for (const [filterKey, filterValues] of Object.entries(selectedFilters)) {
+                if (filterValues.length > 0) {
+                    if (Array.isArray(filterValues)) {
+                        const rowValue = row.getAttribute(`data-${filterKey}`);
+                        if (!filterValues.some(value => rowValue && rowValue.includes(value))) {
                             return false;
                         }
-                    }
-                    // If the value is a single value filter, match directly
-                    else if (row.getAttribute(`data-${field}`) !== value) {
+                    } else if (filterValues && row.getAttribute(`data-${filterKey}`) !== filterValues) {
                         return false;
                     }
                 }
             }
 
-            // Numeric Filters: height, width, length
-            const height = formData.get('filter-height');
-            const width = formData.get('filter-width');
-            const length = formData.get('filter-length');
-            
-            if (height && parseFloat(row.getAttribute('data-height')) < parseFloat(height)) {
+            // Apply numeric filters (height, width, length)
+            if (selectedFilters.height && parseFloat(row.getAttribute('data-height')) < parseFloat(selectedFilters.height)) {
                 return false;
             }
-            if (width && parseFloat(row.getAttribute('data-width')) < parseFloat(width)) {
+            if (selectedFilters.width && parseFloat(row.getAttribute('data-width')) < parseFloat(selectedFilters.width)) {
                 return false;
             }
-            if (length && parseFloat(row.getAttribute('data-length')) < parseFloat(length)) {
+            if (selectedFilters.length && parseFloat(row.getAttribute('data-length')) < parseFloat(selectedFilters.length)) {
                 return false;
             }
 
             return true;
         });
 
-        // Sort by price
-        const sortPrice = formData.get('sort-price');
-        if (sortPrice) {
+        // Sort rows by price if "Sort By Price" is selected
+        if (selectedFilters.price) {
             rows = rows.sort((a, b) => {
                 const priceA = parseFloat(a.getAttribute('data-price'));
                 const priceB = parseFloat(b.getAttribute('data-price'));
-                if (sortPrice === 'asc') {
+                if (selectedFilters.price === 'asc') {
                     return priceA - priceB;
-                } else if (sortPrice === 'desc') {
+                } else if (selectedFilters.price === 'desc') {
                     return priceB - priceA;
                 }
                 return 0;
             });
         }
 
-        // Clear the table and reinsert filtered rows
+        // Clear the table body and append the filtered rows
         tableBody.innerHTML = '';
         rows.forEach(row => tableBody.append(row));
     }
 
-    // Apply filters on form submit
-    form.addEventListener('submit', (e) => {
+    // Add event listener to the form submit
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         filterTable();
     });
 });
 </script>
-
 
 <?php endif; ?>
