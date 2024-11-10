@@ -165,9 +165,6 @@
 </style>
 
 
-
-
-
 <?php
 // Initialize an array to store products
 $products = array();
@@ -195,6 +192,7 @@ if (have_rows('list')) :
             'soil_type'         => get_sub_field('soil_type'),
             'plant_type'        => get_sub_field('plant_type'),
             'material'          => get_sub_field('material'),
+            'description'       => get_sub_field('description'), // Ensure the description is included
         );
 
     endwhile;
@@ -303,7 +301,9 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['season']); ?></td>
-                            <td><?php echo esc_html($product['description']); ?></td>
+                            <td>
+                                <?php echo isset($product['description']) ? esc_html($product['description']) : 'No description available'; ?>
+                            </td>
                             <td><?php echo esc_html($product['height']); ?></td>
                             <td><?php echo esc_html($product['width']); ?></td>
                             <td><?php echo esc_html($product['length']); ?></td>
@@ -311,7 +311,6 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['soil_type']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td>
                             <td><?php echo esc_html($product['material']); ?></td>
-
                         </tr>
                         <?php
                     }
@@ -326,6 +325,10 @@ if (have_rows('list')) :
 <?php
 endif;
 ?>
+
+
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
