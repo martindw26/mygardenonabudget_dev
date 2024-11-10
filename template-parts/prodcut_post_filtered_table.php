@@ -173,7 +173,6 @@ if (have_rows('list')) :
 
         // Push each product's data into the products array
         $products[] = array(
-            'position'   => get_sub_field('product_position'),
             'name'       => get_sub_field('product_name'),
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
