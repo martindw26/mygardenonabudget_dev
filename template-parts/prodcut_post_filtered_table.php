@@ -87,7 +87,6 @@ if (have_rows('list')) :
         'height'            => get_sub_field('height'),
         'width'             => get_sub_field('width'),
         'length'            => get_sub_field('length'),
-        'stock_status'      => is_array(get_sub_field('stock_status')) ? implode(', ', get_sub_field('stock_status')) : get_sub_field('stock_status'),
         'planting_position' => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
         'soil_type'         => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
         'plant_type'        => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
@@ -124,7 +123,7 @@ if ($enable_product_post_filtered_table === 'on') :
             }
 
             // Extract unique values for each field
-            $fields = ['name', 'season', 'specs', 'stock_status', 'planting_position', 'soil_type', 'plant_type', 'material'];
+            $fields = ['name', 'season', 'specs', 'planting_position', 'soil_type', 'plant_type', 'material'];
             foreach ($fields as $field) {
                 $uniqueValues = array_unique(array_column($products, $field));
                 createFilterDropdown("filter-$field", ucfirst(str_replace('_', ' ', $field)), $uniqueValues);
@@ -178,7 +177,6 @@ if ($enable_product_post_filtered_table === 'on') :
                 <th>Height</th>
                 <th>Width</th>
                 <th>Length</th>
-                <th>Stock Status</th>
                 <th>Planting Position</th>
                 <th>Soil Type</th>
                 <th>Plant Type</th>
