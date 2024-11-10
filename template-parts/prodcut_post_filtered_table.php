@@ -2,9 +2,7 @@
      ############### Prodcut Post (filtered table) ############ 
      ########################################## -->
 
-
-
-<style>
+     <style>
 
 /* Main Filters Container */
 .filters-container {
@@ -182,21 +180,11 @@ if (have_rows('list')) :
 
         // Push each product's data into the products array
         $products[] = array(
-            'position'          => get_sub_field('product_position'),
-            'name'              => get_sub_field('product_name'),
-            'rating'            => get_sub_field('rating'),
-	        'currency'          => get_sub_field('product_price_currency'),
-            'price'             => get_sub_field('product_price'),
-            'season'            => get_sub_field('season'),
-            'specs'             => get_sub_field('specs'),
-            'height'            => get_sub_field('height'),
-            'width'             => get_sub_field('width'),
-            'length'            => get_sub_field('length'),
-            'stock_status'      => get_sub_field('stock_status'),
-            'planting_position' => get_sub_field('planting_position'),
-            'soil_type'         => get_sub_field('soil_type'),
-            'plant_type'        => get_sub_field('plant_type'),
-            'material'          => get_sub_field('material'),
+            'position'   => get_sub_field('product_position'),
+            'name'       => get_sub_field('product_name'),
+            'rating'     => get_sub_field('rating'),
+            'price'      => get_sub_field('product_price'),
+            'currency'   => get_sub_field('product_price_currency'),
         );
 
     endwhile;
@@ -228,13 +216,6 @@ if (have_rows('list')) :
     sort($positions); // Sort the positions in ascending order
     ?>
   
-  
-  <?php
-$enable_product_post_filtered_table = get_field('enable_product_post_filtered_table');
-
-if ($enable_product_post_filtered_table === 'on') :
-?>
-
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
     <form id="refine-search-form">
@@ -324,18 +305,6 @@ if ($enable_product_post_filtered_table === 'on') :
 
 <?php
 endif;
-?>
-
-<?php endif; ?>
-
-
-<?php 
-    $below_filtered_table_content = get_field('below_filtered_table_content');
-    
-    // Check if $below_table_content is not empty
-    if ($below_filtered_table_content) {
-        echo $below_filtered_table_content;
-    }
 ?>
 
 <script>
