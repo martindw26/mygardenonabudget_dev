@@ -188,7 +188,6 @@ if (have_rows('list')) :
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
             'season'            => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
-            'description'=> get_sub_field('description'),
             'height'     => get_sub_field('height'),
             'width'      => get_sub_field('width'),
             'length'     => get_sub_field('length'),
@@ -291,7 +290,6 @@ if (have_rows('list')) :
                 <th>Rating</th>
                 <th>Price</th>
                 <th>Season</th>
-                <th>Description</th>
                 <th>Height</th>
                 <th>Width</th>
                 <th>Length</th>
@@ -313,7 +311,6 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['season']); ?></td>
-                            <td><?php echo esc_html($product['description']); ?></td>
                             <td><?php echo esc_html($product['height']); ?></td>
                             <td><?php echo esc_html($product['width']); ?></td>
                             <td><?php echo esc_html($product['length']); ?></td>
