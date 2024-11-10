@@ -203,23 +203,74 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.getElementById('product-table-body');
     const originalRows = Array.from(tableBody.children);
 
+    // Function to apply filters
     function filterTable() {
-        const filters = Object.fromEntries(new FormData(form));
+        const formData = new FormData(form);
         let rows = originalRows;
 
-        // Apply filters
+        // Loop through each form field and apply filters
         rows = rows.filter(row => {
-            for (const [field, value] of Object.entries(filters)) {
-                if (value && row.getAttribute(`data-${field}`) !== value) return false;
+            // Iterate through each form field in the form data
+            for (const [field, value] of formData.entries()) {
+                if (value) {
+                    // If filter is for multiple values (e.g., 'name', 'season')
+                    if (value instanceof Array) {
+                        // If row data doesn't match any selected value, return false
+                        if (!Array.from(value).some(val => row.getAttribute(`data-${field}`).includes(val))) {
+                            return false;
+                        }
+                    }
+                    // If the value is a single value filter, match directly
+                    else if (row.getAttribute(`data-${field}`) !== value) {
+                        return false;
+                    }
+                }
             }
+
+            // Numeric Filters: height, width, length
+            const height = formData.get('filter-height');
+            const width = formData.get('filter-width');
+            const length = formData.get('filter-length');
+            
+            if (height && parseFloat(row.getAttribute('data-height')) < parseFloat(height)) {
+                return false;
+            }
+            if (width && parseFloat(row.getAttribute('data-width')) < parseFloat(width)) {
+                return false;
+            }
+            if (length && parseFloat(row.getAttribute('data-length')) < parseFloat(length)) {
+                return false;
+            }
+
             return true;
         });
 
+        // Sort by price
+        const sortPrice = formData.get('sort-price');
+        if (sortPrice) {
+            rows = rows.sort((a, b) => {
+                const priceA = parseFloat(a.getAttribute('data-price'));
+                const priceB = parseFloat(b.getAttribute('data-price'));
+                if (sortPrice === 'asc') {
+                    return priceA - priceB;
+                } else if (sortPrice === 'desc') {
+                    return priceB - priceA;
+                }
+                return 0;
+            });
+        }
+
+        // Clear the table and reinsert filtered rows
         tableBody.innerHTML = '';
         rows.forEach(row => tableBody.append(row));
     }
 
-    form.addEventListener('submit', (e) => { e.preventDefault(); filterTable(); });
+    // Apply filters on form submit
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        filterTable();
+    });
 });
 </script>
+
 <?php endif; ?>
