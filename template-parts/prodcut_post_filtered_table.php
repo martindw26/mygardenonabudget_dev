@@ -1,9 +1,8 @@
 <!-- ########################################## 
-     ############### Prodcut Post (filtered table) ############ 
+     ############### Product Post (filtered table) ############ 
      ########################################## -->
 
      <style>
-
 /* Main Filters Container */
 .filters-container {
     display: flex;
@@ -160,10 +159,7 @@
     background-color: #5a6268;
     border-color: #545b62;
 }
-
-
 </style>
-
 
 <?php
 // Initialize an array to store products
@@ -256,24 +252,20 @@ if (have_rows('list')) :
                     </option>
                 </select>
             </div>
-            <!-- Sort By Price Dropdown Filter -->
+            <!-- Price Range Filter -->
             <div class="filter-container">
-                <label for="sort-price" class="form-label">Sort By Price</label>
-                <select name="sort_price" id="sort-price" class="form-select" aria-label="Sort products by price">
-                    <option value="">Select Price</option>
-                    <option value="asc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'asc' ? 'selected' : ''; ?>>
-                        Price: Low to High
-                    </option>
-                    <option value="desc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'desc' ? 'selected' : ''; ?>>
-                        Price: High to Low
-                    </option>
-                </select>
+                <label for="price-range" class="form-label">Price Range</label>
+                <input type="range" class="form-range" id="price-range" min="<?php echo esc_attr($minPrice); ?>" max="<?php echo esc_attr($maxPrice); ?>" step="1"
+                    value="<?php echo isset($urlParams['price_range']) ? esc_attr($urlParams['price_range']) : $maxPrice; ?>">
+                <output id="price-output" class="price-output">
+                    <?php echo esc_html(isset($urlParams['price_range']) ? $urlParams['price_range'] : $maxPrice); ?>
+                </output>
             </div>
         </div>
-        <!-- Button Container -->
+        <!-- Submit Button Container -->
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <button type="button" id="reset-filters" class="btn btn-secondary">Reset Filters</button>
+            <button type="reset" class="btn btn-secondary">Reset Filters</button>
         </div>
     </form>
 </div>
@@ -287,6 +279,15 @@ if (have_rows('list')) :
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
+                <th>Season</th> <!-- Add heading for Season -->
+                <th>Description</th> <!-- Add heading for Description -->
+                <th>Height</th> <!-- Add heading for Height -->
+                <th>Width</th> <!-- Add heading for Width -->
+                <th>Length</th> <!-- Add heading for Length -->
+                <th>Planting Position</th> <!-- Add heading for Planting Position -->
+                <th>Soil Type</th> <!-- Add heading for Soil Type -->
+                <th>Plant Type</th> <!-- Add heading for Plant Type -->
+                <th>Material</th> <!-- Add heading for Material -->
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -300,29 +301,33 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
-                            <td><?php echo esc_html($product['season']); ?></td>
-                            
                             <td>
                                 <?php 
-                                // Check if description is an array
+                                // Handle 'season' if it's an array, display as a comma-separated list
+                                echo is_array($product['season']) ? esc_html(implode(', ', $product['season'])) : esc_html($product['season']);
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                // Handle 'description' if it's an array, display as a comma-separated list
                                 echo is_array($product['description']) ? esc_html(implode(', ', $product['description'])) : esc_html($product['description']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Check if height is an array
+                                // Handle 'height' if it's an array, display as a comma-separated list
                                 echo is_array($product['height']) ? esc_html(implode(', ', $product['height'])) : esc_html($product['height']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Check if width is an array
+                                // Handle 'width' if it's an array, display as a comma-separated list
                                 echo is_array($product['width']) ? esc_html(implode(', ', $product['width'])) : esc_html($product['width']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Check if length is an array
+                                // Handle 'length' if it's an array, display as a comma-separated list
                                 echo is_array($product['length']) ? esc_html(implode(', ', $product['length'])) : esc_html($product['length']);
                                 ?>
                             </td>
@@ -339,11 +344,10 @@ if (have_rows('list')) :
         </tbody>
     </table>
 </div>
-</div>
-
 <?php
-endif;
+endif; 
 ?>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
