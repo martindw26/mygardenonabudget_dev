@@ -216,7 +216,7 @@ if (have_rows('list')) :
         <div class="filters-container">
             <!-- Product Name Dropdown Filter -->
             <div class="filter-container">
-                <label for="filter-name" class="form-label">Product Name</label>
+                <label for="filter-name" class="form-label">Plant Name</label>
                 <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
                     <?php
                     $names = array_unique(array_column($products, 'name'));
