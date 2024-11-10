@@ -2,13 +2,9 @@
      ############### Pricing Table ############ 
      ########################################## -->
 
-<?php
-$table_type = get_field('table_type', 'option'); // Assuming 'option' is the correct context for your field
-$hide_columns = ($table_type === 'plants');
-?>
 
 
-<style>
+     <style>
 
 /* Main Filters Container */
 .filters-container {
@@ -191,7 +187,7 @@ if (have_rows('list')) :
             'season'                => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
             'height'                => !empty(get_sub_field('height')) ? get_sub_field('height') : '-',
             'width'                 => !empty(get_sub_field('width')) ? get_sub_field('width') : '-',
-            'length'                => !empty(get_sub_field('length')) ? get_sub_field('length') : '-',
+            'length'                => !empty(get_sub_field('length')) ? get_sub_field('length') : '',
             'planting_position'     => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
             'soil_type'             => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
             'plant_type'            => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
