@@ -167,6 +167,9 @@
 </style>
 
 
+
+
+
 <?php
 // Initialize an array to store products
 $products = array();
@@ -179,33 +182,23 @@ if (have_rows('list')) :
 
         // Push each product's data into the products array
         $products[] = array(
-            'position'              => get_sub_field('product_position'),
-            'name'                  => get_sub_field('product_name'),
-            'rating'                => get_sub_field('rating'),
-            'price'                 => get_sub_field('product_price'),
-            'currency'              => get_sub_field('product_price_currency'),
-            'season'                => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
-            'height'                => !empty(get_sub_field('height')) ? get_sub_field('height') : '-',
-            'width'                 => !empty(get_sub_field('width')) ? get_sub_field('width') : '-',
-            'length'                => !empty(get_sub_field('length')) ? get_sub_field('length') : '',
-            'planting_position'     => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
-            'soil_type'             => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
-            'plant_type'            => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
-            'material'              => is_array(get_sub_field('material')) ? implode(', ', get_sub_field('material')) : get_sub_field('material'),
+            'position'   => get_sub_field('product_position'),
+            'name'       => get_sub_field('product_name'),
+            'rating'     => get_sub_field('rating'),
+            'price'      => get_sub_field('product_price'),
+            'currency'   => get_sub_field('product_price_currency'),
         );
 
     endwhile;
 
     // Get URL parameters
-    $urlParams = $_GET;
+    $urlParams = array();
+    parse_str($_SERVER['QUERY_STRING'], $urlParams);
 
-    // Filter products by name if selected
-    if (isset($urlParams['name'])) {
-        $selectedNames = explode(',', $urlParams['name']);
-        $products = array_filter($products, function($product) use ($selectedNames) {
-            return in_array($product['name'], $selectedNames);
-        });
-    }
+    // Get price range min and max values for the numeric inputs
+    $prices = array_column($products, 'price');
+    $minPrice = min($prices);
+    $maxPrice = max($prices);
 
     // Sort by rating if the sort_rating parameter is set
     if (isset($urlParams['sort_rating'])) {
@@ -220,30 +213,20 @@ if (have_rows('list')) :
         });
     }
 
-    // Sort by price if the sort_price parameter is set
-    if (isset($urlParams['sort_price'])) {
-        usort($products, function($a, $b) use ($urlParams) {
-            $priceA = $a['price'];
-            $priceB = $b['price'];
-            if ($urlParams['sort_price'] == 'asc') {
-                return $priceA <=> $priceB;
-            } else {
-                return $priceB <=> $priceA;
-            }
-        });
-    }
-
-?>
-
+    // Sort by position
+    $positions = array_column($products, 'position');
+    sort($positions); // Sort the positions in ascending order
+    ?>
+  
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
-    <form id="refine-search-form" method="get" action="">
+    <form id="refine-search-form">
         <!-- Filters Container -->
         <div class="filters-container">
             <!-- Product Name Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-name" class="form-label">Product Name</label>
-                <select id="filter-name" class="form-select" name="name[]" multiple aria-label="Filter by Product Name">
+                <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
                     <?php
                     $names = array_unique(array_column($products, 'name'));
                     foreach ($names as $name) : ?>
@@ -298,53 +281,33 @@ if (have_rows('list')) :
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
-                <th>Season</th>
-                <th>Height</th>
-                <th>Width</th>
-                <th>Length</th>
-                <th>Planting Position</th>
-                <th>Soil Type</th>
-                <th>Plant Type</th>
-                <th>Material</th>
             </tr>
         </thead>
         <tbody id="product-table-body">
             <?php
-            foreach ($products as $product) {
-                ?>
-                <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
-                    <td><?php echo esc_html($product['position']); ?></td>
-                    <td><?php echo esc_html($product['name']); ?></td>
-                    <td><?php echo esc_html($product['rating']); ?></td>
-                    <td><?php echo esc_html($product['price']); ?></td>
-                    <td><?php echo esc_html($product['season']); ?></td>
-                    <td><?php echo esc_html($product['height']); ?></td>
-                    <td><?php echo esc_html($product['width']); ?></td>
-                    <td><?php echo esc_html($product['length']); ?></td>
-                    <td><?php echo esc_html($product['planting_position']); ?></td>
-                    <td><?php echo esc_html($product['soil_type']); ?></td>
-                    <td><?php echo esc_html($product['material']); ?></td>
-                </tr>
-                <?php
+            foreach ($positions as $position) {
+                foreach ($products as $product) {
+                    if ($product['position'] == $position) {
+                        ?>
+                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
+                            <td><?php echo esc_html($product['position']); ?></td>
+                            <td><?php echo esc_html($product['name']); ?></td>
+                            <td><?php echo esc_html($product['rating']); ?></td>
+                            <td><?php echo esc_html($product['price']); ?></td>
+                        </tr>
+                        <?php
+                    }
+                }
             }
             ?>
         </tbody>
     </table>
 </div>
-
-<script>
-    // Reset filters button
-    document.getElementById('reset-filters').addEventListener('click', function() {
-        document.getElementById('refine-search-form').reset();
-        window.location.href = window.location.pathname; // Reset the URL
-    });
-</script>
+</div>
 
 <?php
 endif;
 ?>
-
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
