@@ -204,26 +204,12 @@ if (have_rows('list')) :
 ?>
   
 <!-- Filters for Table Columns -->
+<!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
     <form id="refine-search-form">
         <!-- Filters Container -->
         <div class="filters-container">
             
-            <!-- Product Name Dropdown Filter -->
-            <div class="filter-container">
-                <label for="filter-name" class="form-label">Product Name</label>
-                <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
-                    <?php
-                    $names = array_unique(array_column($products, 'name'));
-                    foreach ($names as $name) : ?>
-                        <option value="<?php echo esc_attr($name); ?>"
-                            <?php echo isset($urlParams['name']) && in_array($name, explode(',', $urlParams['name'])) ? 'selected' : ''; ?>>
-                            <?php echo esc_html($name); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-plant-type" class="form-label">Plant Type</label>
@@ -234,6 +220,21 @@ if (have_rows('list')) :
                         <option value="<?php echo esc_attr($type); ?>"
                             <?php echo isset($urlParams['plant_type']) && in_array($type, explode(',', $urlParams['plant_type'])) ? 'selected' : ''; ?>>
                             <?php echo esc_html($type); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Product Name Dropdown Filter -->
+            <div class="filter-container">
+                <label for="filter-name" class="form-label">Product Name</label>
+                <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
+                    <?php
+                    $names = array_unique(array_column($products, 'name'));
+                    foreach ($names as $name) : ?>
+                        <option value="<?php echo esc_attr($name); ?>"
+                            <?php echo isset($urlParams['name']) && in_array($name, explode(',', $urlParams['name'])) ? 'selected' : ''; ?>>
+                            <?php echo esc_html($name); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -292,6 +293,7 @@ if (have_rows('list')) :
         </div>
     </form>
 </div>
+
 
 
 <!-- Table to display the products -->
