@@ -187,17 +187,15 @@ if (have_rows('list')) :
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
-            'season'     => get_sub_field('season'),
+            'season'            => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
             'description'=> get_sub_field('description'),
             'height'     => get_sub_field('height'),
             'width'      => get_sub_field('width'),
             'length'     => get_sub_field('length'),
-            'stock_status' => get_sub_field('stock_status'),
-            'planting_position' => get_sub_field('planting_position'),
-            'soil_type'  => get_sub_field('soil_type'),
-            'plant_type' => get_sub_field('plant_type'),
-            'material'   => get_sub_field('material'),
-            'description' => get_sub_field('description'),
+            'planting_position' => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
+            'soil_type'         => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
+            'plant_type'        => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
+            'material'          => is_array(get_sub_field('material')) ? implode(', ', get_sub_field('material')) : get_sub_field('material'),
         );
 
     endwhile;
@@ -288,10 +286,19 @@ if (have_rows('list')) :
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Position</th>
+            <th>Position</th>
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
+                <th>Season</th>
+                <th>Description</th>
+                <th>Height</th>
+                <th>Width</th>
+                <th>Length</th>
+                <th>Planting Position</th>
+                <th>Soil Type</th>
+                <th>Plant Type</th>
+                <th>Material</th>
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -305,6 +312,14 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
+                            <td><?php echo esc_html($product['season']); ?></td>
+                            <td><?php echo esc_html($product['description']); ?></td>
+                            <td><?php echo esc_html($product['height']); ?></td>
+                            <td><?php echo esc_html($product['width']); ?></td>
+                            <td><?php echo esc_html($product['length']); ?></td>
+                            <td><?php echo esc_html($product['planting_position']); ?></td>
+                            <td><?php echo esc_html($product['soil_type']); ?></td>
+                            <td><?php echo esc_html($product['material']); ?></td>
                         </tr>
                         <?php
                     }
