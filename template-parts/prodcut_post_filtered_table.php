@@ -2,9 +2,21 @@
      ############### Pricing Table ############ 
      ########################################## -->
 
+<?php
+$table_type = get_field('table_type', 'option'); // Assuming 'option' is the correct context for your field
+$hide_columns = ($table_type === 'plants');
+?>
 
+<style>
 
-     <style>
+<?php if ($hide_columns): ?>
+        .table th:nth-child(6), .table td:nth-child(6),
+        .table th:nth-child(7), .table td:nth-child(7),
+        .table th:nth-child(8), .table td:nth-child(8),
+        .table th:nth-child(12), .table td:nth-child(12) {
+            display: none;
+        }
+    <?php endif; ?>
 
 /* Main Filters Container */
 .filters-container {
@@ -185,9 +197,9 @@ if (have_rows('list')) :
             'price'                 => get_sub_field('product_price'),
             'currency'              => get_sub_field('product_price_currency'),
             'season'                => is_array(get_sub_field('season')) ? implode(', ', get_sub_field('season')) : get_sub_field('season'),
-            'height'                => !empty(get_sub_field('height')) ? get_sub_field('height') : 'N/A',
-            'width'                 => !empty(get_sub_field('width')) ? get_sub_field('width') : 'N/A',
-            'length'                => !empty(get_sub_field('length')) ? get_sub_field('length') : 'N/A',
+            'height'                => !empty(get_sub_field('height')) ? get_sub_field('height') : '-',
+            'width'                 => !empty(get_sub_field('width')) ? get_sub_field('width') : '-',
+            'length'                => !empty(get_sub_field('length')) ? get_sub_field('length') : '-',
             'planting_position'     => is_array(get_sub_field('planting_position')) ? implode(', ', get_sub_field('planting_position')) : get_sub_field('planting_position'),
             'soil_type'             => is_array(get_sub_field('soil_type')) ? implode(', ', get_sub_field('soil_type')) : get_sub_field('soil_type'),
             'plant_type'            => is_array(get_sub_field('plant_type')) ? implode(', ', get_sub_field('plant_type')) : get_sub_field('plant_type'),
