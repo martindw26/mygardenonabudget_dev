@@ -183,7 +183,7 @@ if (have_rows('list')) :
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
             'plant_type' => get_sub_field('plant_type'), // Add plant type
-            'soil_type'  => get_sub_field('soil_type'),  // Add soil type
+            'soil_type'  => get_sub_field('soil_type'),  // Add soil type (this is an array)
         );
 
     endwhile;
@@ -240,7 +240,14 @@ if (have_rows('list')) :
                 <label for="filter-soil-type" class="form-label">Soil Type</label>
                 <select id="filter-soil-type" class="form-select" multiple aria-label="Filter by Soil Type">
                     <?php
-                    $soilTypes = array_unique(array_column($products, 'soil_type'));
+                    // Assuming soil_type is an array
+                    $soilTypes = array();
+                    foreach ($products as $product) {
+                        if (is_array($product['soil_type'])) {
+                            $soilTypes = array_merge($soilTypes, $product['soil_type']);
+                        }
+                    }
+                    $soilTypes = array_unique($soilTypes);
                     foreach ($soilTypes as $soil) : ?>
                         <option value="<?php echo esc_attr($soil); ?>"
                             <?php echo isset($urlParams['soil_type']) && in_array($soil, explode(',', $urlParams['soil_type'])) ? 'selected' : ''; ?>>
@@ -289,12 +296,12 @@ if (have_rows('list')) :
                 foreach ($products as $product) {
                     if ($product['position'] == $position) {
                         ?>
-                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>" data-soil-type="<?php echo esc_attr($product['soil_type']); ?>">
+                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>" data-soil-type="<?php echo esc_attr(implode(', ', $product['soil_type'])); ?>">
                             <td><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td> <!-- Display plant type -->
-                            <td><?php echo esc_html($product['soil_type']); ?></td> <!-- Display soil type -->
+                            <td><?php echo esc_html(implode(', ', $product['soil_type'])); ?></td> <!-- Display soil type -->
                         </tr>
                         <?php
                     }
@@ -353,18 +360,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedSoilTypes = Array.from(soilTypeSelect.selectedOptions).map(option => option.value); // Get selected soil types
         const sortPriceOrder = sortPriceDropdown.value;
 
-        // Convert rows to an array for manipulation
-        const rowsArray = Array.from(originalRows); // Use original rows
-
-        // Filter rows based on selected names, plant types, and soil types
+        // Filter rows based on the selected filters
+        const rowsArray = Array.from(tableBody.querySelectorAll('tr'));
         rowsArray.forEach(row => {
             const name = row.getAttribute('data-name');
             const plantType = row.getAttribute('data-plant-type');
-            const soilType = row.getAttribute('data-soil-type');
+            const soilTypes = row.getAttribute('data-soil-type').split(', ');
             const isVisible = 
-                (selectedNames.length === 0 || selectedNames.includes(name)) && 
+                (selectedNames.length === 0 || selectedNames.includes(name)) &&
                 (selectedPlantTypes.length === 0 || selectedPlantTypes.includes(plantType)) &&
-                (selectedSoilTypes.length === 0 || selectedSoilTypes.includes(soilType));
+                (selectedSoilTypes.length === 0 || selectedSoilTypes.some(soil => selectedSoilTypes.includes(soil))); // Compare selected soil types
 
             row.style.display = isVisible ? '' : 'none';
         });
@@ -404,4 +409,3 @@ document.addEventListener('DOMContentLoaded', function() {
     filterTable(); // Initial call to display filtered and sorted products
 });
 </script>
-
