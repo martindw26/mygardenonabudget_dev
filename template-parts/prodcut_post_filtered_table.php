@@ -298,7 +298,13 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
-                            <td><?php echo esc_html($product['season']); ?></td>
+                            <td>
+                            <?php 
+                            // Check if season is an array
+                            echo is_array($product['season']) ? esc_html(implode(', ', $product['season'])) : esc_html($product['season']);
+                            ?>
+                            </td>
+
                             <td>
                                 <?php 
                                 // Check if description is an array
