@@ -2,6 +2,8 @@
      ############### Pricing Table ############ 
      ########################################## -->
 
+
+
      <style>
 
 /* Main Filters Container */
@@ -160,8 +162,6 @@
     background-color: #5a6268;
     border-color: #545b62;
 }
-
-
 </style>
 
 <?php
@@ -196,7 +196,7 @@ if (have_rows('list')) :
     // Sort by position
     $positions = array_column($products, 'position');
     sort($positions); // Sort the positions in ascending order
-    ?>
+?>
   
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
@@ -269,57 +269,130 @@ if (have_rows('list')) :
     </table>
 </div>
 
+<?php
+endif;
+?>
+
 <script>
+document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('refine-search-form');
+    const nameSelect = form.querySelector('#filter-name');
+    const sortPriceDropdown = form.querySelector('#sort-price');
+    const tableBody = document.getElementById('product-table-body');
     const resetButton = document.getElementById('reset-filters');
-    const productTableBody = document.getElementById('product-table-body');
-    const products = <?php echo json_encode($products); ?>;
+    
+    // Store original row order
+    const originalRows = Array.from(tableBody.children);
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        filterAndSortProducts();
-    });
-
-    resetButton.addEventListener('click', function () {
-        form.reset();
-        filterAndSortProducts();
-    });
-
-    function filterAndSortProducts() {
-        let filteredProducts = products;
-
-        // Get filter values
-        const nameFilter = document.getElementById('filter-name');
-        const sortPrice = document.getElementById('sort-price');
-
-        // Filter products by name
-        const selectedNames = Array.from(nameFilter.selectedOptions).map(option => option.value);
+    function getQueryParams() {
+        const params = new URLSearchParams();
+        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
         if (selectedNames.length > 0) {
-            filteredProducts = filteredProducts.filter(product => selectedNames.includes(product.name));
+            params.append('name', selectedNames.join(','));
         }
-
-        // Sort products by price
-        if (sortPrice.value === 'asc') {
-            filteredProducts.sort((a, b) => a.price - b.price);
-        } else if (sortPrice.value === 'desc') {
-            filteredProducts.sort((a, b) => b.price - a.price);
+        if (sortPriceDropdown.value) {
+            params.append('sort_price', sortPriceDropdown.value);
         }
-
-        // Update the table with filtered and sorted products
-        renderProductTable(filteredProducts);
+        return params.toString();
     }
 
-    function renderProductTable(products) {
-        let tableContent = '';
-        products.forEach(product => {
-            tableContent += `
-                <tr>
-                    <td>${product.position}</td>
-                    <td>${product.name}</td>
-                    <td>${product.price}</td>
-                </tr>
-            `;
+    function updateURL() {
+        const queryParams = getQueryParams();
+        window.history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
+    }
+
+    function filterTable() {
+        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
+        const sortPriceOrder = sortPriceDropdown.value;
+
+        // Convert rows to an array for manipulation
+        const rowsArray = Array.from(originalRows); // Use original rows
+
+        // Filter rows based on selected names
+        rowsArray.forEach(row => {
+            const name = row.getAttribute('data-name');
+            const isVisible = selectedNames.length === 0 || selectedNames.includes(name);
+            row.style.display = isVisible ? '' : 'none';
         });
-        productTableBody.innerHTML = tableContent;
+
+        // Sort filtered rows
+        let sortedRows = rowsArray.filter(row => row.style.display !== 'none');
+
+        if (sortPriceOrder) {
+            sortedRows.sort((a, b) => {
+                const priceA = parseFloat(a.getAttribute('data-price'));
+                const priceB = parseFloat(b.getAttribute('data-price'));
+                return sortPriceOrder === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+        } else {
+            // Default to ascending order if no sort option selected
+            sortedRows.sort((a, b) => {
+                return originalRows.indexOf(a) - originalRows.indexOf(b);
+            });
+        }
+
+        // Append sorted rows to the table body
+        sortedRows.forEach(row => tableBody.appendChild(row));
+
+        // Update URL with current filter parameters
+        updateURL();
     }
+
+    function sortDropdownOptions() {
+        const options = Array.from(nameSelect.options);
+        options.sort((a, b) => a.text.localeCompare(b.text));
+        // Clear existing options
+        nameSelect.innerHTML = '';
+        // Append sorted options
+        options.forEach(option => nameSelect.appendChild(option));
+    }
+
+    // Attach event listeners
+    form.addEventListener('change', function(event) {
+        if (event.target === nameSelect || event.target === sortPriceDropdown) {
+            filterTable();
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        filterTable(); // Apply the filters and update the table
+    });
+
+    resetButton.addEventListener('click', function() {
+        nameSelect.selectedIndex = -1;
+        sortPriceDropdown.value = '';
+        // Reset to original order
+        originalRows.forEach(row => tableBody.appendChild(row));
+        // Reset dropdown options to ascending order
+        sortDropdownOptions();
+        filterTable();
+    });
+
+    // Apply filters from URL on page load
+    function applyFiltersFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const names = urlParams.get('name');
+        if (names) {
+            const nameArray = names.split(',');
+            Array.from(nameSelect.options).forEach(option => {
+                option.selected = nameArray.includes(option.value);
+            });
+        }
+
+        const sortPrice = urlParams.get('sort_price');
+        if (sortPrice) {
+            sortPriceDropdown.value = sortPrice;
+        }
+
+        filterTable(); // Apply the filters based on URL parameters
+    }
+
+    // Initial setup: sort dropdown options and apply filters from URL
+    sortDropdownOptions();
+    applyFiltersFromURL();
+});
 </script>
+
+
