@@ -223,9 +223,7 @@ if (have_rows('list')) :
                         </option>
                     <?php endforeach; ?>
                 </select>
-            </div>
 
-         </div>
 
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
