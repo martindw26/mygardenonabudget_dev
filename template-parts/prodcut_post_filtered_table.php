@@ -197,13 +197,15 @@ if (have_rows('list')) :
     endwhile;
 
     // Get URL parameters
-    $urlParams = array();
-    parse_str($_SERVER['QUERY_STRING'], $urlParams);
+    $urlParams = $_GET;
 
-    // Get price range min and max values for the numeric inputs
-    $prices = array_column($products, 'price');
-    $minPrice = min($prices);
-    $maxPrice = max($prices);
+    // Filter products by name if selected
+    if (isset($urlParams['name'])) {
+        $selectedNames = explode(',', $urlParams['name']);
+        $products = array_filter($products, function($product) use ($selectedNames) {
+            return in_array($product['name'], $selectedNames);
+        });
+    }
 
     // Sort by rating if the sort_rating parameter is set
     if (isset($urlParams['sort_rating'])) {
@@ -218,11 +220,21 @@ if (have_rows('list')) :
         });
     }
 
-    // Sort by position
-    $positions = array_column($products, 'position');
-    sort($positions); // Sort the positions in ascending order
-    ?>
-  
+    // Sort by price if the sort_price parameter is set
+    if (isset($urlParams['sort_price'])) {
+        usort($products, function($a, $b) use ($urlParams) {
+            $priceA = $a['price'];
+            $priceB = $b['price'];
+            if ($urlParams['sort_price'] == 'asc') {
+                return $priceA <=> $priceB;
+            } else {
+                return $priceB <=> $priceA;
+            }
+        });
+    }
+
+?>
+
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
     <form id="refine-search-form" method="get" action="">
@@ -298,26 +310,22 @@ if (have_rows('list')) :
         </thead>
         <tbody id="product-table-body">
             <?php
-            foreach ($positions as $position) {
-                foreach ($products as $product) {
-                    if ($product['position'] == $position) {
-                        ?>
-                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
-                            <td><?php echo esc_html($product['position']); ?></td>
-                            <td><?php echo esc_html($product['name']); ?></td>
-                            <td><?php echo esc_html($product['rating']); ?></td>
-                            <td><?php echo esc_html($product['price']); ?></td>
-                            <td><?php echo esc_html($product['season']); ?></td>
-                            <td><?php echo esc_html($product['height']); ?></td>
-                            <td><?php echo esc_html($product['width']); ?></td>
-                            <td><?php echo esc_html($product['length']); ?></td>
-                            <td><?php echo esc_html($product['planting_position']); ?></td>
-                            <td><?php echo esc_html($product['soil_type']); ?></td>
-                            <td><?php echo esc_html($product['material']); ?></td>
-                        </tr>
-                        <?php
-                    }
-                }
+            foreach ($products as $product) {
+                ?>
+                <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
+                    <td><?php echo esc_html($product['position']); ?></td>
+                    <td><?php echo esc_html($product['name']); ?></td>
+                    <td><?php echo esc_html($product['rating']); ?></td>
+                    <td><?php echo esc_html($product['price']); ?></td>
+                    <td><?php echo esc_html($product['season']); ?></td>
+                    <td><?php echo esc_html($product['height']); ?></td>
+                    <td><?php echo esc_html($product['width']); ?></td>
+                    <td><?php echo esc_html($product['length']); ?></td>
+                    <td><?php echo esc_html($product['planting_position']); ?></td>
+                    <td><?php echo esc_html($product['soil_type']); ?></td>
+                    <td><?php echo esc_html($product['material']); ?></td>
+                </tr>
+                <?php
             }
             ?>
         </tbody>
@@ -335,6 +343,7 @@ if (have_rows('list')) :
 <?php
 endif;
 ?>
+
 
 
 <script>
