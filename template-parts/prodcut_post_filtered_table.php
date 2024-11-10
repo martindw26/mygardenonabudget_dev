@@ -216,7 +216,7 @@ if (have_rows('list')) :
     }
 
     // Sort by position
-    $positions = array_column($products, 'position');
+    $positions = array_column($products, 'name');
     sort($positions); // Sort the positions in ascending order
     ?>
   
@@ -272,7 +272,6 @@ if (have_rows('list')) :
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Position</th>
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
@@ -294,7 +293,6 @@ if (have_rows('list')) :
                     if ($product['position'] == $position) {
                         ?>
                         <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>">
-                            <td><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
