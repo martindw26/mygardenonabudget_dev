@@ -238,19 +238,19 @@ if (have_rows('list')) :
                     <?php endforeach; ?>
                 </select>
             </div>
-            <!-- Sort By Rating Dropdown Filter -->
+            <!-- Sort By PLant Type Dropdown Filter -->
             <div class="filter-container">
-                <label for="sort-rating" class="form-label">Sort By Rating</label>
-                <select name="sort_rating" id="sort-rating" class="form-select" aria-label="Sort products by rating">
-                    <option value="">Select Rating</option>
-                    <option value="asc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'asc' ? 'selected' : ''; ?>>
-                        Rating: Low to High
-                    </option>
-                    <option value="desc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'desc' ? 'selected' : ''; ?>>
-                        Rating: High to Low
-                    </option>
-                </select>
+            <label for="filter-plant-type" class="form-label">Filter by Plant Type</label>
+            <select name="plant_type[]" id="filter-plant-type" class="form-select" multiple aria-label="Select plant types">
+                <option value="">Select Plant Types</option>
+                <!-- Example options for plant types -->
+                <option value="flower" <?php echo isset($urlParams['plant_type']) && in_array('flower', $urlParams['plant_type']) ? 'selected' : ''; ?>>Flower</option>
+                <option value="tree" <?php echo isset($urlParams['plant_type']) && in_array('tree', $urlParams['plant_type']) ? 'selected' : ''; ?>>Tree</option>
+                <option value="shrub" <?php echo isset($urlParams['plant_type']) && in_array('shrub', $urlParams['plant_type']) ? 'selected' : ''; ?>>Shrub</option>
+                <option value="vine" <?php echo isset($urlParams['plant_type']) && in_array('vine', $urlParams['plant_type']) ? 'selected' : ''; ?>>Vine</option>
+            </select>
             </div>
+
             <!-- Sort By Price Dropdown Filter -->
             <div class="filter-container">
                 <label for="sort-price" class="form-label">Sort By Price</label>
@@ -330,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameSelect = form.querySelector('#filter-name');
     const sortPriceDropdown = form.querySelector('#sort-price');
     const sortRatingDropdown = form.querySelector('#sort-rating');
+    const plantTypeSelect = form.querySelector('#filter-plant-type'); // Updated to grab the new plant type filter
     const tableBody = document.getElementById('product-table-body');
     const resetButton = document.getElementById('reset-filters');
     
@@ -348,6 +349,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sortRatingDropdown.value) {
             params.append('sort_rating', sortRatingDropdown.value);
         }
+        if (plantTypeSelect.selectedOptions.length > 0) {
+            const selectedPlantTypes = Array.from(plantTypeSelect.selectedOptions).map(option => option.value);
+            params.append('plant_type', selectedPlantTypes.join(','));
+        }
         return params.toString();
     }
 
@@ -359,11 +364,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleSortOptions() {
         if (sortPriceDropdown.value) {
             sortRatingDropdown.disabled = true;
+            plantTypeSelect.disabled = true;
         } else if (sortRatingDropdown.value) {
             sortPriceDropdown.disabled = true;
+            plantTypeSelect.disabled = true;
         } else {
             sortPriceDropdown.disabled = false;
             sortRatingDropdown.disabled = false;
+            plantTypeSelect.disabled = false;
         }
     }
 
@@ -371,6 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
         const sortPriceOrder = sortPriceDropdown.value;
         const sortRatingOrder = sortRatingDropdown.value;
+        const selectedPlantTypes = Array.from(plantTypeSelect.selectedOptions).map(option => option.value); // Get selected plant types
 
         // Convert rows to an array for manipulation
         const rowsArray = Array.from(originalRows); // Use original rows
@@ -382,9 +391,17 @@ document.addEventListener('DOMContentLoaded', function() {
             row.style.display = isVisible ? '' : 'none';
         });
 
+        // Filter rows based on selected plant types
+        rowsArray.forEach(row => {
+            const plantType = row.getAttribute('data-plant-type').toLowerCase();
+            const isVisible = selectedPlantTypes.length === 0 || selectedPlantTypes.includes(plantType);
+            row.style.display = isVisible ? '' : 'none';
+        });
+
         // Sort filtered rows
         let sortedRows = rowsArray.filter(row => row.style.display !== 'none');
 
+        // Sorting by price
         if (sortPriceOrder) {
             sortedRows.sort((a, b) => {
                 const priceA = parseFloat(a.getAttribute('data-price'));
@@ -393,6 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        // Sorting by rating
         if (sortRatingOrder) {
             sortedRows.sort((a, b) => {
                 const ratingA = parseFloat(a.getAttribute('data-rating'));
@@ -421,11 +439,13 @@ document.addEventListener('DOMContentLoaded', function() {
         nameSelect.selectedIndex = -1; // Clear the name filter
         sortPriceDropdown.selectedIndex = 0; // Reset price sort
         sortRatingDropdown.selectedIndex = 0; // Reset rating sort
+        plantTypeSelect.selectedIndex = -1; // Reset plant type filter (no selection)
         filterTable();
     });
 
     // Initial filtering
     filterTable();
 });
+
 </script>
 
