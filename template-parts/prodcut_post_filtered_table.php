@@ -180,7 +180,6 @@ if (have_rows('list')) :
         $products[] = array(
             'position'   => get_sub_field('product_position'),
             'name'       => get_sub_field('product_name'),
-            'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
             'plant_type' => get_sub_field('plant_type'), // Add plant type
@@ -196,19 +195,6 @@ if (have_rows('list')) :
     $prices = array_column($products, 'price');
     $minPrice = min($prices);
     $maxPrice = max($prices);
-
-    // Sort by rating if the sort_rating parameter is set
-    if (isset($urlParams['sort_rating'])) {
-        usort($products, function($a, $b) use ($urlParams) {
-            $ratingA = $a['rating'];
-            $ratingB = $b['rating'];
-            if ($urlParams['sort_rating'] == 'asc') {
-                return $ratingA <=> $ratingB;
-            } else {
-                return $ratingB <=> $ratingA;
-            }
-        });
-    }
 
     // Sort by position
     $positions = array_column($products, 'position');
@@ -248,19 +234,6 @@ if (have_rows('list')) :
                     <?php endforeach; ?>
                 </select>
             </div>
-            <!-- Sort By Rating Dropdown Filter -->
-            <div class="filter-container">
-                <label for="sort-rating" class="form-label">Sort By Rating</label>
-                <select name="sort_rating" id="sort-rating" class="form-select" aria-label="Sort products by rating">
-                    <option value="">Select Rating</option>
-                    <option value="asc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'asc' ? 'selected' : ''; ?>>
-                        Rating: Low to High
-                    </option>
-                    <option value="desc" <?php echo isset($urlParams['sort_rating']) && $urlParams['sort_rating'] == 'desc' ? 'selected' : ''; ?>>
-                        Rating: High to Low
-                    </option>
-                </select>
-            </div>
             <!-- Sort By Price Dropdown Filter -->
             <div class="filter-container">
                 <label for="sort-price" class="form-label">Sort By Price</label>
@@ -290,7 +263,6 @@ if (have_rows('list')) :
             <tr>
                 <th>Position</th>
                 <th>Name</th>
-                <th>Rating</th>
                 <th>Price</th>
                 <th>Plant Type</th> <!-- Add plant type column -->
             </tr>
@@ -301,10 +273,9 @@ if (have_rows('list')) :
                 foreach ($products as $product) {
                     if ($product['position'] == $position) {
                         ?>
-                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-rating="<?php echo esc_attr($product['rating']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>">
+                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>">
                             <td><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
-                            <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td> <!-- Display plant type -->
                         </tr>
@@ -327,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameSelect = form.querySelector('#filter-name');
     const plantTypeSelect = form.querySelector('#filter-plant-type'); // Add plant type select
     const sortPriceDropdown = form.querySelector('#sort-price');
-    const sortRatingDropdown = form.querySelector('#sort-rating');
     const tableBody = document.getElementById('product-table-body');
     const resetButton = document.getElementById('reset-filters');
     
@@ -347,9 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sortPriceDropdown.value) {
             params.append('sort_price', sortPriceDropdown.value);
         }
-        if (sortRatingDropdown.value) {
-            params.append('sort_rating', sortRatingDropdown.value);
-        }
         return params.toString();
     }
 
@@ -358,22 +325,10 @@ document.addEventListener('DOMContentLoaded', function() {
         window.history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
     }
 
-    function toggleSortOptions() {
-        if (sortPriceDropdown.value) {
-            sortRatingDropdown.disabled = true;
-        } else if (sortRatingDropdown.value) {
-            sortPriceDropdown.disabled = true;
-        } else {
-            sortPriceDropdown.disabled = false;
-            sortRatingDropdown.disabled = false;
-        }
-    }
-
     function filterTable() {
         const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
         const selectedPlantTypes = Array.from(plantTypeSelect.selectedOptions).map(option => option.value); // Get selected plant types
         const sortPriceOrder = sortPriceDropdown.value;
-        const sortRatingOrder = sortRatingDropdown.value;
 
         // Convert rows to an array for manipulation
         const rowsArray = Array.from(originalRows); // Use original rows
@@ -392,14 +347,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Sort filtered rows
         let sortedRows = rowsArray.filter(row => row.style.display !== 'none');
 
-        // Sort by rating, price, or plant type
-        if (sortRatingOrder) {
-            sortedRows.sort((a, b) => {
-                const ratingA = parseFloat(a.getAttribute('data-rating'));
-                const ratingB = parseFloat(b.getAttribute('data-rating'));
-                return sortRatingOrder === 'asc' ? ratingA - ratingB : ratingB - ratingA;
-            });
-        } else if (sortPriceOrder) {
+        // Sort by price
+        if (sortPriceOrder) {
             sortedRows.sort((a, b) => {
                 const priceA = parseFloat(a.getAttribute('data-price'));
                 const priceB = parseFloat(b.getAttribute('data-price'));
@@ -423,11 +372,9 @@ document.addEventListener('DOMContentLoaded', function() {
         nameSelect.value = '';
         plantTypeSelect.value = '';
         sortPriceDropdown.value = '';
-        sortRatingDropdown.value = '';
         filterTable();
     });
 
     filterTable(); // Initial call to display filtered and sorted products
 });
 </script>
-
