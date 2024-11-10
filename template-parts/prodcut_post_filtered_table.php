@@ -207,10 +207,8 @@ if (have_rows('list')) :
 <div class="refine-search mb-4">
     <form id="refine-search-form">
         <!-- Filters Container -->
-        <div class="filters-container">
-            
-            <!-- Product Name Dropdown Filter (Moved above other filters) -->
-            <div class="filter-container">
+
+        <div class="filter-container">
                 <label for="filter-name" class="form-label">Product Name</label>
                 <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
                     <?php
@@ -224,6 +222,10 @@ if (have_rows('list')) :
                 </select>
             </div>
 
+        <div class="filters-container">
+            
+            <!-- Product Name Dropdown Filter (Moved above other filters) -->
+        
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-plant-type" class="form-label">Plant Type</label>
