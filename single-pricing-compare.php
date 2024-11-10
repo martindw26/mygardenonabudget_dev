@@ -81,7 +81,7 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
 
             <?php the_content(); ?>
                         
-            <?php get_template_part( 'template-parts/table' ); ?>
+            <?php get_template_part( 'template-parts/prodcut_post_filtered_table' ); ?>
   
 
             <?php get_template_part( 'includes/comparison' ); ?>
