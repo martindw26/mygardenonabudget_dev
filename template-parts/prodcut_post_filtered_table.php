@@ -1,163 +1,47 @@
-<!-- ########################################## 
-     ############### Product Post (filtered table) ############ 
-     ########################################## -->
-
-     <style>
-/* Main Filters Container */
-.filters-container {
+<style>
+/* Add your custom styles for the filters and table */
+.refine-search .filters-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Spacing between form elements */
-    margin: 20px 0;
-    background-color: #f8f9fa; /* Light background */
-    border: 1px solid #ced4da; /* Light border color */
-    padding: 10px;
+    gap: 1rem;
 }
 
-/* Individual Filter Container */
 .filter-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: flex-start;
-    flex: 1; /* Ensure equal spacing between containers */
-    min-width: 200px; /* Adjust this width to fit your design */
-    padding: 10px;
-    border-right: 1px solid #ced4da; /* Light border */
-    margin-bottom: 1rem; /* Adjust spacing as needed */
+    flex: 1;
+    min-width: 200px;
 }
 
-/* Remove border from the last filter */
-.filter-container:last-child {
-    border-right: none;
-}
-
-/* Style for disabled dropdowns */
-.filter-container select[disabled] {
-    background-color: #e9ecef; /* Light grey background */
-    color: #6c757d; /* Grey text color */
-    cursor: not-allowed;
-}
-
-/* Label styling */
 .filter-container label {
     display: block;
-    font-weight: bold;
-    font-size: 1rem; /* Unified font size */
-    margin-bottom: 0.5rem; /* Adjust spacing */
-    color: #343a40; /* Darker text color */
+    margin-bottom: 0.5rem;
 }
 
-/* Checkbox styling */
-.filter-container input[type="checkbox"] {
-    margin-right: 0.5rem;
-}
-
-/* Dropdown styling */
-.filter-container select {
+.filter-container select, .filter-container input {
     width: 100%;
-    min-width: 150px; /* Ensures dropdown fits smaller designs */
-    padding: 0.5rem; /* Adjust padding */
-    font-size: 1rem; /* Unified font size */
-    border: 1px solid #ccc; /* Light border */
-    background-color: #fff; /* White background */
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    color: #495057; /* Dark text color */
-    box-sizing: border-box; /* Ensure padding and border are included in width */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
 }
 
-/* Dropdown focus and hover states */
-.filter-container select:focus {
-    border-color: #007bff; /* Blue border on focus */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    outline: none;
+.table-container {
+    margin-top: 2rem;
 }
 
-.filter-container select:hover {
-    border-color: #adb5bd; /* Slightly darker border on hover */
-}
-
-/* Numeric input styling */
-.filter-container input[type="number"] {
+.table {
     width: 100%;
-    padding: 0.5rem; /* Adjust padding */
-    font-size: 1rem; /* Unified font size */
-    border: 1px solid #ccc; /* Light border */
-    background-color: #fff; /* White background */
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    color: #495057; /* Dark text color */
-    box-sizing: border-box; /* Ensure padding and border are included in width */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-collapse: collapse;
 }
 
-/* Numeric input focus and hover states */
-.filter-container input[type="number"]:focus {
-    border-color: #007bff; /* Blue border on focus */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    outline: none;
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-.filter-container input[type="number"]:hover {
-    border-color: #adb5bd; /* Slightly darker border on hover */
+.table th {
+    background-color: #f4f4f4;
 }
 
-/* Responsive styling for mobile */
-@media (max-width: 768px) {
-    .filters-container {
-        flex-direction: column;
-        gap: 0px;
-    }
-
-    .filter-container {
-        flex-direction: column;
-        border-right: none; /* Remove borders on mobile */
-    }
-
-    .filter-container select {
-        width: 100%; /* Full width on mobile */
-    }
-
-    .filter-container input[type="number"] {
-        width: 100%; /* Full width for inputs on mobile */
-    }
-}
-
-/* Button container styling */
-.button-container {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-}
-
-/* Button styling */
-.btn {
-    margin-right: 10px; /* Space between buttons */
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-    border: 1px solid #6c757d;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
+.price-output {
+    display: inline-block;
+    margin-top: 0.5rem;
 }
 </style>
 
@@ -218,8 +102,8 @@ if (have_rows('list')) :
     // Sort by position
     $positions = array_column($products, 'position');
     sort($positions); // Sort the positions in ascending order
-    ?>
-  
+?>
+
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
     <form id="refine-search-form">
@@ -271,7 +155,7 @@ if (have_rows('list')) :
 </div>
 
 <!-- Table to display the products -->
-<div class="table-responsive">
+<div class="table-container">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -303,31 +187,26 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td>
                                 <?php 
-                                // Handle 'season' if it's an array, display as a comma-separated list
                                 echo is_array($product['season']) ? esc_html(implode(', ', $product['season'])) : esc_html($product['season']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Handle 'description' if it's an array, display as a comma-separated list
                                 echo is_array($product['description']) ? esc_html(implode(', ', $product['description'])) : esc_html($product['description']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Handle 'height' if it's an array, display as a comma-separated list
                                 echo is_array($product['height']) ? esc_html(implode(', ', $product['height'])) : esc_html($product['height']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Handle 'width' if it's an array, display as a comma-separated list
                                 echo is_array($product['width']) ? esc_html(implode(', ', $product['width'])) : esc_html($product['width']);
                                 ?>
                             </td>
                             <td>
                                 <?php 
-                                // Handle 'length' if it's an array, display as a comma-separated list
                                 echo is_array($product['length']) ? esc_html(implode(', ', $product['length'])) : esc_html($product['length']);
                                 ?>
                             </td>
@@ -344,91 +223,66 @@ if (have_rows('list')) :
         </tbody>
     </table>
 </div>
-<?php
-endif; 
-?>
-
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('refine-search-form');
-    const nameSelect = form.querySelector('#filter-name');
-    const sortPriceDropdown = form.querySelector('#sort-price');
-    const sortRatingDropdown = form.querySelector('#sort-rating');
-    const tableBody = document.getElementById('product-table-body');
-    const resetButton = document.getElementById('reset-filters');
-    
-    
-    // Store original row order
-    const originalRows = Array.from(tableBody.children);
+// JavaScript for updating filters and table dynamically
+document.querySelectorAll('.filter-container select, .filter-container input').forEach(function(filter) {
+    filter.addEventListener('change', updateFilters);
+});
 
-    function getQueryParams() {
-        const params = new URLSearchParams();
-        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
-        if (selectedNames.length > 0) {
-            params.append('name', selectedNames.join(','));
-        }
-        if (sortPriceDropdown.value) {
-            params.append('sort_price', sortPriceDropdown.value);
-        }
-        if (sortRatingDropdown.value) {
-            params.append('sort_rating', sortRatingDropdown.value);
-        }
-        return params.toString();
-    }
+document.getElementById('price-range').addEventListener('input', function() {
+    document.getElementById('price-output').textContent = this.value;
+});
 
-    function updateURL() {
-        const queryParams = getQueryParams();
-        window.history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
-    }
+function updateFilters() {
+    var formData = new FormData(document.querySelector('#refine-search-form'));
+    var urlParams = new URLSearchParams(window.location.search);
 
-    function toggleSortOptions() {
-        if (sortPriceDropdown.value) {
-            sortRatingDropdown.disabled = true;
+    // Append form data to the URL parameters
+    formData.forEach(function(value, key) {
+        if (value) {
+            urlParams.set(key, value);
         } else {
-            sortRatingDropdown.disabled = false;
+            urlParams.delete(key);
         }
-    }
-
-    function sortTable() {
-        const rows = Array.from(tableBody.children);
-
-        // Sort by rating
-        if (sortRatingDropdown.value) {
-            rows.sort((a, b) => {
-                const ratingA = parseFloat(a.querySelector('[data-rating]').dataset.rating);
-                const ratingB = parseFloat(b.querySelector('[data-rating]').dataset.rating);
-                return sortRatingDropdown.value === 'asc' ? ratingA - ratingB : ratingB - ratingA;
-            });
-        }
-
-        // Sort by price
-        if (sortPriceDropdown.value) {
-            rows.sort((a, b) => {
-                const priceA = parseFloat(a.querySelector('[data-price]').dataset.price);
-                const priceB = parseFloat(b.querySelector('[data-price]').dataset.price);
-                return sortPriceDropdown.value === 'asc' ? priceA - priceB : priceB - priceA;
-            });
-        }
-
-        // Update the table with sorted rows
-        tableBody.innerHTML = '';
-        rows.forEach(row => tableBody.appendChild(row));
-    }
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        updateURL();
-        sortTable();
     });
 
-    resetButton.addEventListener('click', function() {
-        nameSelect.selectedIndex = -1;
-        sortPriceDropdown.selectedIndex = 0;
-        sortRatingDropdown.selectedIndex = 0;
-        tableBody.innerHTML = '';
-        originalRows.forEach(row => tableBody.appendChild(row));
-        window.history.replaceState(null, '', window.location.pathname);
+    // Update the URL without reloading the page
+    window.history.pushState({}, '', '?' + urlParams.toString());
+
+    // Optionally, trigger an AJAX request to update the product table here
+    filterTable();
+}
+
+function filterTable() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var filteredProducts = document.querySelectorAll('#product-table-body tr');
+
+    filteredProducts.forEach(function(row) {
+        var showRow = true;
+
+        // Get the filter values from URL parameters
+        var nameFilter = urlParams.get('name');
+        var priceFilter = urlParams.get('price_range');
+        var ratingFilter = urlParams.get('sort_rating');
+
+        // Apply filter logic to determine which rows to show
+        if (nameFilter && !row.dataset.name.includes(nameFilter)) {
+            showRow = false;
+        }
+        if (priceFilter && parseFloat(row.dataset.price) > parseFloat(priceFilter)) {
+            showRow = false;
+        }
+        if (ratingFilter && (ratingFilter === 'asc' ? parseFloat(row.dataset.rating) < 3 : parseFloat(row.dataset.rating) > 3)) {
+            showRow = false;
+        }
+
+        row.style.display = showRow ? '' : 'none';
     });
+}
+
+document.querySelector('#refine-search-form').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent the form from reloading the page
+    updateFilters(); // Trigger the filter update
 });
 </script>
