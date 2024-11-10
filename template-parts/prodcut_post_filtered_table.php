@@ -1,4 +1,4 @@
-<!-- ########################################## 
+<!-- ##########################################  
      ############### Product Post (Filtered Table) ############ 
      ########################################## -->
 
@@ -10,30 +10,65 @@
     margin: 20px 0;
     background-color: #f8f9fa;
     border: 1px solid #ced4da;
-    padding: 10px;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .filter-container {
     flex: 1;
-    min-width: 200px;
-    padding: 10px;
-    border-right: 1px solid #ced4da;
+    min-width: 220px;
 }
 
-.filter-container:last-child {
-    border-right: none;
+.filter-container label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.select-dropdown {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #495057;
+    background-color: #fff;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .button-container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .btn-primary {
     background-color: #007bff;
     color: #fff;
     border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .filter-container {
+        min-width: 100%;
+    }
 }
 </style>
 
@@ -78,7 +113,8 @@ if ($enable_product_post_filtered_table === 'on') :
             function createFilterDropdown($id, $label, $options) {
                 echo "<div class='filter-container'>";
                 echo "<label for='$id'>$label</label>";
-                echo "<select id='$id' multiple>";
+                echo "<select id='$id' class='select-dropdown' multiple>";
+                echo "<option value='' disabled selected>Select $label</option>";
                 foreach ($options as $option) {
                     if ($option) {
                         echo "<option value='" . esc_attr($option) . "'>" . esc_html($option) . "</option>";
@@ -94,28 +130,28 @@ if ($enable_product_post_filtered_table === 'on') :
                 createFilterDropdown("filter-$field", ucfirst(str_replace('_', ' ', $field)), $uniqueValues);
             }
             ?>
-            
+
             <!-- Numeric filters (height, width, length) -->
             <div class="filter-container">
                 <label for="filter-height">Height (min)</label>
-                <input type="number" id="filter-height" placeholder="Min height">
+                <input type="number" id="filter-height" class="select-dropdown" placeholder="Enter min height">
             </div>
 
             <div class="filter-container">
                 <label for="filter-width">Width (min)</label>
-                <input type="number" id="filter-width" placeholder="Min width">
+                <input type="number" id="filter-width" class="select-dropdown" placeholder="Enter min width">
             </div>
 
             <div class="filter-container">
                 <label for="filter-length">Length (min)</label>
-                <input type="number" id="filter-length" placeholder="Min length">
+                <input type="number" id="filter-length" class="select-dropdown" placeholder="Enter min length">
             </div>
 
             <!-- Sort By Price -->
             <div class="filter-container">
                 <label for="sort-price">Sort By Price</label>
-                <select id="sort-price">
-                    <option value="">Select Price</option>
+                <select id="sort-price" class="select-dropdown">
+                    <option value="" disabled selected>Select Price Order</option>
                     <option value="asc">Low to High</option>
                     <option value="desc">High to Low</option>
                 </select>
