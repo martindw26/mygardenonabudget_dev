@@ -183,6 +183,7 @@ if (have_rows('list')) :
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
             'plant_type' => get_sub_field('plant_type'), // Add plant type
+            'soil_type'  => get_sub_field('soil_type'),  // Add soil type
         );
 
     endwhile;
@@ -220,6 +221,7 @@ if (have_rows('list')) :
                     <?php endforeach; ?>
                 </select>
             </div>
+
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-plant-type" class="form-label">Plant Type</label>
@@ -234,6 +236,22 @@ if (have_rows('list')) :
                     <?php endforeach; ?>
                 </select>
             </div>
+
+            <!-- Soil Type Dropdown Filter -->
+            <div class="filter-container">
+                <label for="filter-soil-type" class="form-label">Soil Type</label>
+                <select id="filter-soil-type" class="form-select" multiple aria-label="Filter by Soil Type">
+                    <?php
+                    $soilTypes = array_unique(array_column($products, 'soil_type'));
+                    foreach ($soilTypes as $type) : ?>
+                        <option value="<?php echo esc_attr($type); ?>"
+                            <?php echo isset($urlParams['soil_type']) && in_array($type, explode(',', $urlParams['soil_type'])) ? 'selected' : ''; ?>>
+                            <?php echo esc_html($type); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <!-- Sort By Price Dropdown Filter -->
             <div class="filter-container">
                 <label for="sort-price" class="form-label">Sort By Price</label>
@@ -265,6 +283,7 @@ if (have_rows('list')) :
                 <th>Name</th>
                 <th>Price</th>
                 <th>Plant Type</th>
+                <th>Soil Type</th>
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -273,11 +292,12 @@ if (have_rows('list')) :
                 foreach ($products as $product) {
                     if ($product['position'] == $position) {
                         ?>
-                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>">
+                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>" data-soil-type="<?php echo esc_attr($product['soil_type']); ?>">
                             <td><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td> <!-- Display plant type -->
+                            <td><?php echo esc_html($product['soil_type']); ?></td> <!-- Display soil type -->
                         </tr>
                         <?php
                     }
@@ -297,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('refine-search-form');
     const nameSelect = form.querySelector('#filter-name');
     const plantTypeSelect = form.querySelector('#filter-plant-type'); // Add plant type select
+    const soilTypeSelect = form.querySelector('#filter-soil-type'); // Add soil type select
     const sortPriceDropdown = form.querySelector('#sort-price');
     const tableBody = document.getElementById('product-table-body');
     const resetButton = document.getElementById('reset-filters');
@@ -314,6 +335,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedPlantTypes.length > 0) {
             params.append('plant_type', selectedPlantTypes.join(','));
         }
+        const selectedSoilTypes = Array.from(soilTypeSelect.selectedOptions).map(option => option.value); // Get selected soil types
+        if (selectedSoilTypes.length > 0) {
+            params.append('soil_type', selectedSoilTypes.join(','));
+        }
         if (sortPriceDropdown.value) {
             params.append('sort_price', sortPriceDropdown.value);
         }
@@ -323,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterTable() {
         const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
         const selectedPlantTypes = Array.from(plantTypeSelect.selectedOptions).map(option => option.value); 
+        const selectedSoilTypes = Array.from(soilTypeSelect.selectedOptions).map(option => option.value);
 
         const sortPriceOrder = sortPriceDropdown.value;
 
@@ -331,9 +357,11 @@ document.addEventListener('DOMContentLoaded', function() {
         rowsArray.forEach(row => {
             const name = row.getAttribute('data-name');
             const plantType = row.getAttribute('data-plant-type');
+            const soilType = row.getAttribute('data-soil-type');
             const isVisible = 
                 (selectedNames.length === 0 || selectedNames.includes(name)) &&
-                (selectedPlantTypes.length === 0 || selectedPlantTypes.includes(plantType));
+                (selectedPlantTypes.length === 0 || selectedPlantTypes.includes(plantType)) &&
+                (selectedSoilTypes.length === 0 || selectedSoilTypes.includes(soilType));
 
             row.style.display = isVisible ? '' : 'none';
         });
@@ -365,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resetButton.addEventListener('click', function() {
         nameSelect.value = '';
         plantTypeSelect.value = '';
+        soilTypeSelect.value = ''; // Reset soil type filter
         sortPriceDropdown.value = '';
         filterTable();
     });
