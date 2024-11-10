@@ -178,12 +178,13 @@ if (have_rows('list')) :
 
         // Push each product's data into the products array
         $products[] = array(
-            'position'   => get_sub_field('product_position'),
-            'name'       => get_sub_field('product_name'),
-            'price'      => get_sub_field('product_price'),
-            'currency'   => get_sub_field('product_price_currency'),
-            'plant_type' => get_sub_field('plant_type'), // Add plant type
-            'soil_type'  => get_sub_field('soil_type'),  // Add soil type
+            'position'           => get_sub_field('product_position'),
+            'name'               => get_sub_field('product_name'),
+            'price'              => get_sub_field('product_price'),
+            'currency'           => get_sub_field('product_price_currency'),
+            'plant_type'         => get_sub_field('plant_type'), // Add plant type
+            'soil_type'          => get_sub_field('soil_type'),  // Add soil type
+            'planting_position'  => get_sub_field('planting_position'), // Add planting position
         );
 
     endwhile;
@@ -252,6 +253,21 @@ if (have_rows('list')) :
                 </select>
             </div>
 
+            <!-- Planting Position Dropdown Filter -->
+            <div class="filter-container">
+                <label for="filter-planting-position" class="form-label">Planting Position</label>
+                <select id="filter-planting-position" class="form-select" multiple aria-label="Filter by Planting Position">
+                    <?php
+                    $plantingPositions = array_unique(array_column($products, 'planting_position'));
+                    foreach ($plantingPositions as $position) : ?>
+                        <option value="<?php echo esc_attr($position); ?>"
+                            <?php echo isset($urlParams['planting_position']) && in_array($position, explode(',', $urlParams['planting_position'])) ? 'selected' : ''; ?>>
+                            <?php echo esc_html($position); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <!-- Sort By Price Dropdown Filter -->
             <div class="filter-container">
                 <label for="sort-price" class="form-label">Sort By Price</label>
@@ -284,6 +300,7 @@ if (have_rows('list')) :
                 <th>Price</th>
                 <th>Plant Type</th>
                 <th>Soil Type</th>
+                <th>Planting Position</th>
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -292,12 +309,13 @@ if (have_rows('list')) :
                 foreach ($products as $product) {
                     if ($product['position'] == $position) {
                         ?>
-                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>" data-soil-type="<?php echo esc_attr($product['soil_type']); ?>">
+                        <tr data-name="<?php echo esc_attr($product['name']); ?>" data-currency="<?php echo esc_attr($product['currency']); ?>" data-price="<?php echo esc_attr($product['price']); ?>" data-plant-type="<?php echo esc_attr($product['plant_type']); ?>" data-soil-type="<?php echo esc_attr($product['soil_type']); ?>" data-planting-position="<?php echo esc_attr($product['planting_position']); ?>">
                             <td><?php echo esc_html($product['position']); ?></td>
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td> <!-- Display plant type -->
                             <td><?php echo esc_html($product['soil_type']); ?></td> <!-- Display soil type -->
+                            <td><?php echo esc_html($product['planting_position']); ?></td> <!-- Display planting position -->
                         </tr>
                         <?php
                     }
@@ -318,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameSelect = form.querySelector('#filter-name');
     const plantTypeSelect = form.querySelector('#filter-plant-type'); // Add plant type select
     const soilTypeSelect = form.querySelector('#filter-soil-type'); // Add soil type select
+    const plantingPositionSelect = form.querySelector('#filter-planting-position'); // Add planting position select
     const sortPriceDropdown = form.querySelector('#sort-price');
     const tableBody = document.getElementById('product-table-body');
     const resetButton = document.getElementById('reset-filters');
@@ -339,31 +358,51 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedSoilTypes.length > 0) {
             params.append('soil_type', selectedSoilTypes.join(','));
         }
-        if (sortPriceDropdown.value) {
-            params.append('sort_price', sortPriceDropdown.value);
+        const selectedPlantingPositions = Array.from(plantingPositionSelect.selectedOptions).map(option => option.value); // Get selected planting positions
+        if (selectedPlantingPositions.length > 0) {
+            params.append('planting_position', selectedPlantingPositions.join(','));
         }
-        return params.toString();
+        const sortPrice = sortPriceDropdown.value;
+        if (sortPrice) {
+            params.append('sort_price', sortPrice);
+        }
+        return params;
+    }
+
+    function updateURL() {
+        const params = getQueryParams();
+        history.replaceState({}, '', '?' + params.toString());
     }
 
     function filterTable() {
-        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
-        const selectedPlantTypes = Array.from(plantTypeSelect.selectedOptions).map(option => option.value); 
-        const selectedSoilTypes = Array.from(soilTypeSelect.selectedOptions).map(option => option.value);
+        const rowsArray = Array.from(originalRows);
 
+        // Get current filter values
+        const nameFilter = nameSelect.value;
+        const plantTypeFilter = plantTypeSelect.value;
+        const soilTypeFilter = soilTypeSelect.value;
+        const plantingPositionFilter = plantingPositionSelect.value;
         const sortPriceOrder = sortPriceDropdown.value;
 
-        // Filter rows based on the selected filters
-        const rowsArray = Array.from(tableBody.querySelectorAll('tr'));
+        // Filter rows based on selected filters
         rowsArray.forEach(row => {
             const name = row.getAttribute('data-name');
             const plantType = row.getAttribute('data-plant-type');
             const soilType = row.getAttribute('data-soil-type');
-            const isVisible = 
-                (selectedNames.length === 0 || selectedNames.includes(name)) &&
-                (selectedPlantTypes.length === 0 || selectedPlantTypes.includes(plantType)) &&
-                (selectedSoilTypes.length === 0 || selectedSoilTypes.includes(soilType));
+            const plantingPosition = row.getAttribute('data-planting-position');
+            const price = parseFloat(row.getAttribute('data-price'));
 
-            row.style.display = isVisible ? '' : 'none';
+            // Filter by plant type, soil type, planting position
+            const matchName = !nameFilter || nameFilter.includes(name);
+            const matchPlantType = !plantTypeFilter || plantTypeFilter.includes(plantType);
+            const matchSoilType = !soilTypeFilter || soilTypeFilter.includes(soilType);
+            const matchPlantingPosition = !plantingPositionFilter || plantingPositionFilter.includes(plantingPosition);
+
+            if (matchName && matchPlantType && matchSoilType && matchPlantingPosition) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
 
         // Sort filtered rows
@@ -394,6 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nameSelect.value = '';
         plantTypeSelect.value = '';
         soilTypeSelect.value = ''; // Reset soil type filter
+        plantingPositionSelect.value = ''; // Reset planting position filter
         sortPriceDropdown.value = '';
         filterTable();
     });
