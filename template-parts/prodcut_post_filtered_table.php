@@ -210,21 +210,7 @@ if (have_rows('list')) :
         <!-- Filters Container -->
         <div class="filters-container">
 
-        <!-- Product Name Dropdown Filter -->
-        <div class="filter-container">
-                <label for="filter-name" class="form-label">Product Name</label>
-                <select id="filter-name" class="form-select" multiple aria-label="Filter by Product Name">
-                    <?php
-                    $names = array_unique(array_column($products, 'name'));
-                    foreach ($names as $name) : ?>
-                        <option value="<?php echo esc_attr($name); ?>"
-                            <?php echo isset($urlParams['name']) && in_array($name, explode(',', $urlParams['name'])) ? 'selected' : ''; ?>>
-                            <?php echo esc_html($name); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-
-
+        
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-plant-type" class="form-label">Plant Type</label>
