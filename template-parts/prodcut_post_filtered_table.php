@@ -1,49 +1,174 @@
-<style>
-/* Add your custom styles for the filters and table */
-.refine-search .filters-container {
+<!-- ########################################## 
+     ############### Pricing Table ############ 
+     ########################################## -->
+
+
+
+     <style>
+
+/* Main Filters Container */
+.filters-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 15px; /* Spacing between form elements */
+    margin: 20px 0;
+    background-color: #f8f9fa; /* Light background */
+    border: 1px solid #ced4da; /* Light border color */
+    padding: 10px;
 }
 
+/* Individual Filter Container */
 .filter-container {
-    flex: 1;
-    min-width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1; /* Ensure equal spacing between containers */
+    min-width: 200px; /* Adjust this width to fit your design */
+    padding: 10px;
+    border-right: 1px solid #ced4da; /* Light border */
+    margin-bottom: 1rem; /* Adjust spacing as needed */
 }
 
+/* Remove border from the last filter */
+.filter-container:last-child {
+    border-right: none;
+}
+
+/* Style for disabled dropdowns */
+.filter-container select[disabled] {
+    background-color: #e9ecef; /* Light grey background */
+    color: #6c757d; /* Grey text color */
+    cursor: not-allowed;
+}
+
+/* Label styling */
 .filter-container label {
     display: block;
-    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem; /* Unified font size */
+    margin-bottom: 0.5rem; /* Adjust spacing */
+    color: #343a40; /* Darker text color */
 }
 
-.filter-container select, .filter-container input {
+/* Checkbox styling */
+.filter-container input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Dropdown styling */
+.filter-container select {
     width: 100%;
+    min-width: 150px; /* Ensures dropdown fits smaller designs */
+    padding: 0.5rem; /* Adjust padding */
+    font-size: 1rem; /* Unified font size */
+    border: 1px solid #ccc; /* Light border */
+    background-color: #fff; /* White background */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #495057; /* Dark text color */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-.table-container {
-    margin-top: 2rem;
+/* Dropdown focus and hover states */
+.filter-container select:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
-.table {
+.filter-container select:hover {
+    border-color: #adb5bd; /* Slightly darker border on hover */
+}
+
+/* Numeric input styling */
+.filter-container input[type="number"] {
     width: 100%;
-    border-collapse: collapse;
+    padding: 0.5rem; /* Adjust padding */
+    font-size: 1rem; /* Unified font size */
+    border: 1px solid #ccc; /* Light border */
+    background-color: #fff; /* White background */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #495057; /* Dark text color */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+/* Numeric input focus and hover states */
+.filter-container input[type="number"]:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
-.table th {
-    background-color: #f4f4f4;
+.filter-container input[type="number"]:hover {
+    border-color: #adb5bd; /* Slightly darker border on hover */
 }
 
-.price-output {
-    display: inline-block;
-    margin-top: 0.5rem;
+/* Responsive styling for mobile */
+@media (max-width: 768px) {
+    .filters-container {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        border-right: none; /* Remove borders on mobile */
+    }
+
+    .filter-container select {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .filter-container input[type="number"] {
+        width: 100%; /* Full width for inputs on mobile */
+    }
 }
+
+/* Button container styling */
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+/* Button styling */
+.btn {
+    margin-right: 10px; /* Space between buttons */
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: 1px solid #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+
 </style>
+
+
+
+
 
 <?php
 // Initialize an array to store products
@@ -62,17 +187,6 @@ if (have_rows('list')) :
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
-            'season'     => get_sub_field('season'),
-            'specs'      => get_sub_field('specs'),
-            'height'     => get_sub_field('height'),
-            'width'      => get_sub_field('width'),
-            'length'     => get_sub_field('length'),
-            'stock_status' => get_sub_field('stock_status'),
-            'planting_position' => get_sub_field('planting_position'),
-            'soil_type'  => get_sub_field('soil_type'),
-            'plant_type' => get_sub_field('plant_type'),
-            'material'   => get_sub_field('material'),
-            'description' => get_sub_field('description'), // Added description field
         );
 
     endwhile;
@@ -102,8 +216,8 @@ if (have_rows('list')) :
     // Sort by position
     $positions = array_column($products, 'position');
     sort($positions); // Sort the positions in ascending order
-?>
-
+    ?>
+  
 <!-- Filters for Table Columns -->
 <div class="refine-search mb-4">
     <form id="refine-search-form">
@@ -136,26 +250,30 @@ if (have_rows('list')) :
                     </option>
                 </select>
             </div>
-            <!-- Price Range Filter -->
+            <!-- Sort By Price Dropdown Filter -->
             <div class="filter-container">
-                <label for="price-range" class="form-label">Price Range</label>
-                <input type="range" class="form-range" id="price-range" min="<?php echo esc_attr($minPrice); ?>" max="<?php echo esc_attr($maxPrice); ?>" step="1"
-                    value="<?php echo isset($urlParams['price_range']) ? esc_attr($urlParams['price_range']) : $maxPrice; ?>">
-                <output id="price-output" class="price-output">
-                    <?php echo esc_html(isset($urlParams['price_range']) ? $urlParams['price_range'] : $maxPrice); ?>
-                </output>
+                <label for="sort-price" class="form-label">Sort By Price</label>
+                <select name="sort_price" id="sort-price" class="form-select" aria-label="Sort products by price">
+                    <option value="">Select Price</option>
+                    <option value="asc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'asc' ? 'selected' : ''; ?>>
+                        Price: Low to High
+                    </option>
+                    <option value="desc" <?php echo isset($urlParams['sort_price']) && $urlParams['sort_price'] == 'desc' ? 'selected' : ''; ?>>
+                        Price: High to Low
+                    </option>
+                </select>
             </div>
         </div>
-        <!-- Submit Button Container -->
+        <!-- Button Container -->
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <button type="reset" class="btn btn-secondary">Reset Filters</button>
+            <button type="button" id="reset-filters" class="btn btn-secondary">Reset Filters</button>
         </div>
     </form>
 </div>
 
 <!-- Table to display the products -->
-<div class="table-container">
+<div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -163,15 +281,6 @@ if (have_rows('list')) :
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Price</th>
-                <th>Season</th> <!-- Add heading for Season -->
-                <th>Description</th> <!-- Add heading for Description -->
-                <th>Height</th> <!-- Add heading for Height -->
-                <th>Width</th> <!-- Add heading for Width -->
-                <th>Length</th> <!-- Add heading for Length -->
-                <th>Planting Position</th> <!-- Add heading for Planting Position -->
-                <th>Soil Type</th> <!-- Add heading for Soil Type -->
-                <th>Plant Type</th> <!-- Add heading for Plant Type -->
-                <th>Material</th> <!-- Add heading for Material -->
             </tr>
         </thead>
         <tbody id="product-table-body">
@@ -185,35 +294,6 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['name']); ?></td>
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
-                            <td>
-                                <?php 
-                                echo is_array($product['season']) ? esc_html(implode(', ', $product['season'])) : esc_html($product['season']);
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo is_array($product['description']) ? esc_html(implode(', ', $product['description'])) : esc_html($product['description']);
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo is_array($product['height']) ? esc_html(implode(', ', $product['height'])) : esc_html($product['height']);
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo is_array($product['width']) ? esc_html(implode(', ', $product['width'])) : esc_html($product['width']);
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo is_array($product['length']) ? esc_html(implode(', ', $product['length'])) : esc_html($product['length']);
-                                ?>
-                            </td>
-                            <td><?php echo esc_html($product['planting_position']); ?></td>
-                            <td><?php echo esc_html($product['soil_type']); ?></td>
-                            <td><?php echo esc_html($product['plant_type']); ?></td>
-                            <td><?php echo esc_html($product['material']); ?></td>
                         </tr>
                         <?php
                     }
@@ -223,66 +303,163 @@ if (have_rows('list')) :
         </tbody>
     </table>
 </div>
+</div>
+
+<?php
+endif;
+?>
 
 <script>
-// JavaScript for updating filters and table dynamically
-document.querySelectorAll('.filter-container select, .filter-container input').forEach(function(filter) {
-    filter.addEventListener('change', updateFilters);
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('refine-search-form');
+    const nameSelect = form.querySelector('#filter-name');
+    const sortPriceDropdown = form.querySelector('#sort-price');
+    const sortRatingDropdown = form.querySelector('#sort-rating');
+    const tableBody = document.getElementById('product-table-body');
+    const resetButton = document.getElementById('reset-filters');
+    
+    // Store original row order
+    const originalRows = Array.from(tableBody.children);
 
-document.getElementById('price-range').addEventListener('input', function() {
-    document.getElementById('price-output').textContent = this.value;
-});
+    function getQueryParams() {
+        const params = new URLSearchParams();
+        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
+        if (selectedNames.length > 0) {
+            params.append('name', selectedNames.join(','));
+        }
+        if (sortPriceDropdown.value) {
+            params.append('sort_price', sortPriceDropdown.value);
+        }
+        if (sortRatingDropdown.value) {
+            params.append('sort_rating', sortRatingDropdown.value);
+        }
+        return params.toString();
+    }
 
-function updateFilters() {
-    var formData = new FormData(document.querySelector('#refine-search-form'));
-    var urlParams = new URLSearchParams(window.location.search);
+    function updateURL() {
+        const queryParams = getQueryParams();
+        window.history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
+    }
 
-    // Append form data to the URL parameters
-    formData.forEach(function(value, key) {
-        if (value) {
-            urlParams.set(key, value);
+    function toggleSortOptions() {
+        if (sortPriceDropdown.value) {
+            sortRatingDropdown.disabled = true;
+        } else if (sortRatingDropdown.value) {
+            sortPriceDropdown.disabled = true;
         } else {
-            urlParams.delete(key);
+            sortPriceDropdown.disabled = false;
+            sortRatingDropdown.disabled = false;
+        }
+    }
+
+    function filterTable() {
+        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
+        const sortPriceOrder = sortPriceDropdown.value;
+        const sortRatingOrder = sortRatingDropdown.value;
+
+        // Convert rows to an array for manipulation
+        const rowsArray = Array.from(originalRows); // Use original rows
+
+        // Filter rows based on selected names
+        rowsArray.forEach(row => {
+            const name = row.getAttribute('data-name');
+            const isVisible = selectedNames.length === 0 || selectedNames.includes(name);
+            row.style.display = isVisible ? '' : 'none';
+        });
+
+        // Sort filtered rows
+        let sortedRows = rowsArray.filter(row => row.style.display !== 'none');
+
+        if (sortRatingOrder) {
+            sortedRows.sort((a, b) => {
+                const ratingA = parseFloat(a.getAttribute('data-rating'));
+                const ratingB = parseFloat(b.getAttribute('data-rating'));
+                return sortRatingOrder === 'asc' ? ratingA - ratingB : ratingB - ratingA;
+            });
+        } else if (sortPriceOrder) {
+            sortedRows.sort((a, b) => {
+                const priceA = parseFloat(a.getAttribute('data-price'));
+                const priceB = parseFloat(b.getAttribute('data-price'));
+                return sortPriceOrder === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+        } else {
+            // Default to ascending order if no sort option selected
+            sortedRows.sort((a, b) => {
+                return originalRows.indexOf(a) - originalRows.indexOf(b);
+            });
+        }
+
+        // Append sorted rows to the table body
+        sortedRows.forEach(row => tableBody.appendChild(row));
+
+        // Update URL with current filter parameters
+        updateURL();
+    }
+
+    function sortDropdownOptions() {
+        const options = Array.from(nameSelect.options);
+        options.sort((a, b) => a.text.localeCompare(b.text));
+        // Clear existing options
+        nameSelect.innerHTML = '';
+        // Append sorted options
+        options.forEach(option => nameSelect.appendChild(option));
+    }
+
+    // Attach event listeners
+    form.addEventListener('change', function(event) {
+        if (event.target === nameSelect || event.target === sortPriceDropdown || event.target === sortRatingDropdown) {
+            toggleSortOptions();
+            filterTable();
         }
     });
 
-    // Update the URL without reloading the page
-    window.history.pushState({}, '', '?' + urlParams.toString());
-
-    // Optionally, trigger an AJAX request to update the product table here
-    filterTable();
-}
-
-function filterTable() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var filteredProducts = document.querySelectorAll('#product-table-body tr');
-
-    filteredProducts.forEach(function(row) {
-        var showRow = true;
-
-        // Get the filter values from URL parameters
-        var nameFilter = urlParams.get('name');
-        var priceFilter = urlParams.get('price_range');
-        var ratingFilter = urlParams.get('sort_rating');
-
-        // Apply filter logic to determine which rows to show
-        if (nameFilter && !row.dataset.name.includes(nameFilter)) {
-            showRow = false;
-        }
-        if (priceFilter && parseFloat(row.dataset.price) > parseFloat(priceFilter)) {
-            showRow = false;
-        }
-        if (ratingFilter && (ratingFilter === 'asc' ? parseFloat(row.dataset.rating) < 3 : parseFloat(row.dataset.rating) > 3)) {
-            showRow = false;
-        }
-
-        row.style.display = showRow ? '' : 'none';
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        filterTable(); // Apply the filters and update the table
     });
-}
 
-document.querySelector('#refine-search-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent the form from reloading the page
-    updateFilters(); // Trigger the filter update
+    resetButton.addEventListener('click', function() {
+        nameSelect.selectedIndex = -1;
+        sortPriceDropdown.value = '';
+        sortRatingDropdown.value = '';
+        sortPriceDropdown.disabled = false;
+        sortRatingDropdown.disabled = false;
+        // Reset to original order
+        originalRows.forEach(row => tableBody.appendChild(row));
+        // Reset dropdown options to ascending order
+        sortDropdownOptions();
+        filterTable();
+    });
+
+    // Apply filters from URL on page load
+    function applyFiltersFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const names = urlParams.get('name');
+        if (names) {
+            const nameArray = names.split(',');
+            Array.from(nameSelect.options).forEach(option => {
+                option.selected = nameArray.includes(option.value);
+            });
+        }
+
+        const sortPrice = urlParams.get('sort_price');
+        if (sortPrice) {
+            sortPriceDropdown.value = sortPrice;
+            sortRatingDropdown.disabled = true;
+        }
+
+        const sortRating = urlParams.get('sort_rating');
+        if (sortRating) {
+            sortRatingDropdown.value = sortRating;
+            sortPriceDropdown.disabled = true;
+        }
+
+        filterTable(); // Apply the filters based on URL parameters
+    }
+
+    // Initial setup: sort dropdown options and apply filters from URL
+    sortDropdownOptions();
+    applyFiltersFromURL();
 });
 </script>
