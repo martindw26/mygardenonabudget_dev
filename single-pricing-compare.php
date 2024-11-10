@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="container-fluid p-2 mt-2">
+<div class="container p-2 mt-2">
   
 <?php get_template_part('includes/sections/trending'); ?>
 
