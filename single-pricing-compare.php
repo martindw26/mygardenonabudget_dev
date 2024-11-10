@@ -82,20 +82,19 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
             <?php the_content(); ?>
                         
             <?php
-                // Get the value of the custom field 'plants_or_products'
-                $plants_or_products = get_field('plants_or_products');
-
-                // Check if the value is 'plants' or 'products'
-                if ($plants_or_products === 'plants') {
-                    // Load the plants template part
-                    get_template_part('template-parts/prodcut_post_filtered_table_plants');
-                } elseif ($plants_or_products === 'products') {
-                    // Load the products template part
-                    get_template_part('template-parts/prodcut_post_filtered_table_products');
-                } else {
-
-                }
+            // Check if plants are loaded
+            if (have_posts() && get_post_type() == 'plants') {
+                get_template_part('template-parts/product_post_filtered_table_plants');
+            }
             ?>
+
+            <?php
+            // Check if plants are loaded
+            if (have_posts() && get_post_type() == 'products') {
+                get_template_part('template-parts/product_post_filtered_table_products');
+            }
+            ?>
+
 
             <?php get_template_part( 'includes/comparison' ); ?>
 
