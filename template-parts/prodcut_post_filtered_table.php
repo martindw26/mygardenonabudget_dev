@@ -182,17 +182,17 @@ if (have_rows('list')) :
             'rating'     => get_sub_field('rating'),
             'price'      => get_sub_field('product_price'),
             'currency'   => get_sub_field('product_price_currency'),
-            'season'            => get_sub_field('season'),
-            'specs'             => get_sub_field('specs'),
-            'height'            => get_sub_field('height'),
-            'width'             => get_sub_field('width'),
-            'length'            => get_sub_field('length'),
-            'stock_status'      => get_sub_field('stock_status'),
+            'season'     => get_sub_field('season'),
+            'specs'      => get_sub_field('specs'),
+            'height'     => get_sub_field('height'),
+            'width'      => get_sub_field('width'),
+            'length'     => get_sub_field('length'),
+            'stock_status' => get_sub_field('stock_status'),
             'planting_position' => get_sub_field('planting_position'),
-            'soil_type'         => get_sub_field('soil_type'),
-            'plant_type'        => get_sub_field('plant_type'),
-            'material'          => get_sub_field('material'),
-            'description'       => get_sub_field('description'), // Ensure the description is included
+            'soil_type'  => get_sub_field('soil_type'),
+            'plant_type' => get_sub_field('plant_type'),
+            'material'   => get_sub_field('material'),
+            'description' => get_sub_field('description'), // Added description field
         );
 
     endwhile;
@@ -301,10 +301,30 @@ if (have_rows('list')) :
                             <td><?php echo esc_html($product['rating']); ?></td>
                             <td><?php echo esc_html($product['price']); ?></td>
                             <td><?php echo esc_html($product['season']); ?></td>
-                            <td><?php echo is_array($product['description']) ? esc_html(implode(', ', $product['description'])) : esc_html($product['description']); ?></td>                               
-                            <td><?php echo esc_html($product['height']); ?></td>
-                            <td><?php echo esc_html($product['width']); ?></td>
-                            <td><?php echo esc_html($product['length']); ?></td>
+                            <td>
+                                <?php 
+                                // Check if description is an array
+                                echo is_array($product['description']) ? esc_html(implode(', ', $product['description'])) : esc_html($product['description']);
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                // Check if height is an array
+                                echo is_array($product['height']) ? esc_html(implode(', ', $product['height'])) : esc_html($product['height']);
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                // Check if width is an array
+                                echo is_array($product['width']) ? esc_html(implode(', ', $product['width'])) : esc_html($product['width']);
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                // Check if length is an array
+                                echo is_array($product['length']) ? esc_html(implode(', ', $product['length'])) : esc_html($product['length']);
+                                ?>
+                            </td>
                             <td><?php echo esc_html($product['planting_position']); ?></td>
                             <td><?php echo esc_html($product['soil_type']); ?></td>
                             <td><?php echo esc_html($product['plant_type']); ?></td>
@@ -323,10 +343,6 @@ if (have_rows('list')) :
 <?php
 endif;
 ?>
-
-
-
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -364,122 +380,50 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleSortOptions() {
         if (sortPriceDropdown.value) {
             sortRatingDropdown.disabled = true;
-        } else if (sortRatingDropdown.value) {
-            sortPriceDropdown.disabled = true;
         } else {
-            sortPriceDropdown.disabled = false;
             sortRatingDropdown.disabled = false;
         }
     }
 
-    function filterTable() {
-        const selectedNames = Array.from(nameSelect.selectedOptions).map(option => option.value);
-        const sortPriceOrder = sortPriceDropdown.value;
-        const sortRatingOrder = sortRatingDropdown.value;
+    function sortTable() {
+        const rows = Array.from(tableBody.children);
 
-        // Convert rows to an array for manipulation
-        const rowsArray = Array.from(originalRows); // Use original rows
-
-        // Filter rows based on selected names
-        rowsArray.forEach(row => {
-            const name = row.getAttribute('data-name');
-            const isVisible = selectedNames.length === 0 || selectedNames.includes(name);
-            row.style.display = isVisible ? '' : 'none';
-        });
-
-        // Sort filtered rows
-        let sortedRows = rowsArray.filter(row => row.style.display !== 'none');
-
-        if (sortRatingOrder) {
-            sortedRows.sort((a, b) => {
-                const ratingA = parseFloat(a.getAttribute('data-rating'));
-                const ratingB = parseFloat(b.getAttribute('data-rating'));
-                return sortRatingOrder === 'asc' ? ratingA - ratingB : ratingB - ratingA;
-            });
-        } else if (sortPriceOrder) {
-            sortedRows.sort((a, b) => {
-                const priceA = parseFloat(a.getAttribute('data-price'));
-                const priceB = parseFloat(b.getAttribute('data-price'));
-                return sortPriceOrder === 'asc' ? priceA - priceB : priceB - priceA;
-            });
-        } else {
-            // Default to ascending order if no sort option selected
-            sortedRows.sort((a, b) => {
-                return originalRows.indexOf(a) - originalRows.indexOf(b);
+        // Sort by rating
+        if (sortRatingDropdown.value) {
+            rows.sort((a, b) => {
+                const ratingA = parseFloat(a.querySelector('[data-rating]').dataset.rating);
+                const ratingB = parseFloat(b.querySelector('[data-rating]').dataset.rating);
+                return sortRatingDropdown.value === 'asc' ? ratingA - ratingB : ratingB - ratingA;
             });
         }
 
-        // Append sorted rows to the table body
-        sortedRows.forEach(row => tableBody.appendChild(row));
+        // Sort by price
+        if (sortPriceDropdown.value) {
+            rows.sort((a, b) => {
+                const priceA = parseFloat(a.querySelector('[data-price]').dataset.price);
+                const priceB = parseFloat(b.querySelector('[data-price]').dataset.price);
+                return sortPriceDropdown.value === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+        }
 
-        // Update URL with current filter parameters
+        // Update the table with sorted rows
+        tableBody.innerHTML = '';
+        rows.forEach(row => tableBody.appendChild(row));
+    }
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
         updateURL();
-    }
-
-    function sortDropdownOptions() {
-        const options = Array.from(nameSelect.options);
-        options.sort((a, b) => a.text.localeCompare(b.text));
-        // Clear existing options
-        nameSelect.innerHTML = '';
-        // Append sorted options
-        options.forEach(option => nameSelect.appendChild(option));
-    }
-
-    // Attach event listeners
-    form.addEventListener('change', function(event) {
-        if (event.target === nameSelect || event.target === sortPriceDropdown || event.target === sortRatingDropdown) {
-            toggleSortOptions();
-            filterTable();
-        }
-    });
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        filterTable(); // Apply the filters and update the table
+        sortTable();
     });
 
     resetButton.addEventListener('click', function() {
         nameSelect.selectedIndex = -1;
-        sortPriceDropdown.value = '';
-        sortRatingDropdown.value = '';
-        sortPriceDropdown.disabled = false;
-        sortRatingDropdown.disabled = false;
-        // Reset to original order
+        sortPriceDropdown.selectedIndex = 0;
+        sortRatingDropdown.selectedIndex = 0;
+        tableBody.innerHTML = '';
         originalRows.forEach(row => tableBody.appendChild(row));
-        // Reset dropdown options to ascending order
-        sortDropdownOptions();
-        filterTable();
+        window.history.replaceState(null, '', window.location.pathname);
     });
-
-    // Apply filters from URL on page load
-    function applyFiltersFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-
-        const names = urlParams.get('name');
-        if (names) {
-            const nameArray = names.split(',');
-            Array.from(nameSelect.options).forEach(option => {
-                option.selected = nameArray.includes(option.value);
-            });
-        }
-
-        const sortPrice = urlParams.get('sort_price');
-        if (sortPrice) {
-            sortPriceDropdown.value = sortPrice;
-            sortRatingDropdown.disabled = true;
-        }
-
-        const sortRating = urlParams.get('sort_rating');
-        if (sortRating) {
-            sortRatingDropdown.value = sortRating;
-            sortPriceDropdown.disabled = true;
-        }
-
-        filterTable(); // Apply the filters based on URL parameters
-    }
-
-    // Initial setup: sort dropdown options and apply filters from URL
-    sortDropdownOptions();
-    applyFiltersFromURL();
 });
 </script>
