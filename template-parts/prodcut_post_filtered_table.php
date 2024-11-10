@@ -225,7 +225,7 @@ if (have_rows('list')) :
                         </select>
                     </div>
         </div>
-            
+        </div>
             <!-- Plant Type Dropdown Filter -->
             <div class="filter-container">
                 <label for="filter-plant-type" class="form-label">Plant Type</label>
