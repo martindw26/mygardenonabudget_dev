@@ -28,7 +28,10 @@ if ($leaderboard_bottom_script_enabled === 'on') {
 </div>
 
 <div class="container text-sm-start p-2 mb-2 text-muted">
-Plants & Seeds contains affiliate links to products. We may receive a commission for purchases made through these links. Please also report price issues at Report Price Issues
+<?php 
+$affiliate_disclaimer = get_field ('affiliate_disclaimer','option');
+echo $affiliate_disclaimer;
+?>
 </div>
 
 <div class="container">
