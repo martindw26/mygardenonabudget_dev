@@ -10,23 +10,33 @@
 // Initialize the $ros_ad_header variable
 $ros_ad_header = get_field('ros_ad_header', 'option');
 
-if (!is_singular()) {
-    $leaderboard_ros_top_header_path = get_field('leaderboard_ros_top_header_path', 'option');
-}
+// Fetch the leaderboard ad path and script, reducing repeated calls
+$leaderboard_top_body_script_switch = get_field('ros_ad_header', 'option');
+$leaderboard_ros_top_body_script = get_field('leaderboard_ros_top_body_script', 'option');
+$leaderboard_ros_top_header_path = get_field('leaderboard_ros_top_header_path', 'option');
 
-if ($ros_ad_header === 'on' && is_single()) { // Check if $ros_ad_header is 'on' and the current post is a single post
+// Display the ROS ad header only if it is enabled and on a single post page
+if ($ros_ad_header === 'on' && is_single()) {
     echo '<section class="ros_ad_header">';
-    $leaderboard_ros_top_body_script = get_field('leaderboard_ros_top_body_script', 'option');
-    $leaderboard_top_body_script_switch = get_field('ros_ad_header', 'option');
-  
-    if ($leaderboard_top_body_script_switch === 'on') {
+
+    // Check if the top body script switch is on and the script is not empty
+    if ($leaderboard_top_body_script_switch === 'on' && !empty($leaderboard_ros_top_body_script)) {
         echo '<section class="ad_header_top">';
         echo $leaderboard_ros_top_body_script;
         echo '</section>';
     }
+
+    // Optionally display the header path if it's not empty and not a singular page
+    if (!is_singular() && !empty($leaderboard_ros_top_header_path)) {
+        echo '<section class="ad_header_path">';
+        echo $leaderboard_ros_top_header_path;
+        echo '</section>';
+    }
+
     echo '</section>';
 }
 ?>
+
 </div>
 
 <div class="container text-sm-start p-2 mb-2 text-muted">
