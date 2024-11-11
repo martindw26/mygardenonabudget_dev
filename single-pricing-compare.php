@@ -1,4 +1,4 @@
-<?php get_header(); 
+i<?php get_header(); 
 /**
  * Template Name: Price Compare
  * Template Post Type: post
@@ -79,22 +79,21 @@ Plants & Seeds contains affiliate links to products. We may receive a commission
                 </section>
             </div>
 
-            <?php the_content(); ?>
-                        
-            <?php
-            // Check if plants are loaded
-            if (have_posts() && get_post_type() == 'plants') {
-                get_template_part('template-parts/product_post_filtered_table_plants');
-            }
-            ?>
+           
+<?php 
+$enable_product_post_filtered_table_plants = get_field('enable_product_post_filtered_table_plants'); 
+if ($enable_product_post_filtered_table_plants === 'on') {
+    get_template_part('template-parts/prodcut_post_filtered_table_plants');
+}
+?>
 
-            <?php
-            // Check if plants are loaded
-            if (have_posts() && get_post_type() == 'products') {
-                get_template_part('template-parts/product_post_filtered_table_products');
-            }
-            ?>
 
+<?php 
+$enable_product_post_filtered_table_products = get_field('enable_product_post_filtered_table_products'); 
+if ($enable_product_post_filtered_table_products === 'on') {
+    get_template_part('template-parts/product_post_filtered_table_products');
+}
+?>
 
             <?php get_template_part( 'includes/comparison' ); ?>
 
