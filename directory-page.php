@@ -106,7 +106,7 @@ get_header('directory');
 /* Filters CSS */
 
 h2.Featured_directory_heading{
-    padding: 10px;
+    padding-top: 10px;
 }
 
 
