@@ -127,7 +127,7 @@ wp_reset_postdata();
 $leaderboard_middle_script_enabled = get_field('hp_ldr_middle_1');
 
 // Check if the toggle is on (true)
-if ($leaderboard_middle_script_enabled === 'on') { // Corrected the closing bracket here
+if ($leaderboard_middle_script_enabled === 'on') {
     // Output or include the necessary script or functionality
     echo '<script>';
     // Add your leaderboard script or any other code here
@@ -135,9 +135,12 @@ if ($leaderboard_middle_script_enabled === 'on') { // Corrected the closing brac
     echo '</script>';
 } else {
     // Optionally, you can handle the case when the toggle is off
+    echo '<script>';
     echo 'console.log("Leaderboard script is disabled");';
+    echo '</script>';
 }
 ?>
+
 
 
 
