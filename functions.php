@@ -295,22 +295,3 @@ add_shortcode('products_awin', 'display_products_awin');
    *  Hide gutenberg
 --------------------------------------------------- */
 
-// Disable Gutenberg editor for posts with the "Price Compare" template
-function disable_gutenberg_for_price_compare_template($is_enabled, $post) {
-    // Check if the post object is valid
-    if (!$post instanceof WP_Post) {
-        return $is_enabled;
-    }
-
-    // Get the template assigned to the post
-    $template = get_page_template_slug($post->ID);
-
-    // Specify the template filename you want to target
-    if ($template === 'single-pricing-compare.php') {
-        return false; // Disable Gutenberg editor
-    }
-
-    return $is_enabled;
-}
-
-add_filter('use_block_editor_for_post', 'disable_gutenberg_for_price_compare_template', 10, 2);
