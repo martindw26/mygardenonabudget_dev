@@ -373,6 +373,10 @@ h2.eventpageheading_directory{
 
 <?php get_footer(); ?>
 
+<?php
+$itemsPerPage = get_field('items_per_page_setting','option');
+?>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var companyDropdown = document.getElementById('companyDropdown');
@@ -381,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var loadMoreBtn = document.getElementById('loadMoreBtn');
     var backToTopBtn = document.getElementById('backToTopBtn');
     
-    var itemsPerPage = 16;
+    var itemsPerPage = <?php echo $itemsPerPage; ?>;
     var currentPage = 1;
 
     function filterItems() {
