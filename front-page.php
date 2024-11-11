@@ -282,7 +282,7 @@ $four_col_block_featured_cat = get_field('four_col_block_featured_cat', 'option'
 $four_col_block_featured_post = get_field('four_col_block_featured_post', 'option');
 $four_col_block_featured_offset = get_field('four_col_block_featured_offset', 'option');
 
-
+?>
 <!-- ################ BOTTOM SECTION ################### -->
 <h2 class="post-featured-block-title"><?php echo $four_col_block_featured_title?></h2>
 <div class="row">
