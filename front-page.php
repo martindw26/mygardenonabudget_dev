@@ -121,15 +121,24 @@ wp_reset_postdata();
 </div>
 </div>
 <!-- ################ END TOP SECTION ################### -->
+
+
+
 <?php 
+// Fetch the ad script and its toggle status from options
 $leaderboard_middle_1_body_script = get_field('leaderboard_middle_1_body_script', 'option');
 $leaderboard_middle_1_body_script_switch = get_field('leaderboard_middle_1_body_script_switch', 'option');
-if ($leaderboard_middle_1_body_script_switch === 'on') {
-    echo '<section class="ad_header_top">';
-    echo $leaderboard_middle_1_body_script;
-    echo '</section>';
-} 
+
+// Check if the toggle switch is set to 'on' and if the script content is not empty
+if ($leaderboard_middle_1_body_script_switch === 'on' && !empty($leaderboard_middle_1_body_script)) {
+    ?>
+    <section class="ad_header_top">
+    <?php echo wp_kses_post($leaderboard_middle_1_body_script); ?>
+    </section>
+    <?php
+}
 ?>
+
 <!-- ################ MIDDLE SECTION ################### -->
 <?php 
 // Get the repeater field data from the options page
