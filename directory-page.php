@@ -105,6 +105,10 @@ get_header('directory');
 
 /* Filters CSS */
 
+h2.Featured_directory_heading{
+    padding: 10px;
+}
+
 
 h2.eventpageheading_directory{
     margin-top: 15px;
@@ -352,7 +356,7 @@ h2.eventpageheading_directory{
         </div>
     </div>
 
-    <h2><?php echo $Featured_directory_heading;?></h2>
+    <h2 class="Featured_directory_heading"><?php echo $Featured_directory_heading;?></h2>
     <div class="featured_directory_section">
     <?php get_template_part('template-parts/directory_featured'); ?>
     </div>
