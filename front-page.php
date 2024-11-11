@@ -122,22 +122,23 @@ wp_reset_postdata();
 </div>
 <!-- ################ END TOP SECTION ################### -->
 
+<?php
+// Check if the ACF field exists and if it's true (enabled)
+$leaderboard_script_enabled = get_field('hp_ldr_middle_1','option');
 
-
-<?php 
-// Fetch the ad script and its toggle status from options
-$leaderboard_middle_1_body_script = get_field('leaderboard_middle_1_body_script', 'option');
-$leaderboard_middle_1_body_script_switch = get_field('leaderboard_middle_1_body_script_switch', 'option');
-
-// Check if the toggle switch is set to 'on' and if the script content is not empty
-if ($leaderboard_middle_1_body_script_switch === 'on' && !empty($leaderboard_middle_1_body_script)) {
-    ?>
-    <section class="ad_header_top">
-    <?php echo wp_kses_post($leaderboard_middle_1_body_script); ?>
-    </section>
-    <?php
+// Check if the toggle is on (true)
+if ($leaderboard_script_enabled) {
+    // Output or include the necessary script or functionality
+    echo '<script>';
+    // Add your leaderboard script or any other code here
+    echo 'console.log("Leaderboard script is enabled!");';
+    echo '</script>';
+} else {
+    // Optionally, you can handle the case when the toggle is off
+    echo '<!-- Leaderboard script is disabled -->';
 }
 ?>
+
 
 <!-- ################ MIDDLE SECTION ################### -->
 <?php 
@@ -329,15 +330,21 @@ else :
 <?php endif; ?>
 </div>
 <!-- ################ BOTTOM SECTION ################### -->
-<?php 
-$leaderboard_bottom_body_script = get_field('leaderboard_bottom_body_script', 'option');
-$leaderboard_bottom_body_script_switch = get_field('leaderboard_bottom_body_script_switch', 'option');
+<?php
+// Check if the ACF field exists and if it's true (enabled)
+$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom','option');
 
-if ($leaderboard_bottom_body_script_switch === 'on') {
-    echo '<section class="ad_header_top">';
-    echo $leaderboard_bottom_body_script;
-    echo '</section>';
-} 
+// Check if the toggle is on (true)
+if ($leaderboard_bottom_script_enabled) {
+    // Output or include the necessary script or functionality
+    echo '<script>';
+    // Add your leaderboard script or any other code here
+    echo 'console.log("Leaderboard Bottom script is enabled!");';
+    echo '</script>';
+} else {
+    // Optionally, you can handle the case when the toggle is off
+    echo '<!-- Leaderboard Bottom script is disabled -->';
+}
 ?>
 </div>
 <?php get_footer(); ?>
