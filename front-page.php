@@ -124,7 +124,7 @@ wp_reset_postdata();
 
 <?php
 // Check if the ACF field exists and if it's true (enabled)
-$leaderboard_middle_script_enabled = get_field('hp_ldr_middle_1');
+$leaderboard_middle_script_enabled = get_field('hp_ldr_middle_1','option');
 
 // Check if the toggle is on (true)
 if ($leaderboard_middle_script_enabled === 'on') {
@@ -333,7 +333,7 @@ else :
 
 <?php
 // Check if the ACF field exists and if it's true (enabled)
-$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom');
+$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom','option');
 
 // Check if the toggle is on (true)
 if ($leaderboard_bottom_script_enabled === 'on') {
