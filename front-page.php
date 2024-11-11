@@ -333,7 +333,7 @@ else :
 
 <?php
 // Check if the ACF field exists and if it's true (enabled)
-$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom_1');
+$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom');
 
 // Check if the toggle is on (true)
 if ($leaderboard_bottom_script_enabled === 'on') {
