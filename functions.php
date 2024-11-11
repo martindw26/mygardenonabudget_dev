@@ -323,10 +323,3 @@ function disable_gutenberg_for_acf_option_post_ids($is_enabled, $post) {
 add_filter('use_block_editor_for_post', 'disable_gutenberg_for_acf_option_post_ids', 10, 2);
 
 
-add_action('admin_notices', function() {
-    $disabled_post_ids = get_field('disabled_post_ids', 'option');
-    echo '<pre>Disabled Post IDs: ';
-    print_r($disabled_post_ids);
-    echo '</pre>';
-});
-
