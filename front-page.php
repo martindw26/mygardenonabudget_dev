@@ -131,12 +131,12 @@ if ($leaderboard_middle_script_enabled === 'on') {
     // Output or include the necessary script or functionality
     echo '<script>';
     // Add your leaderboard script or any other code here
-    echo 'console.log("Leaderboard script is enabled!");';
+    echo 'console.log("Leaderboard Middle script is enabled!");';
     echo '</script>';
 } else {
     // Optionally, you can handle the case when the toggle is off
     echo '<script>';
-    echo 'console.log("Leaderboard script is disabled");';
+    echo 'console.log("Leaderboard Middle script is disabled");';
     echo '</script>';
 }
 ?>
@@ -330,12 +330,13 @@ else :
 <?php endif; ?>
 </div>
 <!-- ################ BOTTOM SECTION ################### -->
+
 <?php
 // Check if the ACF field exists and if it's true (enabled)
-$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom','option');
+$leaderboard_bottom_script_enabled = get_field('hp_ldr_bottom_1');
 
 // Check if the toggle is on (true)
-if ($leaderboard_bottom_script_enabled) {
+if ($leaderboard_bottom_script_enabled === 'on') {
     // Output or include the necessary script or functionality
     echo '<script>';
     // Add your leaderboard script or any other code here
@@ -343,8 +344,11 @@ if ($leaderboard_bottom_script_enabled) {
     echo '</script>';
 } else {
     // Optionally, you can handle the case when the toggle is off
-    echo '<!-- Leaderboard Bottom script is disabled -->';
+    echo '<script>';
+    echo 'console.log("Leaderboard Bottom script is disabled");';
+    echo '</script>';
 }
 ?>
+
 </div>
 <?php get_footer(); ?>
