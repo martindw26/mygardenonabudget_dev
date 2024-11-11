@@ -135,7 +135,7 @@ if ($leaderboard_middle_script_enabled === 'on') { // Corrected the closing brac
     echo '</script>';
 } else {
     // Optionally, you can handle the case when the toggle is off
-    echo '<!-- Leaderboard script is disabled -->';
+    echo 'console.log("Leaderboard script is disabled");';
 }
 ?>
 
