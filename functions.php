@@ -295,26 +295,38 @@ add_shortcode('products_awin', 'display_products_awin');
    *  Hide gutenberg
 --------------------------------------------------- */
 
-// Disable Gutenberg editor for specific post IDs from ACF Options Page
-function disable_gutenberg_for_acf_post_ids($is_enabled, $post) {
-    // Check if the post object is valid
+// Disable Gutenberg editor based on post IDs from ACF Options Page
+function disable_gutenberg_for_acf_option_post_ids($is_enabled, $post) {
+    // Verify the post object is valid
     if (!$post instanceof WP_Post) {
         return $is_enabled;
     }
 
-    // Get the list of disabled post IDs from ACF Options Page
-    $disabled_post_ids = get_field('disabled_post_ids', 'option'); // ACF field name 'disabled_post_ids'
+    // Retrieve the post IDs from the ACF Options Page field
+    $disabled_post_ids = get_field('disabled_post_ids', 'option');
 
-    // Ensure we have an array of IDs
+    // Check if the retrieved value is a valid array and not empty
     if (is_array($disabled_post_ids) && !empty($disabled_post_ids)) {
-        // Check if the current post ID is in the list
+        // Debug: Uncomment the following line to check the retrieved IDs in the error log
+        // error_log(print_r($disabled_post_ids, true));
+
+        // Check if the current post ID is in the disabled post IDs list
         if (in_array($post->ID, $disabled_post_ids)) {
             return false; // Disable Gutenberg editor for this post
         }
     }
 
-    return $is_enabled;
+    return $is_enabled; // Enable Gutenberg if not in the list
 }
 
-add_filter('use_block_editor_for_post', 'disable_gutenberg_for_acf_post_ids', 10, 2);
+// Apply the filter to disable the block editor
+add_filter('use_block_editor_for_post', 'disable_gutenberg_for_acf_option_post_ids', 10, 2);
+
+
+add_action('admin_notices', function() {
+    $disabled_post_ids = get_field('disabled_post_ids', 'option');
+    echo '<pre>Disabled Post IDs: ';
+    print_r($disabled_post_ids);
+    echo '</pre>';
+});
 
