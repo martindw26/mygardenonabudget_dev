@@ -295,3 +295,27 @@ add_shortcode('products_awin', 'display_products_awin');
    *  Hide gutenberg
 --------------------------------------------------- */
 
+// Disable Gutenberg editor based on post IDs from ACF Options Page
+function disable_gutenberg_from_acf_option($is_enabled, $post) {
+    // Check if the post object is valid
+    if (!$post instanceof WP_Post) {
+        return $is_enabled;
+    }
+
+    // Get the list of disabled post IDs from ACF Options Page (comma-separated string)
+    $disabled_post_ids = get_field('disabled_post_ids', 'option');
+
+    // Ensure we have a valid string and split it into an array of integers
+    if ($disabled_post_ids) {
+        $post_ids_array = array_map('intval', explode(',', $disabled_post_ids));
+
+        // Check if the current post ID is in the list
+        if (in_array($post->ID, $post_ids_array)) {
+            return false; // Disable Gutenberg editor for this post
+        }
+    }
+
+    return $is_enabled;
+}
+
+add_filter('use_block_editor_for_post', 'disable_gutenberg_from_acf_option', 10, 2);
