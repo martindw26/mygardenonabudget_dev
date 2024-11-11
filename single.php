@@ -6,27 +6,25 @@
 
 
 
-<?php 
-// Initialize the $ros_ad_header variable
-$ros_ad_header = get_field('ros_ad_header', 'option');
+<?php
+// Check if the ACF field exists and if it's true (enabled)
+$run_of_site_leaderboard_enabled = get_field('ros_ad_header','option');
 
-if (!is_singular()) {
-    $leaderboard_ros_top_header_path = get_field('leaderboard_ros_top_header_path', 'option');
+// Check if the toggle is on (true)
+if ($leaderboard_bottom_script_enabled === 'on') {
+    // Output or include the necessary script or functionality
+    echo '<script>';
+    // Add your leaderboard script or any other code here
+    echo 'console.log("Run of site leaderboard script is enabled!");';
+    echo '</script>';
+} else {
+    // Optionally, you can handle the case when the toggle is off
+    echo '<script>';
+    echo 'console.log("Run of site leaderboard script is disabled");';
+    echo '</script>';
 }
+?> 
 
-if ($ros_ad_header === 'on' && is_single()) { // Check if $ros_ad_header is 'on' and the current post is a single post
-    echo '<section class="ros_ad_header">';
-    $leaderboard_ros_top_body_script = get_field('leaderboard_ros_top_body_script', 'option');
-    $leaderboard_top_body_script_switch = get_field('ros_ad_header', 'option');
-  
-    if ($leaderboard_top_body_script_switch === 'on') {
-        echo '<section class="ad_header_top">';
-        echo $leaderboard_ros_top_body_script;
-        echo '</section>';
-    }
-    echo '</section>';
-}
-?>
 </div>
 
 <div class="container text-sm-start p-2 mb-2 text-muted">
