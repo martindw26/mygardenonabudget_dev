@@ -281,12 +281,8 @@ $four_col_block_featured_title = get_field('four_col_block_featured_title', 'opt
 $four_col_block_featured_cat = get_field('four_col_block_featured_cat', 'option');
 $four_col_block_featured_post = get_field('four_col_block_featured_post', 'option');
 $four_col_block_featured_offset = get_field('four_col_block_featured_offset', 'option');
-if ($leaderboard_middle_body_script_switch === 'on') {
-    echo '<section class="ad_header_top">';
-    echo $leaderboard_middle_body_script;
-    echo '</section>';
-} 
-?>
+
+
 <!-- ################ BOTTOM SECTION ################### -->
 <h2 class="post-featured-block-title"><?php echo $four_col_block_featured_title?></h2>
 <div class="row">
