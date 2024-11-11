@@ -303,7 +303,7 @@ function disable_gutenberg_for_acf_option_post_ids($is_enabled, $post) {
     }
 
     // Retrieve the post IDs from the ACF Options Page field
-    $disabled_post_ids = get_field('disabled_post_ids', 'option');
+    $disabled_post_ids = get_field('disable_gutenberg_editor', 'option');
 
     // Check if the retrieved value is a valid array and not empty
     if (is_array($disabled_post_ids) && !empty($disabled_post_ids)) {
