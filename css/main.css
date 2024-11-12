@@ -43,6 +43,12 @@ a.logo_url{
     color: inherit;
 }
 
+/* Main content */
+
+.container.main-content {
+    background: white;
+}
+
 /* ###### Share #######*/
 
 @media only screen and (max-width: 480px) {
