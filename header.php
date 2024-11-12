@@ -40,6 +40,9 @@
     $site_header_text_align = get_field('site_header_text_align', 'option'); 
     $header_font = get_field('header_font_select', 'option'); 
     $header_font_text_color = get_field('header_font_text_color', 'option'); 
+    $background_image = get_field('background_image', 'option');
+    $background_image_url = get_field('background_image_url', 'option');
+    
 ?>
     <style>
     /* ################# Header styles ################# */
