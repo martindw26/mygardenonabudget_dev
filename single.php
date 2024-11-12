@@ -34,7 +34,7 @@ echo $affiliate_disclaimer;
 ?>
 </div>
 
-    <div class="container">
+    <div class="container main-content">
     <div class="row">
        
        <div class="col-lg-8">
