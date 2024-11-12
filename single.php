@@ -4,7 +4,7 @@
   
 <?php get_template_part('includes/sections/trending'); ?>
 
-
+<div class="background">
 
 <?php
 // Check if the ACF field exists and if it's true (enabled)
@@ -33,8 +33,6 @@ $affiliate_disclaimer = get_field ('affiliate_disclaimer','option');
 echo $affiliate_disclaimer;
 ?>
 </div>
-
-<div class="background">
 
     <div class="container">
     <div class="row">
