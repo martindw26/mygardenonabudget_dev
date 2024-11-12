@@ -2,7 +2,7 @@
 
 <div class="background-top">
 
-<div class="container p-2 mt-2">
+<div class="container pb-2 pt-2 mt-2">
   
 <?php get_template_part('includes/sections/trending'); ?>
 
@@ -29,7 +29,7 @@ if ($leaderboard_bottom_script_enabled === 'on') {
 
 </div>
 
-<div class="container text-sm-start p-2 mb-2 text-muted">
+<div class="container text-sm-start pb-2 pt-2 mb-2 text-muted">
 <?php 
 $affiliate_disclaimer = get_field ('affiliate_disclaimer','option');
 echo $affiliate_disclaimer;
