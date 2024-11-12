@@ -105,10 +105,12 @@
 /* Main content */
 
 @media only screen and (min-width: 482px) {
-.background {
-    background-color: black;
+  .background {
+    background: url('<?php echo $background_image; ?>') no-repeat center center;
+    background-size: cover;
+  }
 }
-}
+
 
 @media only screen and (min-width: 482px) {
 .container.main-content {
