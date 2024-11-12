@@ -45,6 +45,10 @@ a.logo_url{
 
 /* Main content */
 
+.background {
+    background-color: black;
+}
+
 .container.main-content {
     background: white;
 }
