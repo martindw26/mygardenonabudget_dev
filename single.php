@@ -34,7 +34,9 @@ echo $affiliate_disclaimer;
 ?>
 </div>
 
-<div class="container">
+<div class="background">
+
+    <div class="container">
     <div class="row">
        
        <div class="col-lg-8">
@@ -84,44 +86,44 @@ echo $affiliate_disclaimer;
 
 
             </div>
-<hr>
+    <hr>
 
-<section>
-Social share bar to be added here
-</section>
+        <section>
+        Social share bar to be added here
+        </section>
 
-<hr>
-<?php
-$related_post_bottom_title = get_field ('related_post_bottom_title','option');
-echo '<h2 class="related_post_bottom_title">'.$related_post_bottom_title .'</h2>';
+        <hr>
+        <?php
+        $related_post_bottom_title = get_field ('related_post_bottom_title','option');
+        echo '<h2 class="related_post_bottom_title">'.$related_post_bottom_title .'</h2>';
 
-$template_path = locate_template('includes/related.php');
-if ($template_path) {
-    include($template_path);
-} else {
-    echo 'Related section template not found.';
-}
-?>
+        $template_path = locate_template('includes/related.php');
+        if ($template_path) {
+            include($template_path);
+        } else {
+            echo 'Related section template not found.';
+        }
+        ?>
 
-            <div class="container-fluid text-black" style="height:60px; padding-top:8px;">
-                <div class="social_share_header">
-                    <?php
-                    $on_article = get_field('on_article', 'option');
-                    if ($on_article === 'yes') {
-                        echo do_shortcode('[scriptless]');
-                    }
-                    ?>
+                    <div class="container-fluid text-black" style="height:60px; padding-top:8px;">
+                        <div class="social_share_header">
+                            <?php
+                            $on_article = get_field('on_article', 'option');
+                            if ($on_article === 'yes') {
+                                echo do_shortcode('[scriptless]');
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <br> 
+                    <?php endwhile; endif; ?>
                 </div>
-            </div>
-            <br> 
-            <?php endwhile; endif; ?>
+
+                <?php get_template_part( 'template-parts/sidebar' ); ?>
+
         </div>
-
-        <?php get_template_part( 'template-parts/sidebar' ); ?>
-
     </div>
 </div>
-
 </div>
 
 <?php get_footer(); ?>
