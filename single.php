@@ -2,7 +2,7 @@
 
 <div class="background-top">
 
-<div class="container pb-2 pt-2 mt-2">
+<div class="container pb-2 pt-2">
   
 <?php get_template_part('includes/sections/trending'); ?>
 
