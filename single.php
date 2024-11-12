@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<div class="background-top">
+
 <div class="container p-2 mt-2">
   
 <?php get_template_part('includes/sections/trending'); ?>
@@ -32,6 +34,7 @@ if ($leaderboard_bottom_script_enabled === 'on') {
 $affiliate_disclaimer = get_field ('affiliate_disclaimer','option');
 echo $affiliate_disclaimer;
 ?>
+</div>
 </div>
 
     <div class="container main-content">
