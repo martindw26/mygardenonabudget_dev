@@ -45,19 +45,29 @@ a.logo_url{
 
 /* Main content */
 
+@media only screen and (min-width: 482px) {
 .background {
     background-color: black;
 }
+}
 
+@media only screen and (min-width: 482px) {
 .container.main-content {
     background: white;
 }
+}
 
+@media only screen and (min-width: 482px) {
 .background-top {
     background-color: white;
 }
+}
 
+@media only screen and (min-width: 482px) {
 .container.text-sm-start.pb-2.pt-2.text-muted.trending {
+    background-color: white;
+    height: 55px;
+}
 }
 
 
