@@ -29,7 +29,7 @@ if ($leaderboard_bottom_script_enabled === 'on') {
 
 </div>
 
-<div class="container text-sm-start pb-2 pt-2 mb-2 text-muted">
+<div class="container text-sm-start pb-2 pt-2 mb-2 text-muted trending">
 <?php 
 $affiliate_disclaimer = get_field ('affiliate_disclaimer','option');
 echo $affiliate_disclaimer;
