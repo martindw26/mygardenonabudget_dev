@@ -234,6 +234,7 @@ jQuery(document).ready(function($) {
     });
 });
 </script>
+<div class="background">
 <div class="container">
 <body>
 

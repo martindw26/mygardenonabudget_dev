@@ -122,6 +122,6 @@ echo $affiliate_disclaimer;
         </div>
     </div>
 </div>
-
+</div>
 
 <?php get_footer(); ?>
