@@ -45,10 +45,8 @@
     /* ################# Header styles ################# */
 /* Main site header styling */
 
-
 /* Site header styles */
 
-/* Site header styles */
 /* Site header styles */
 .site_header_desktop {
     display: block; 
@@ -101,6 +99,34 @@
 @keyframes tickerAnimation {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
+}
+
+
+/* Main content */
+
+@media only screen and (min-width: 482px) {
+.background {
+    background-color: black;
+}
+}
+
+@media only screen and (min-width: 482px) {
+.container.main-content {
+    background: white;
+}
+}
+
+@media only screen and (min-width: 482px) {
+.background-top {
+    background-color: white;
+}
+}
+
+@media only screen and (min-width: 482px) {
+.container.text-sm-start.pb-2.pt-2.text-muted.trending {
+    background-color: white;
+    height: 55px;
+}
 }
 
 </style>
