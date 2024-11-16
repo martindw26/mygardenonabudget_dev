@@ -137,9 +137,17 @@
 }
 
 
+.page-skin-left {
+    left: 180px;
+    position: fixed;
+    top: 195px;
+}
 
-
-
+.page-skin-right {
+    position: fixed;
+    top: 195px;
+    right: 165px;
+}
 
 
 </style>
