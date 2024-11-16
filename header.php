@@ -137,21 +137,7 @@
 }
 
 
-/* Ensure the body has some padding to prevent overlap with the skins */
-body {
-  margin: 0;
-  padding: 0;
-}
 
-/* Main container styling */
-.container.main {
-  width: 80%; /* Adjust this width as needed */
-  margin: 0 auto; /* Center the main container */
-  padding: 20px;
-  background-color: #fff; /* Example background color */
-  z-index: 1;
-  position: relative; /* Ensure it appears above the skins */
-}
 
 /* Page skin left styling */
 .page-skin-left {
@@ -320,6 +306,7 @@ jQuery(document).ready(function($) {
 });
 </script>
 <div class="background">
+
 <div class="page-skin-left">
   <img src="<?php echo $leftpageskin; ?>" alt="Left Page Skin">
 </div>
