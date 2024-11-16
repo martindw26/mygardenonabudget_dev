@@ -152,6 +152,13 @@
 }
 }
 
+@media screen and (max-width: 1079px) {
+  .page-skin-left,
+  .page-skin-right {
+    display: none;
+  }
+}
+
 
 </style>
 </head>
