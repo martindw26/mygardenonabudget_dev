@@ -135,15 +135,14 @@
 .container.main {
     background-color: white;
 }
-
 @media only screen and (min-width: 1920px) {
     .page-skin-left {
+        position: absolute;
         left: 88px;
-        position: fixed;
-        top: calc(70px + 10px); /* Adjust '70px' to the actual height of your navbar */
-        z-index: 1; /* Ensure it appears below the navbar */
+        top: calc(70px + 20px); /* Adjust the top value based on your navbar height */
     }
 }
+
 
 @media only screen and (min-width: 1920px) {
 .page-skin-right {
@@ -305,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const pageSkinLeft = document.querySelector('.page-skin-left');
     if (navbar && pageSkinLeft) {
         const navbarHeight = navbar.offsetHeight;
-        pageSkinLeft.style.top = `${navbarHeight + 260}px`;
+        pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
     }
 });
 
