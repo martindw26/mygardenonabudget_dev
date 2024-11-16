@@ -137,7 +137,7 @@
 }
 @media only screen and (min-width: 1920px) {
     .page-skin-left {
-        position: absolute;
+        position: fixed;
         left: 88px;
         top: calc(5px + 0px);
     }
