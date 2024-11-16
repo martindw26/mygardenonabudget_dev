@@ -43,7 +43,7 @@
     $leftpageskin = get_field('leftpageskin', 'option');
     $rightpageskin = get_field('rightpageskin', 'option');
     ?>
-    
+
     <style>
     /* ################# Header styles ################# */
 /* Main site header styling */
@@ -132,10 +132,62 @@
 }
 }
 
-
 .container.main {
     background-color: white;
 }
+
+
+/* Ensure the body has some padding to prevent overlap with the skins */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Main container styling */
+.container.main {
+  width: 80%; /* Adjust this width as needed */
+  margin: 0 auto; /* Center the main container */
+  padding: 20px;
+  background-color: #fff; /* Example background color */
+  z-index: 1;
+  position: relative; /* Ensure it appears above the skins */
+}
+
+/* Page skin left styling */
+.page-skin-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10%; /* Adjust width as needed */
+  height: 100%;
+  background-color: #f0f0f0; /* Example background color */
+  z-index: 0;
+}
+
+/* Page skin right styling */
+.page-skin-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10%; /* Adjust width as needed */
+  height: 100%;
+  background-color: #f0f0f0; /* Example background color */
+  z-index: 0;
+}
+
+/* Optional: Ensure that the page skins are not obstructing the main content */
+@media (max-width: 1200px) {
+  .container.main {
+    width: 100%; /* Make main container full-width on smaller screens */
+    padding: 10px;
+  }
+  .page-skin-left,
+  .page-skin-right {
+    display: none; /* Hide page skins on smaller screens */
+  }
+}
+
+
 </style>
 </head>
 
