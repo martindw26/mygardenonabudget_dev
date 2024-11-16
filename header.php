@@ -270,6 +270,8 @@ jQuery(document).ready(function($) {
 });
 </script>
 <div class="background">
+<div class="page-skin-left"></div>
+<div class="page-skin-right"></div>
 <div class="container main">
 <body>
 
