@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const navbar = document.querySelector('.navbar');
-    const pageSkinLeft = document.querySelector('.right-skin-left');
+    const pageSkinLeft = document.querySelector('.page-skin-right');
     if (navbar && pageSkinLeft) {
         const navbarHeight = navbar.offsetHeight;
         pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
