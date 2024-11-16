@@ -134,6 +134,10 @@
 }
 }
 
+
+.container.main {
+    background-color: white;
+}
 </style>
 </head>
 
