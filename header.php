@@ -139,7 +139,7 @@
     .page-skin-left {
         position: absolute;
         left: 88px;
-        top: calc(70px + 20px); /* Adjust the top value based on your navbar height */
+        top: calc(5px + 0px);
     }
 }
 
