@@ -136,17 +136,19 @@
     background-color: white;
 }
 
-
+@media only screen and (min-width: 1920px) {
 .page-skin-left {
     left: 180px;
     position: fixed;
     top: 195px;
 }
-
+}
+@media only screen and (min-width: 1920px) {
 .page-skin-right {
     position: fixed;
     top: 195px;
     right: 165px;
+}
 }
 
 
