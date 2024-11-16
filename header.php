@@ -40,10 +40,10 @@
     $site_header_text_align = get_field('site_header_text_align', 'option'); 
     $header_font = get_field('header_font_select', 'option'); 
     $header_font_text_color = get_field('header_font_text_color', 'option'); 
-    $background_image = get_field('background_image', 'option');
-    $background_image_url = get_field('background_image_url', 'option');
+    $leftpageskin = get_field('leftpageskin', 'option');
+    $rightpageskin = get_field('rightpageskin', 'option');
+    ?>
     
-?>
     <style>
     /* ################# Header styles ################# */
 /* Main site header styling */
@@ -268,8 +268,13 @@ jQuery(document).ready(function($) {
 });
 </script>
 <div class="background">
-<div class="page-skin-left"></div>
-<div class="page-skin-right"></div>
+<div class="page-skin-left">
+  <img src="<?php echo $leftpageskin; ?>" alt="Left Page Skin">
+</div>
+
+<div class="page-skin-right">
+  <img src="<?php echo $rightpageskin; ?>" alt="Right Page Skin">
+</div>
 <div class="container main">
 <body>
 
