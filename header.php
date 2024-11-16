@@ -146,9 +146,9 @@
 
 @media only screen and (min-width: 1920px) {
 .page-skin-right {
-    position: fixed;
-    top: 195px;
-    right: 165px;
+  position: fixed;
+  right: 88px;
+  top: calc(5px + 0px);
 }
 }
 
@@ -302,6 +302,15 @@ jQuery(document).ready(function($) {
 document.addEventListener("DOMContentLoaded", function() {
     const navbar = document.querySelector('.navbar');
     const pageSkinLeft = document.querySelector('.page-skin-left');
+    if (navbar && pageSkinLeft) {
+        const navbarHeight = navbar.offsetHeight;
+        pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const navbar = document.querySelector('.navbar');
+    const pageSkinLeft = document.querySelector('.right-skin-left');
     if (navbar && pageSkinLeft) {
         const navbarHeight = navbar.offsetHeight;
         pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
