@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const pageSkinLeft = document.querySelector('.page-skin-left');
     if (navbar && pageSkinLeft) {
         const navbarHeight = navbar.offsetHeight;
-        pageSkinLeft.style.top = `${navbarHeight + 10}px`;
+        pageSkinLeft.style.top = `${navbarHeight + 260}px`;
     }
 });
 
