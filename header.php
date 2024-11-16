@@ -152,7 +152,7 @@
 }
 }
 
-@media screen and (max-width: 1079px) {
+@media screen and (max-width: 1918px) {
   .page-skin-left,
   .page-skin-right {
     display: none;
