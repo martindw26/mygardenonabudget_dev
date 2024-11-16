@@ -137,12 +137,14 @@
 }
 
 @media only screen and (min-width: 1920px) {
-.page-skin-left {
-    left: 180px;
-    position: fixed;
-    top: 195px;
+    .page-skin-left {
+        left: 88px;
+        position: fixed;
+        top: calc(70px + 10px); /* Adjust '70px' to the actual height of your navbar */
+        z-index: 1; /* Ensure it appears below the navbar */
+    }
 }
-}
+
 @media only screen and (min-width: 1920px) {
 .page-skin-right {
     position: fixed;
@@ -296,3 +298,16 @@ jQuery(document).ready(function($) {
 <body>
 
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const navbar = document.querySelector('.navbar');
+    const pageSkinLeft = document.querySelector('.page-skin-left');
+    if (navbar && pageSkinLeft) {
+        const navbarHeight = navbar.offsetHeight;
+        pageSkinLeft.style.top = `${navbarHeight + 10}px`;
+    }
+});
+
+
+</Script>
