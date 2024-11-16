@@ -298,33 +298,24 @@ jQuery(document).ready(function($) {
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+
+document.addEventListener("DOMContentLoaded", function() {
     const navbar = document.querySelector('.navbar');
     const pageSkinLeft = document.querySelector('.page-skin-left');
-    const pageSkinRight = document.querySelector('.page-skin-right');
-    const footer = document.querySelector('footer');
-
-    if (navbar && (pageSkinLeft || pageSkinRight) && footer) {
+    if (navbar && pageSkinLeft) {
         const navbarHeight = navbar.offsetHeight;
-        const additionalMargin = 260;
-        const updateMarginTop = (element) => {
-            const footerOffsetTop = footer.getBoundingClientRect().top;
-            const elementOffsetTop = element.getBoundingClientRect().top;
-            const viewportHeight = window.innerHeight;
-            const maxVisibleHeight = footerOffsetTop - viewportHeight;
-
-            // Calculate the new margin top while checking if the page-skin overlaps with the footer
-            let newMarginTop = navbarHeight + additionalMargin;
-            if (elementOffsetTop + newMarginTop > maxVisibleHeight) {
-                newMarginTop = maxVisibleHeight - elementOffsetTop;
-            }
-            
-            element.style.marginTop = `${Math.max(0, newMarginTop)}px`;
-        };
-
-        // Apply the margin update to both left and right page skins
-        if (pageSkinLeft) updateMarginTop(pageSkinLeft);
-        if (pageSkinRight) updateMarginTop(pageSkinRight);
+        pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
     }
 });
-</script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const navbar = document.querySelector('.navbar');
+    const pageSkinLeft = document.querySelector('.page-skin-right');
+    if (navbar && pageSkinLeft) {
+        const navbarHeight = navbar.offsetHeight;
+        pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
+    }
+});
+
+
+</Script>
