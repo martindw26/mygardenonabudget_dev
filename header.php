@@ -298,24 +298,48 @@ jQuery(document).ready(function($) {
 
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const navbar = document.querySelector('.navbar');
+        const pageSkinLeft = document.querySelector('.page-skin-left');
+        const pageSkinRight = document.querySelector('.page-skin-right');
+        const footer = document.querySelector('footer');
 
-document.addEventListener("DOMContentLoaded", function() {
-    const navbar = document.querySelector('.navbar');
-    const pageSkinLeft = document.querySelector('.page-skin-left');
-    if (navbar && pageSkinLeft) {
-        const navbarHeight = navbar.offsetHeight;
-        pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
-    }
-});
+        if (navbar && (pageSkinLeft || pageSkinRight) && footer) {
+            // Set initial margin based on navbar height
+            const navbarHeight = navbar.offsetHeight;
+            const offsetMargin = `${navbarHeight + 260}px`;
 
-document.addEventListener("DOMContentLoaded", function() {
-    const navbar = document.querySelector('.navbar');
-    const pageSkinLeft = document.querySelector('.page-skin-right');
-    if (navbar && pageSkinLeft) {
-        const navbarHeight = navbar.offsetHeight;
-        pageSkinLeft.style.marginTop = `${navbarHeight + 260}px`;
-    }
-});
+            if (pageSkinLeft) pageSkinLeft.style.marginTop = offsetMargin;
+            if (pageSkinRight) pageSkinRight.style.marginTop = offsetMargin;
 
+            // Function to check if footer is in view
+            function checkFooterInView() {
+                const footerTop = footer.getBoundingClientRect().top;
+                const viewportHeight = window.innerHeight;
 
-</Script>
+                if (pageSkinLeft) {
+                    if (footerTop < viewportHeight) {
+                        pageSkinLeft.style.display = 'none';
+                    } else {
+                        pageSkinLeft.style.display = 'block';
+                    }
+                }
+
+                if (pageSkinRight) {
+                    if (footerTop < viewportHeight) {
+                        pageSkinRight.style.display = 'none';
+                    } else {
+                        pageSkinRight.style.display = 'block';
+                    }
+                }
+            }
+
+            // Add scroll and resize event listeners
+            window.addEventListener('scroll', checkFooterInView);
+            window.addEventListener('resize', checkFooterInView);
+            
+            // Initial check
+            checkFooterInView();
+        }
+    });
+</script>
