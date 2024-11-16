@@ -266,7 +266,7 @@ jQuery(document).ready(function($) {
 });
 </script>
 <div class="background">
-<div class="container">
+<div class="container main">
 <body>
 
 
