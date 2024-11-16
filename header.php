@@ -139,39 +139,7 @@
 
 
 
-/* Page skin left styling */
-.page-skin-left {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10%; /* Adjust width as needed */
-  height: 100%;
-  background-color: #f0f0f0; /* Example background color */
-  z-index: 0;
-}
 
-/* Page skin right styling */
-.page-skin-right {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 10%; /* Adjust width as needed */
-  height: 100%;
-  background-color: #f0f0f0; /* Example background color */
-  z-index: 0;
-}
-
-/* Optional: Ensure that the page skins are not obstructing the main content */
-@media (max-width: 1200px) {
-  .container.main {
-    width: 100%; /* Make main container full-width on smaller screens */
-    padding: 10px;
-  }
-  .page-skin-left,
-  .page-skin-right {
-    display: none; /* Hide page skins on smaller screens */
-  }
-}
 
 
 </style>
