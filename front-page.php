@@ -1,4 +1,4 @@
-<div class="container main-content">
+
 <?php
 get_header();
 /* Template Name: Home Page */
@@ -351,6 +351,5 @@ if ($leaderboard_bottom_script_enabled === 'on') {
 }
 ?>
 
-</div>
 </div>
 <?php get_footer(); ?>
