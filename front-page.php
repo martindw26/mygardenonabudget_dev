@@ -1,4 +1,4 @@
-<div class="hp-blocks">
+
 <?php
 get_header();
 /* Template Name: Home Page */
@@ -352,5 +352,5 @@ if ($leaderboard_bottom_script_enabled === 'on') {
 ?>
 
 </div>
-</div>
+
 <?php get_footer(); ?>
