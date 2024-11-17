@@ -13,9 +13,6 @@ if (!function_exists('have_rows')) {
 
 <div class="page-skin-left">
   <?php 
-
-$leftpageskin = get_sub_field('leftpageskin', 'option');
-
   // Fetch ads from the 'left_page_skin_ads' repeater field on the Options Page
   if (have_rows('left_page_skin_ads', 'option')) : ?>
     <p class="advert_label">Advertisement</p>
