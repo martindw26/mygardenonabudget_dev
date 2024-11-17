@@ -294,12 +294,12 @@ jQuery(document).ready(function($) {
 <div class="background">
 
 <div class="page-skin-left">
-  <p> Advertisment </p>
+  <p class="advert_label"> Advertisment </p>
   <img src="<?php echo $leftpageskin; ?>" alt="Left Page Skin">
 </div>
 
 <div class="page-skin-right">
-<p> Advertisment </p>
+<p class="advert_label"> Advertisment </p>
   <img src="<?php echo $rightpageskin; ?>" alt="Right Page Skin">
 </div>
 <div class="container main">
