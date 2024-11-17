@@ -298,7 +298,19 @@ jQuery(document).ready(function($) {
 </script>
 <div class="background">
 
-<?php get_template_part('template-parts/left_page_skin_ads'); ?>
+<div class="page-skin-left">
+  <?php if( have_rows('left_page_skin_ads') ): ?>
+    <p class="advert_label">Advertisement</p>
+    <?php while( have_rows('left_page_skin_ads') ): the_row(); 
+      $left_page_skin = get_sub_field('left_page_skin'); 
+      $left_page_skin_url = get_sub_field('left_page_skin_url');
+    ?>
+      <a href="<?php echo esc_url($left_page_skin_url); ?>" target="_blank">
+        <img src="<?php echo esc_url($left_page_skin); ?>" alt="Left Page Skin">
+      </a>
+    <?php endwhile; ?>
+  <?php endif; ?>
+</div>
 
 
 <div class="page-skin-right">
