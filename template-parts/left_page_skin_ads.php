@@ -1,7 +1,7 @@
 <?php
 /**
- * Template Part: Left Page Skin Ads
- * Description: Displays ads using ACF repeater within <div class="page-skin-left">
+ * Template Part: Left Page Skin Ads (ACF Options Page)
+ * Description: Displays ads using an ACF repeater from the Options Page within <div class="page-skin-left">
  */
 
 // Check if ACF is active
@@ -13,11 +13,11 @@ if (!function_exists('have_rows')) {
 
 <div class="page-skin-left">
   <?php 
-  // Fetch ads from the 'left_page_skin_ads' repeater field
-  if (have_rows('left_page_skin_ads')) : ?>
+  // Fetch ads from the 'left_page_skin_ads' repeater field on the Options Page
+  if (have_rows('left_page_skin_ads', 'option')) : ?>
     <p class="advert_label">Advertisement</p>
     
-    <?php while (have_rows('left_page_skin_ads')) : the_row(); 
+    <?php while (have_rows('left_page_skin_ads', 'option')) : the_row(); 
       
       // Get subfields from the repeater
       $left_page_skin = get_sub_field('left_page_skin'); 
@@ -38,14 +38,14 @@ if (!function_exists('have_rows')) {
         </a>
       <?php else: ?>
         <!-- Debugging: Missing data -->
-        <p>Ad data is incomplete. Please check ACF fields.</p>
+        <p>Ad data is incomplete. Please check ACF fields on the Options Page.</p>
       <?php endif; ?>
       
     <?php endwhile; ?>
     
   <?php else : ?>
-    <!-- No ads found in repeater field -->
-    <p>No ads found in the ACF repeater field. Please add ads in the ACF settings.</p>
+    <!-- No ads found in the repeater field on Options Page -->
+    <p>No ads found in the ACF repeater field on the Options Page. Please add ads in the ACF settings.</p>
   <?php endif; ?>
 </div>
 
@@ -53,8 +53,7 @@ if (!function_exists('have_rows')) {
 <pre>
 <?php
 // Output the repeater field data for debugging purposes
-$field_data = get_field('left_page_skin_ads');
+$field_data = get_field('left_page_skin_ads', 'option');
 var_dump($field_data);
 ?>
 </pre>
-
