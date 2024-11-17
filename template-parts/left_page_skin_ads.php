@@ -37,7 +37,7 @@ if (!function_exists('have_rows')) {
         $random_rotation = rand(-10, 10); 
         ?>
         <a href="<?php echo esc_url($left_page_skin_url); ?>" target="_blank">
-          <img src="<?php echo esc_url($left_page_skin); ?>" alt="Left Page Skin Ad" style="transform: rotate(<?php echo $random_rotation; ?>deg);">
+          <img src="<?php echo esc_url($left_page_skin); ?>" alt="Left Page Skin Ad">
         </a>
       <?php else: ?>
         <!-- Debugging: Missing data -->
