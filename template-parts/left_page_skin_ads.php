@@ -45,7 +45,7 @@ if (!function_exists('have_rows')) {
       $random_rotation = rand(-10, 10); 
       ?>
       
-      <p class="advert_label">Advertisement</p>
+
       <a href="<?php echo esc_url($random_ad['url']); ?>" target="_blank" style="transform: rotate(<?php echo $random_rotation; ?>deg);">
         <img src="<?php echo esc_url($random_ad['image']); ?>" alt="Left Page Skin Ad">
       </a>
