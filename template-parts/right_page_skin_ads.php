@@ -20,7 +20,7 @@ if (!function_exists('have_rows')) {
     $ads = [];
     
     // Loop through all the repeater rows and store the data
-    while (have_rows('righg_page_skin_ads', 'option')) : the_row(); 
+    while (have_rows('right_page_skin_ads', 'option')) : the_row(); 
       
       // Get subfields from the repeater
       $right_page_skin = get_sub_field('right_page_skin'); 
