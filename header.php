@@ -302,12 +302,7 @@ jQuery(document).ready(function($) {
 <?php get_template_part('template-parts/left_page_skin_ads'); ?>
 
 
-<div class="page-skin-right">
-<p class="advert_label"> Advertisment </p>
-  <img src="<?php echo $rightpageskin; ?>" alt="Right Page Skin">
-</div>
-<div class="container main">
-<body>
+<?php get_template_part('template-parts/right_page_skin_ads'); ?>
 
 
 <script>
