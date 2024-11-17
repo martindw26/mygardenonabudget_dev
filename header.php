@@ -301,15 +301,14 @@ jQuery(document).ready(function($) {
 
 <div class="page-skin-left">
 <p class="advert_label"> Advertisment </p>
-  <img src="<?php echo $leftpageskin; ?>" alt="Right Page Skin">
+<?php get_template_part('template-parts/left_page_skin_ads'); ?>
 </div>
 <div class="container main">
 
 
-
 <div class="page-skin-right">
 <p class="advert_label"> Advertisment </p>
-  <img src="<?php echo $rightpageskin; ?>" alt="Right Page Skin">
+<?php get_template_part('template-parts/right_page_skin_ads'); ?>
 </div>
 <div class="container main">
 

@@ -11,7 +11,7 @@ if (!function_exists('have_rows')) {
 }
 ?>
 
-<div class="page-skin-left">
+
   <?php 
   // Fetch ads from the 'left_page_skin_ads' repeater field on the Options Page
   if (have_rows('left_page_skin_ads', 'option')) : 
@@ -59,4 +59,4 @@ if (!function_exists('have_rows')) {
     <!-- No ads found in the repeater field on Options Page -->
     <p>No ads found in the ACF repeater field on the Options Page. Please add ads in the ACF settings.</p>
   <?php endif; ?>
-</div>
+
