@@ -41,7 +41,7 @@
     $header_font = get_field('header_font_select', 'option'); 
     $header_font_text_color = get_field('header_font_text_color', 'option'); 
 
-
+    $rightpageskin = get_sub_field('rightpageskin', 'option');
     ?>
 
     <style>
@@ -299,7 +299,20 @@ jQuery(document).ready(function($) {
 <div class="background">
 
 
+<div class="page-skin-left">
+<p class="advert_label"> Advertisment </p>
+  <img src="<?php echo $leftpageskin; ?>" alt="Right Page Skin">
+</div>
+<div class="container main">
+<body>
 
+
+<div class="page-skin-right">
+<p class="advert_label"> Advertisment </p>
+  <img src="<?php echo $rightpageskin; ?>" alt="Right Page Skin">
+</div>
+<div class="container main">
+<body>
 
 
 <script>
