@@ -299,9 +299,6 @@ jQuery(document).ready(function($) {
 <div class="background">
 
 
-<?php get_template_part('template-parts/left_page_skin_ads'); ?>
-
-
 
 
 
