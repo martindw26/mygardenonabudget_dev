@@ -159,6 +159,10 @@
   }
 }
 
+p.advert_label {
+    text-align: center;
+}
+p {
 
 </style>
 </head>
