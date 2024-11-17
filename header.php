@@ -302,7 +302,7 @@ jQuery(document).ready(function($) {
 <?php get_template_part('template-parts/left_page_skin_ads'); ?>
 
 
-<?php get_template_part('template-parts/right_page_skin_ads'); ?>
+
 
 
 <script>
