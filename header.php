@@ -298,10 +298,37 @@ jQuery(document).ready(function($) {
 </script>
 <div class="background">
 
-<div class="page-skin-left">
-  <p class="advert_label"> Advertisment </p>
-  <img src="<?php echo $leftpageskin; ?>" alt="Left Page Skin">
-</div>
+<?php if (have_rows('left_page_skin_ads')): ?>
+    <?php
+    // Create an array to hold the ads
+    $ads = [];
+
+    // Loop through ACF rows to populate the ads array
+    while (have_rows('left_page_skin_ads')): the_row();
+        $ads[] = [
+            'image' => get_sub_field('left_page_skin'),
+            'url' => get_sub_field('left_page_skin_url')
+        ];
+    endwhile;
+
+    // Check if there are ads available
+    if (!empty($ads)) {
+        // Pick a random ad from the array
+        $random_ad = $ads[array_rand($ads)];
+        $ad_image = $random_ad['image'];
+        $ad_url = $random_ad['url'];
+    ?>
+    
+    <div class="page-skin-left">
+        <p class="advert_label">Advertisement</p>
+        <a href="<?php echo esc_url($ad_url); ?>" target="_blank">
+            <img src="<?php echo esc_url($ad_image); ?>" alt="Left Page Skin">
+        </a>
+    </div>
+
+    <?php } ?>
+<?php endif; ?>
+
 
 <div class="page-skin-right">
 <p class="advert_label"> Advertisment </p>
