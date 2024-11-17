@@ -304,7 +304,7 @@ jQuery(document).ready(function($) {
   <img src="<?php echo $leftpageskin; ?>" alt="Right Page Skin">
 </div>
 <div class="container main">
-<body>
+
 
 
 <div class="page-skin-right">
@@ -312,7 +312,7 @@ jQuery(document).ready(function($) {
   <img src="<?php echo $rightpageskin; ?>" alt="Right Page Skin">
 </div>
 <div class="container main">
-<body>
+
 
 
 <script>
