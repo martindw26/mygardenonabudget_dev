@@ -39,15 +39,15 @@ if (!function_exists('have_rows')) {
     // If there are ads in the array, randomly select one
     if (!empty($ads)) :
       // Shuffle the ads array to randomize the order and select the first one
-      $random_ad = $ads[array_rand($ads)];
+      $random_ad_right = $ads_right[array_rand($ads_right)];
       
       // Randomly generate a rotation angle between -10 and 10 degrees
-      $random_rotation = rand(-10, 10); 
+      $random_rotation_right = rand(-10, 10); 
       ?>
       
       <p class="advert_label">Advertisement</p>
-      <a href="<?php echo esc_url($random_ad['url']); ?>" target="_blank" style="transform: rotate(<?php echo $random_rotation; ?>deg);">
-        <img src="<?php echo esc_url($random_ad['image']); ?>" alt="right Page Skin Ad">
+      <a href="<?php echo esc_url($random_ad_right['url']); ?>" target="_blank" style="transform: rotate(<?php echo $random_rotation_right; ?>deg);">
+        <img src="<?php echo esc_url($random_ad_right['image']); ?>" alt="right Page Skin Ad">
       </a>
 
     <?php else: ?>

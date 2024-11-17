@@ -41,7 +41,7 @@
     $header_font = get_field('header_font_select', 'option'); 
     $header_font_text_color = get_field('header_font_text_color', 'option'); 
 
-    $rightpageskin = get_sub_field('rightpageskin', 'option');
+
     ?>
 
     <style>
