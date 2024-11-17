@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Template Part: Left Page Skin Ads (ACF Options Page)
  * Description: Displays ads using an ACF repeater from the Options Page within <div class="page-skin-left">
@@ -13,6 +13,9 @@ if (!function_exists('have_rows')) {
 
 <div class="page-skin-left">
   <?php 
+
+$leftpageskin = get_sub_field('leftpageskin', 'option');
+
   // Fetch ads from the 'left_page_skin_ads' repeater field on the Options Page
   if (have_rows('left_page_skin_ads', 'option')) : ?>
     <p class="advert_label">Advertisement</p>
@@ -32,9 +35,12 @@ if (!function_exists('have_rows')) {
       }
       
       // Check if both image and URL are available before displaying
-      if ($left_page_skin && $left_page_skin_url) : ?>
+      if ($left_page_skin && $left_page_skin_url) : 
+        // Randomly generate a rotation angle between -10 and 10 degrees
+        $random_rotation = rand(-10, 10); 
+        ?>
         <a href="<?php echo esc_url($left_page_skin_url); ?>" target="_blank">
-          <img src="<?php echo esc_url($left_page_skin); ?>" alt="Left Page Skin Ad">
+          <img src="<?php echo esc_url($left_page_skin); ?>" alt="Left Page Skin Ad" style="transform: rotate(<?php echo $random_rotation; ?>deg);">
         </a>
       <?php else: ?>
         <!-- Debugging: Missing data -->
@@ -48,12 +54,3 @@ if (!function_exists('have_rows')) {
     <p>No ads found in the ACF repeater field on the Options Page. Please add ads in the ACF settings.</p>
   <?php endif; ?>
 </div>
-
-<!-- Debugging Output for Field Data -->
-<pre>
-<?php
-// Output the repeater field data for debugging purposes
-$field_data = get_field('left_page_skin_ads', 'option');
-var_dump($field_data);
-?>
-</pre>
