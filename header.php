@@ -161,6 +161,7 @@
 
 p.advert_label {
     text-align: center;
+    color: grey;
 }
 p {
 
