@@ -17,7 +17,7 @@ if (!function_exists('have_rows')) {
   if (have_rows('right_page_skin_ads', 'option')) : 
     
     // Create an array to hold all the ad data
-    $ads = [];
+    $ads_right = [];
     
     // Loop through all the repeater rows and store the data
     while (have_rows('right_page_skin_ads', 'option')) : the_row(); 
@@ -28,7 +28,7 @@ if (!function_exists('have_rows')) {
       
       // Ensure both the image and URL are available before adding to the array
       if ($right_page_skin && $right_page_skin_url) {
-        $ads[] = [
+        $ads_right[] = [
           'image' => $right_page_skin,
           'url' => $right_page_skin_url
         ];
@@ -37,7 +37,7 @@ if (!function_exists('have_rows')) {
     endwhile;
 
     // If there are ads in the array, randomly select one
-    if (!empty($ads)) :
+    if (!empty($ads_right)) :
       // Shuffle the ads array to randomize the order and select the first one
       $random_ad_right = $ads_right[array_rand($ads_right)];
       
