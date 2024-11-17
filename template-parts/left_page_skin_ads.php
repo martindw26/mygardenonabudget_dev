@@ -1,5 +1,5 @@
 <?php
-// Check if the ACF plugin function exists
+// Ensure that ACF function exists (check if ACF is active)
 if (function_exists('have_rows')):
 
     // Check if the repeater field 'left_page_skin_ads' has rows of data
@@ -10,16 +10,14 @@ if (function_exists('have_rows')):
 
         // Loop through the repeater rows
         while (have_rows('left_page_skin_ads')): the_row();
-            // Retrieve the image array and URL field
-            $image = get_sub_field('left_page_skin');   // This will return an array
-            $image_url = $image['url'] ?? '';           // Extract the image URL
-            $ad_url = get_sub_field('left_page_skin_url'); // Get the ad URL
+            $image_array = get_sub_field('left_page_skin');  // Get the image array
+            $url = get_sub_field('left_page_skin_url');      // Get the ad URL
 
-            // Check if both image URL and ad URL are not empty
-            if ($image_url && $ad_url) {
+            // Check if the image array has a URL and URL is not empty
+            if ($image_array && isset($image_array['url']) && $url) {
                 $ads[] = [
-                    'image' => $image_url,
-                    'url' => $ad_url
+                    'image' => $image_array['url'], // Access 'url' key from the image array
+                    'url' => $url
                 ];
             }
         endwhile;
@@ -42,7 +40,7 @@ if (function_exists('have_rows')):
             
             <?php
         } else {
-            // Display a comment if no ads are found
+            // Display a comment if no ads are available
             echo '<!-- No ads available in the repeater field -->';
         }
     else:
@@ -51,7 +49,7 @@ if (function_exists('have_rows')):
     endif;
 
 else:
-    // Display a comment if the ACF plugin is not active
+    // Display a comment if ACF is not activated
     echo '<!-- ACF plugin is not active or missing -->';
 endif;
 ?>
