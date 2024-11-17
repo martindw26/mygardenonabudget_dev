@@ -1,7 +1,7 @@
 <?php 
 /**
- * Template Part: right Page Skin Ads (ACF Options Page)
- * Description: Displays ads using an ACF repeater from the Options Page within <div class="page-skin-right">
+ * Template Part: Left Page Skin Ads (ACF Options Page)
+ * Description: Displays ads using an ACF repeater from the Options Page within <div class="page-skin-left">
  */
 
 // Check if ACF is active
@@ -11,43 +11,43 @@ if (!function_exists('have_rows')) {
 }
 ?>
 
-<div class="page-skin-right">
+<div class="page-skin-left">
   <?php 
-  // Fetch ads from the 'right_page_skin_ads' repeater field on the Options Page
-  if (have_rows('right_page_skin_ads', 'option')) : 
+  // Fetch ads from the 'left_page_skin_ads' repeater field on the Options Page
+  if (have_rows('left_page_skin_ads', 'option')) : 
     
     // Create an array to hold all the ad data
-    $ads_right = [];
+    $ads = [];
     
     // Loop through all the repeater rows and store the data
-    while (have_rows('right_page_skin_ads', 'option')) : the_row(); 
+    while (have_rows('left_page_skin_ads', 'option')) : the_row(); 
       
       // Get subfields from the repeater
-      $right_page_skin = get_sub_field('right_page_skin'); 
-      $right_page_skin_url = get_sub_field('right_page_skin_url'); 
+      $left_page_skin = get_sub_field('left_page_skin'); 
+      $left_page_skin_url = get_sub_field('left_page_skin_url'); 
       
       // Ensure both the image and URL are available before adding to the array
-      if ($right_page_skin && $right_page_skin_url) {
-        $ads_right[] = [
-          'image' => $right_page_skin,
-          'url' => $right_page_skin_url
+      if ($left_page_skin && $left_page_skin_url) {
+        $ads[] = [
+          'image' => $left_page_skin,
+          'url' => $left_page_skin_url
         ];
       }
       
     endwhile;
 
     // If there are ads in the array, randomly select one
-    if (!empty($ads_right)) :
+    if (!empty($ads)) :
       // Shuffle the ads array to randomize the order and select the first one
-      $random_ad_right = $ads_right[array_rand($ads_right)];
+      $random_ad = $ads[array_rand($ads)];
       
       // Randomly generate a rotation angle between -10 and 10 degrees
-      $random_rotation_right = rand(-10, 10); 
+      $random_rotation = rand(-10, 10); 
       ?>
       
       <p class="advert_label">Advertisement</p>
-      <a href="<?php echo esc_url($random_ad_right['url']); ?>" target="_blank" style="transform: rotate(<?php echo $random_rotation_right; ?>deg);">
-        <img src="<?php echo esc_url($random_ad_right['image']); ?>" alt="right Page Skin Ad">
+      <a href="<?php echo esc_url($random_ad['url']); ?>" target="_blank" style="transform: rotate(<?php echo $random_rotation; ?>deg);">
+        <img src="<?php echo esc_url($random_ad['image']); ?>" alt="Left Page Skin Ad">
       </a>
 
     <?php else: ?>
